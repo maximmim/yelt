@@ -51,19 +51,18 @@ function saveDataToFile(data) {
     } else {
       console.log('Данные успешно сохранены в файл bd.json');
     }
-  })
+  });
 }
 
 app.post('/get', (req, res) => {
   console.log(req.body);
   res.json({ message: 'Данные успешно получены на сервер' });
 
-  // Функция для сохранения данных в файл JSON
-  // Пример данных для сохранения
-  // Вызов функции для сохранения данных
+  // Функция для сохранения данных в файл bd.json
   saveDataToFile(req.body);
 });
 
-app.listen(3000, () => {
-  console.log("Server started at 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
