@@ -160,7 +160,10 @@ function checkCollision() {
 }
 }
 // Изначальное значение рекорда
-localStorage.record = 0;
+if (localStorage.record === undefined) {
+  localStorage.record = 0;
+}
+
 
 // Функция для обновления рекорда
 function updateRecord(score) {
