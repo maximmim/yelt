@@ -117,7 +117,7 @@ function checkCollision() {
     blockRect.bottom > enemyRect.top
   ) {
     // Здесь выполняем вашу функцию delete
-    nextlevel()
+    nextleve()
   }
   else if (
     blockRect.left < enem1yRect.right &&
@@ -126,7 +126,7 @@ function checkCollision() {
     blockRect.bottom > enem1yRect.top
   ) {
     // Здесь выполняем вашу функцию delete
-    nextlevel()
+    nextleve()
   }
   else if (
     blockRect.left < stone1Rect.right &&
@@ -135,7 +135,7 @@ function checkCollision() {
     blockRect.bottom > stone1Rect.top
   ) {
     // Здесь выполняем вашу функцию delete
-    nextlevel()
+    nextleve()
   }
   else if (
     blockRect.left < stoneRect.right &&
@@ -145,7 +145,7 @@ function checkCollision() {
   )
   {
     // Здесь выполняем вашу функцию delete
-    nextlevel()
+    nextleve()
   }
 
   else if (
@@ -199,3 +199,31 @@ enemy1.style.top = random(120,window.screenHeight-120)+"px"
 }
 
 
+function nextleve() {
+levelcount = 1
+  stone.style.display = "none"
+  enemy.style.display = "none"
+  block.style.transform = ""
+  stone1.style.display = "none"
+  enemy1.style.display = "none"
+  
+  setTimeout(()=>{
+  stone.style.display = "block"
+  enemy.style.display = "block";
+  stone1.style.display = "block"
+  enemy1.style.display = "block";
+  Susceptibility = true
+  },1000)
+  
+  stone.style.left = random(0,window.screenWidth-20)+"px"
+  stone.style.top = random(0,window.screenHeight-20)+"px"
+  enemy.style.top = random(120,window.screenHeight-120)+"px"
+  stone1.style.left = random(0,window.screenWidth-20)+"px"
+  stone1.style.top = random(0,window.screenHeight-20)+"px"
+  enemy1.style.top = random(120,window.screenHeight-120)+"px"
+  
+  
+  
+  
+  }
+  

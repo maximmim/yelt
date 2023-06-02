@@ -26,7 +26,7 @@ fs.access(filePath, fs.constants.F_OK, (err) => {
 app.use(express.json()); // Добавьте эту строку для разбора тела запроса в формате JSON
 
 app.get("/", (req, res) => {
-  res.redirect("/html/index.html"); // Перенаправление на страницу "menu.html"
+  res.redirect("/html/index.html"); // Перенаправление на страницу "index.html"
 });
 
 app.get("*", (req, res) => {
