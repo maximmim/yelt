@@ -61,11 +61,7 @@ function goto(x,y) {
 function random(number1,number2) {
   return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
 }
-sendserver([
-  { id: 1, name: 'John' },
-  { id: 2, name: 'Jane' },
-  { id: 3, name: 'Bob' }
-])
+
 function sendserver(data) {
 
 fetch('/get', {
@@ -101,6 +97,7 @@ getserver()
 
 function checkCollision() {
   Level.textContent = "Level:"+levelcount
+  document.getElementById("Record").textContent = "Record:" + localStorage.record
   var blockRect = block.getBoundingClientRect();
   var enemyRect = enemy.getBoundingClientRect();
   var stoneRect = stone.getBoundingClientRect();
@@ -162,7 +159,18 @@ function checkCollision() {
   }
 }
 }
+// Изначальное значение рекорда
+localStorage.record = 0;
 
+// Функция для обновления рекорда
+function updateRecord(score) {
+  if (score > localStorage.record) {
+    localStorage.record = score;
+    console.log('Новый рекорд установлен: ' + localStorage.record);
+  } else {
+    console.log('Рекорд не побит. Текущий рекорд: ' + localStorage.record);
+  }
+}
 function gameover() {
 block.style.display = 'none'
 }
@@ -193,6 +201,11 @@ stone1.style.left = random(0,window.screenWidth-20)+"px"
 stone1.style.top = random(0,window.screenHeight-20)+"px"
 enemy1.style.top = random(120,window.screenHeight-120)+"px"
 
+
+
+// Пример использования
+
+updateRecord(levelcount);
 
 
 
