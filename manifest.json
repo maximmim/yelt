@@ -1,7 +1,7 @@
 {
   "name": "Yelt",
   "short_name": "Yelt",
-  "start_url": "/html/index.html",
+  "start_url": "/html/menu.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
