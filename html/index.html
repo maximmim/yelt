@@ -6,31 +6,37 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <title>Yelt</title>
-  <link rel="icon" href="/img/logo.png">
+    <link rel="icon" href="/img/logo.png">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+            console.log('Service Worker зарегистрирован:', registration);
+          }, function(error) {
+            console.log('Ошибка при регистрации Service Worker:', error);
+          });
+        });
+      }
+    </script>
 </head>
 <body>
-  
+
   <div class="game">
-  <div id="block"></div>
+    <div id="block"></div>
+    <div id="stone"></div>
+    <div id="stone1"></div>
+    <div id="stone2"></div>
+    <div id="enemyopen"></div>
 
-  <div id="stone"></div>
-  <div id="stone1"></div>
+    <div id="enemy"></div>
+    <div id="enemy1"></div>
+  </div>
 
-
-  
-
-  <div id="enemy"></div>
-  <div id="enemy1"></div>
-
-
- 
-</div> 
-<div id="end"></div>
-<div id="Hud" onclick="location.reload()">
-  
-  <h1 id="level">Level:1</h1>
-  <h1 id="Record">Record:1</h1>
-</div>
+  <div id="end"></div>
+  <div id="Hud" onclick="location.reload()">
+    <h1 id="level">Level:1</h1>
+    <h1 id="Record">Record:1</h1>
+  </div>
 
   <script src="/js/script.js"></script>
 </body>

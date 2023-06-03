@@ -41,6 +41,13 @@ app.get("*", (req, res) => {
     }
   });
 });
+// Задайте правильный тип MIME для service-worker.js
+app.get('/service-worker.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.sendFile(__dirname + '/service-worker.js', { etag: false });
+});
+
+
 
 function saveDataToFile(data) {
   const jsonData = JSON.stringify(data);

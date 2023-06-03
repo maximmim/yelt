@@ -14,6 +14,15 @@
 </head>
 
 <style>
+  #button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 200px;
+    height: 200px;
+    font-size: 50px;
+    border-radius: 20px;
+  }
 #play {
     position: absolute;
     width: 120px;
@@ -22,15 +31,34 @@
     left: 0px;
     bottom: 10px;
 }
-#block {
+#skin {
     width: 100px;
     height: 100px;
     background-color: rgb(0, 0, 0);
+    border-color: black;
+    border:3px;
+    border-style: solid;
     border-radius: 15px;
     position: absolute;
     transition: transform 1s ease;
     display: block;
-    background-image: url('/img/playr.png');
+    right: 0;
+    bottom: 10px;
+    background-image: url('/img/logo.png');
+}
+#block {
+
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border-color: black;
+    border:3px;
+    border-style: solid;
+    border-radius: 15px;
+    position: absolute;
+    transition: transform 1s ease;
+    display: block;
+    background-image: url('/img/logo.png');
   }
 </style>
 
@@ -38,13 +66,33 @@
 
 
         <script>
+function skin() {
+  if (localStorage.skin == undefined) {
+    localStorage.skin = 'white'
+  }
+  if  (localStorage.skin == 'white') {
+    localStorage.skin = 'black'
+    document.getElementById("block").style.backgroundImage = 'url("/img/playr.png")';
+    document.getElementById("button").textContent = 'WHITE'
+  }
+else   if  (localStorage.skin == 'black') {
+  localStorage.skin = 'white'
+    document.getElementById("block").style.backgroundImage = 'url("/img/logo.png")';
+    document.getElementById("button").textContent = 'BLACK'
+  }
 
+  
+}
 setInterval(() => {
     var blockRect =  document.getElementById("block").getBoundingClientRect();
     var enemyRect =  document.getElementById("play").getBoundingClientRect();
-  
+  if (localStorage.skin == 'white') {
+    document.getElementById("block").style.backgroundImage = 'url("/img/logo.png")';
+  }
+  else if (localStorage.skin == 'black') {
+    document.getElementById("block").style.backgroundImage = 'url("/img/playr.png")';
+  }
 
-  
   if (
     blockRect.left < enemyRect.right &&
     blockRect.right > enemyRect.left &&
@@ -68,11 +116,11 @@ document.addEventListener("click", function(event) {
     
     </script>
     
-
+     
     <img src="/img/play.png" id="play"/>
         <div id="block"></div>
 
-
+<button onclick="skin()" id="button">BLACK</button>
 
 
 

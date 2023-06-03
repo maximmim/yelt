@@ -2,11 +2,14 @@
     width: 100px;
     height: 100px;
     background-color: rgb(0, 0, 0);
+    border-color: black;
+    border:3px;
+    border-style: solid;
     border-radius: 15px;
     position: absolute;
     transition: transform 1s ease;
     display: block;
-    background-image: url('/img/playr.png');
+    background-image: url('/img/logo.png');
   }
   #level {
     position: absolute;
@@ -40,14 +43,43 @@
     display: none;
     background-image: url('/img/stone.png');
   }
+  #stone2 {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    position: absolute;
+    transition: transform 1s ease;
+    display: none;
+    background-image: url('/img/stone.png');
+  }
+  #enemyopen {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    position: absolute;
+    transition: transform 1s ease;
+    
+    background-image: url('/img/enemy_open.png');
+  }
 
-  #enemy {
+  #enemy2 {
     display: block;
     top: 50%;
     width: 100px;
     height: 100px;
     position: absolute;
     animation: moveBlock 3s linear infinite;
+    background-image: url('/img/enemy.png');
+  }
+  #enemy {
+    display: block;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    animation: moveBlock 2.5s linear infinite;
     background-image: url('/img/enemy.png');
   }
   #enemy1 {
