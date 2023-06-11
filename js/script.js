@@ -75,7 +75,73 @@ function daw() {
 function random(number1, number2) {
   return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
 }
+function updaterecordtab() {
 
+  var nick = localStorage.getItem('nick');
+  var record = localStorage.getItem('record');
+  
+  // Проверка наличия значения в локальном хранилище
+  if (nick && record) {
+    // Создание объекта данных
+    var data = {
+      nick: nick,
+      record: record
+    };
+  
+    // Отправка запроса на сервер для получения списка записей
+    fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record')
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Произошла ошибка при получении списка записей с сервера.');
+        }
+      })
+      .then(function(records) {
+        // Поиск записи с таким же ником
+        var existingRecord = records.find(function(item) {
+          return item.nick === nick;
+        });
+  
+        if (existingRecord) {
+          // Обновление значения record для существующей записи
+          existingRecord.record = record;
+  
+          // Отправка запроса на сервер для обновления записи
+          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record/' + existingRecord.id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(existingRecord)
+          });
+        } else {
+          // Запись с таким ником не найдена, создание новой записи
+          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+        }
+      })
+      .then(function(response) {
+        if (response.ok) {
+          console.log('Запись успешно добавлена или обновлена в таблице рекордов.');
+        } else {
+          console.log('Произошла ошибка при добавлении или обновлении записи в таблице рекордов.');
+        }
+      })
+      .catch(function(error) {
+        console.log('Произошла ошибка при выполнении запроса:', error);
+      });
+  } else {
+    console.log('Не удалось получить значения "nick" и "record" из локального хранилища.');
+  }
+  
+
+}
 function sendserver(data) {
   fetch("/get", {
     method: "POST",
@@ -216,6 +282,7 @@ function updateRecord(score) {
   if (score > localStorage.record) {
     localStorage.record = score;
     console.log("Новый рекорд установлен: " + localStorage.record);
+    updaterecordtab()
   } else {
     console.log("Рекорд не побит. Текущий рекорд: " + localStorage.record);
   }
