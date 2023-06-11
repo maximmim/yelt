@@ -7,17 +7,26 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <title>Yelt</title>
     <link rel="icon" href="/img/logo.png">
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-            console.log('Service Worker зарегистрирован:', registration);
-          }, function(error) {
-            console.log('Ошибка при регистрации Service Worker:', error);
-          });
-        });
-      }
-    </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+        console.log('Service Worker зарегистрирован:', registration);
+      }, function(error) {
+        console.log('Ошибка при регистрации Service Worker:', error);
+      });
+    });
+  }
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LSQY4QK2YC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LSQY4QK2YC');
+</script>
 </head>
 <body>
 
@@ -27,12 +36,14 @@
     <div id="stone1"></div>
     <div id="stone2"></div>
     <div id="enemyopen"></div>
-
+<div id="end"></div>
     <div id="enemy"></div>
     <div id="enemy1"></div>
   </div>
-
-  <div id="end"></div>
+<div id="eror">
+  <h1 id="few">Переверни телефон</h1>
+</div>
+  
   <div id="Hud" onclick="location.reload()">
     <h1 id="level">Level:1</h1>
     <h1 id="Record">Record:1</h1>

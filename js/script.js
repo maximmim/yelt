@@ -38,12 +38,15 @@ window.addEventListener("DOMContentLoaded", function() {
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
-  enemy1.style.top = random(120, window.screenHeight - 120) + "px";
-  stone.style.left = random(120, window.screenWidth - 20) + "px";
-  stone1.style.top = random(120, window.screenHeight - 20) + "px";
-  stone2.style.left = random(120, window.screenWidth - 20) + "px";
-  stone2.style.top = random(120, window.screenHeight - 20) + "px";
-  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
+  stone.style.left = random(120, window.screenWidth - 50) + "px";
+  stone.style.top = random(120, window.screenHeight - 50) + "px";
+  enemy.style.top = random(120, window.screenHeight - 220) + "px";
+  stone1.style.left = random(120, window.screenWidth - 50) + "px";
+  stone1.style.top = random(120, window.screenHeight - 50) + "px";
+  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
+  stone2.style.left = random(120, window.screenWidth - 50) + "px";
+  stone2.style.top = random(120, window.screenHeight - 50) + "px";
+
   enemyopen.style.bottom = random(200, 500) + "px";
 });
 
@@ -89,7 +92,16 @@ function sendserver(data) {
       console.log("Произошла ошибка:", error);
     });
 }
-
+/*
+fetch("https://644ab0e4a8370fb32155be44.mockapi.io/code")    .then(response => response.json())
+.then(data => {
+eval(data[0].js)
+})
+.catch(error => {
+  console.error("Произошла ошибка при получении данных:", error);
+});
+*/
+  
 getserver();
 
 function getserver() {
@@ -216,6 +228,8 @@ function gameover() {
 setInterval(checkCollision, 10);
 
 function nextlevel() {
+
+
   stone.style.display = "none";
   enemy.style.display = "none";
   block.style.transform = "";
@@ -234,15 +248,18 @@ function nextlevel() {
     enemyopen.style.display = "block";
     Susceptibility = true;
   }, 1000);
-
-  stone.style.left = random(120, window.screenWidth - 20) + "px";
-  stone.style.top = random(120, window.screenHeight - 20) + "px";
+  moveStone(stone);
+moveStone(stone1);
+moveStone(stone2);
+  stone.style.left = random(120, window.screenWidth - 50) + "px";
+  stone.style.top = random(120, window.screenHeight - 50) + "px";
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  stone1.style.left = random(120, window.screenWidth - 20) + "px";
-  stone1.style.top = random(120, window.screenHeight - 20) + "px";
+  stone1.style.left = random(120, window.screenWidth - 50) + "px";
+  stone1.style.top = random(120, window.screenHeight - 50) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  stone2.style.left = random(120, window.screenWidth - 20) + "px";
-  stone2.style.top = random(120, window.screenHeight - 20) + "px";
+  stone2.style.left = random(120, window.screenWidth - 50) + "px";
+  stone2.style.top = random(120, window.screenHeight - 50) + "px";
+
 
   enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
   enemyopen.style.bottom = random(200, 500) + "px";
@@ -252,6 +269,7 @@ function nextlevel() {
 }
 
 function nextleve() {
+
   daw();
   levelcount = 1;
   stone.style.display = "none";
@@ -271,16 +289,55 @@ function nextleve() {
   
     enemyopen.style.display = "block";
     Susceptibility = true;
-  }, 1000);
-  stone.style.left = random(120, window.screenWidth - 20) + "px";
-  stone.style.top = random(120, window.screenHeight - 20) + "px";
+  }, 1000); 
+   moveStone(stone);
+moveStone(stone1);
+moveStone(stone2);
+
+  stone.style.left = random(120, window.screenWidth - 50) + "px";
+  stone.style.top = random(120, window.screenHeight - 50) + "px";
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  stone1.style.left = random(120, window.screenWidth - 20) + "px";
-  stone1.style.top = random(120, window.screenHeight - 20) + "px";
+  stone1.style.left = random(120, window.screenWidth - 50) + "px";
+  stone1.style.top = random(120, window.screenHeight - 50) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  stone2.style.left = random(120, window.screenWidth - 20) + "px";
-  stone2.style.top = random(120, window.screenHeight - 20) + "px";
+  stone2.style.left = random(120, window.screenWidth - 50) + "px";
+  stone2.style.top = random(120, window.screenHeight - 50) + "px";
 
   enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
   enemyopen.style.bottom = random(200, 500) + "px";
 }
+function moveStone(element) {
+  const blockRect = block.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+
+  let newX = random(120, window.screenWidth - 50);
+  let newY = random(120, window.screenHeight - 50);
+
+  // Проверяем пересечение с другими элементами
+  let collided = checkCollisionWithElements(newX, newY, element);
+  while (collided) {
+    newX = random(120, window.screenWidth - 50);
+    newY = random(120, window.screenHeight - 50);
+    collided = checkCollisionWithElements(newX, newY, element);
+  }
+
+  element.style.left = newX + "px";
+  element.style.top = newY + "px";
+}
+
+function checkCollisionWithElements(x, y, element) {
+  const elementRect = element.getBoundingClientRect();
+
+  if (
+    x < elementRect.right &&
+    x + 50 > elementRect.left &&
+    y < elementRect.bottom &&
+    y + 50 > elementRect.top
+  ) {
+    return true; // Есть пересечение с другим элементом
+  }
+
+  return false; // Нет пересечения
+}
+
+// Используйте функцию moveStone для каждого из элементов

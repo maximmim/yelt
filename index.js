@@ -44,7 +44,7 @@ app.get("*", (req, res) => {
 // Задайте правильный тип MIME для service-worker.js
 app.get('/service-worker.js', (req, res) => {
   res.setHeader('Content-Type', 'application/javascript');
-  res.sendFile(__dirname + '/service-worker.js', { etag: false });
+  res.sendFile(path.join(__dirname, 'service-worker.js'), { etag: false });
 });
 
 

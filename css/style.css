@@ -53,6 +53,7 @@
     display: none;
     background-image: url('/img/stone.png');
   }
+  
   #enemyopen {
     width: 100px;
     height: 100px;
@@ -79,7 +80,7 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    animation: moveBlock 2.5s linear infinite;
+    animation: moveBlock 2s linear infinite;
     background-image: url('/img/enemy.png');
   }
   #enemy1 {
@@ -88,7 +89,7 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    animation: moveBlock 2s linear infinite;
+    animation: moveBlock 2.5s linear infinite;
     background-image: url('/img/enemy.png');
   }
 
@@ -103,6 +104,10 @@
 right: 0;
     background-image: url('/img/end.png');
   }
+  #few {
+    text-align: center;
+    
+  }
   @keyframes moveBlock {
     0% {
       left: 0;
@@ -114,4 +119,25 @@ right: 0;
         left: 0;
       }
   }
-  
+  @media screen and (orientation: portrait) {
+    .game {
+      display: block;
+    }
+    #Hud{
+      display: block;
+    }
+    #eror {
+      display: none;
+    }
+      }
+      @media screen and (orientation:landscape) {
+        .game {
+          display: none;
+        }
+        #Hud{
+          display: none;
+        }
+        #eror {
+          display: block;
+        }
+          }

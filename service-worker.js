@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yelt-pwa-cache';
+const CACHE_NAME = 'yelt';
 
 const urlsToCache = [
   '/',
