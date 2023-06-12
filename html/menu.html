@@ -1,151 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-  
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#da532c">
-<link rel="icon" href="/img/logo.png">
 
-
+<head>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <link rel="icon" href="/img/logo.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <title>Yelt</title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yelt</title>
+    <style>
+        #button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 200px;
+            height: 200px;
+            font-size: 50px;
+            border-radius: 20px;
+        }
 
+        #play {
+            position: absolute;
+            width: 120px;
+            height: 100px;
+            display: block;
+            left: 40%;
+            top: 40%;
+        }
+
+        #skin {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 0, 0);
+            border-color: black;
+            border: 3px;
+            border-style: solid;
+            border-radius: 15px;
+            position: absolute;
+            transition: transform 1s ease;
+            display: block;
+            right: 0;
+            bottom: 10px;
+            background-image: url('/img/logo.png');
+        }
+
+        #block {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 0, 0);
+            border-color: black;
+            border: 3px;
+            border-style: solid;
+            border-radius: 15px;
+            position: absolute;
+            transition: transform 1s ease;
+            display: block;
+            background-image: url('/img/logo.png');
+        }
+
+        #recordList li {
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            list-style-type: none;
+            width: 120px;
+            height: 70;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #recordList li p:first-child {
+            font-weight: bold;
+        }
+
+        #valuenick {
+            position: absolute;
+            bottom: 100px;
+            padding: 20px;
+            font-size: 20px;
+            left: 18%;
+            display: none;
+        }
+
+        #buttonsubmit {
+            position: absolute;
+            bottom: 20px;
+            padding: 20px;
+            font-size: 20px;
+            left: 40%;
+            display: none;
+        }
+    </style>
 </head>
 
-<style>
-  #button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 200px;
-    height: 200px;
-    font-size: 50px;
-    border-radius: 20px;
-  }
-#play {
-    position: absolute;
-    width: 120px;
-    height: 100px;
-    display: block;
-left: 40%;
-top: 40%;
-}
-#skin {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(0, 0, 0);
-    border-color: black;
-    border:3px;
-    border-style: solid;
-    border-radius: 15px;
-    position: absolute;
-    transition: transform 1s ease;
-    display: block;
-    right: 0;
-    bottom: 10px;
-    background-image: url('/img/logo.png');
-}
-#block {
-
-    width: 100px;
-    height: 100px;
-    background-color: rgb(0, 0, 0);
-    border-color: black;
-    border:3px;
-    border-style: solid;
-    border-radius: 15px;
-    position: absolute;
-    transition: transform 1s ease;
-    display: block;
-    background-image: url('/img/logo.png');
-  }
-
-  #recordList li {
-    
-
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    list-style-type: none; /* Убираем маркеры */
-    width: 90px;
-    height: 70px;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  /* Стили для текста ника */
-  #recordList li p:first-child {
-    font-weight: bold;
-
-  }
-</style>
-
 <body>
-<meta name="google-site-verification" content="zmMJC55xAcI7TmHnxh34MWEafDEuESDPtQseBwGYxso" />
+    <img src="/img/play.png" onclick="document.location.replace('index.html')" id="play" />
 
-        <script>
+    <input placeholder="Введите свой ник" id="valuenick">
+    <button onclick="registerNickname()" id="buttonsubmit">Submit</button>
 
-if (localStorage.nick == undefined) {
-  var nick = prompt("Ведіть ваш нік:")
-  localStorage.nick = nick
-}
-    
-    </script>
-    
-     
-    <img src="/img/play.png" onclick="document.location.replace('index.html')" id="play"/>
-
-    
-
-
-
-   <!--<ul id="recordList"></ul>--> 
+    <ul id="recordList"></ul>
 
     <script>
+        function registerNickname() {
+            var input = document.getElementById("valuenick");
+            if (input.value.trim() !== "") {
+                localStorage.nick = input.value;
+                alert("Ваш ник зарегистрирован");
+                alert('Ваш нік:',localStorage.nick)
+                document.location.reload('index.html')
+            }
+        }
 
-      
-      // Получение данных с сервера
-      fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record')
-        .then(function(response) {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Произошла ошибка при выполнении запроса.');
-          }
-        })
-        .then(function(data) {
-          // Сортировка данных по рекорду
-          data.sort(function(a, b) {
-            return b.record - a.record; // Сортировка по убыванию
-          });
-    
-          // Создание списка записей
-          var recordList = document.getElementById('recordList');
-    
-          // Перебор данных и создание элементов списка
-          data.forEach(function(item) {
-            var listItem = document.createElement('li');
-    
-            var nickText = document.createElement('p');
-            nickText.textContent = "Nick: " + item.nick;
-            listItem.appendChild(nickText);
-    
-            var recordText = document.createElement('p');
-            
-            recordText.textContent = "Record: " + item.record;
-            listItem.appendChild(recordText);
-    
-  
-            recordList.appendChild(listItem);
-          });
-        })
-        .catch(function(error) {
-          console.log('Произошла ошибка:', error);
+        document.addEventListener("DOMContentLoaded", function() {
+            var input = document.getElementById("valuenick");
+            var submitButton = document.getElementById("buttonsubmit");
+
+            if (localStorage.nick === undefined || localStorage.nick.trim() === "") {
+                input.style.display = "block";
+                submitButton.style.display = "block";
+            }
+
+            fetch("https://644ab0e4a8370fb32155be44.mockapi.io/Record")
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Произошла ошибка при выполнении запроса.");
+                    }
+                })
+                .then(function(data) {
+                    data.sort(function(a, b) {
+                        return b.record - a.record;
+                    });
+
+                    var recordList = document.getElementById("recordList");
+
+                    data.forEach(function(item) {
+                        var listItem = document.createElement("li");
+
+                        var nickText = document.createElement("p");
+                        nickText.textContent = "Nick: " + item.nick;
+                        listItem.appendChild(nickText);
+
+                        var recordText = document.createElement("p");
+                        recordText.textContent = "Record: " + item.record;
+                        listItem.appendChild(recordText);
+
+                        recordList.appendChild(listItem);
+                    });
+                })
+                .catch(function(error) {
+                    console.log("Произошла ошибка:", error);
+                });
         });
     </script>
-    
-    
-    
 </body>
+
 </html>
