@@ -1,8 +1,10 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const app = express();
 
 const filePath = 'bd.json';
+
 
 // Проверяем наличие файла
 fs.access(filePath, fs.constants.F_OK, (err) => {
@@ -36,18 +38,33 @@ app.get("*", (req, res) => {
   fs.access(filePath, fs.constants.R_OK, (err) => {
     if (err) {
       res.status(404).send("Resource not found!");
-    } else {
+    } else {  
+
       fs.createReadStream(filePath).pipe(res);
     }
   });
 });
-// Задайте правильный тип MIME для service-worker.js
-app.get('/service-worker.js', (req, res) => {
-  res.setHeader('Content-Type', 'application/javascript');
-  res.sendFile(path.join(__dirname, 'service-worker.js'), { etag: false });
+
+
+app.post('/save-data', (req, res) => {
+  const data = req.body;
+
+  // Save the data to the JSON file
+  fs.writeFile('bd.json', JSON.stringify(data), 'utf8', (err) => {
+    if (err) {
+      console.error('Error saving data:', err);
+      res.status(500).json({ error: 'Error saving data' });
+    } else {
+      console.log('Data saved successfully');
+      res.json({ message: 'Data saved successfully' });
+    }
+  });
 });
 
-
+app.get('/service-worker.js', (req, res) => {
+res.setHeader('Content-Type', 'application/javascript');
+res.sendFile(path.join(__dirname, 'service-worker.js'));
+});
 
 function saveDataToFile(data) {
   const jsonData = JSON.stringify(data);

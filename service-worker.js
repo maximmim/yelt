@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yelt';
+const CACHE_NAME = 'Yelt';
 
 const urlsToCache = [
   '/',

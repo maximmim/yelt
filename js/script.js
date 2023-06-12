@@ -38,21 +38,30 @@ window.addEventListener("DOMContentLoaded", function() {
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
-  stone.style.left = random(120, window.screenWidth - 50) + "px";
-  stone.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  stone1.style.left = random(120, window.screenWidth - 50) + "px";
-  stone1.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  stone2.style.left = random(120, window.screenWidth - 50) + "px";
-  stone2.style.top = random(120, window.screenHeight - 50) + "px";
-
-  enemyopen.style.bottom = random(200, 500) + "px";
+  randomblock()
 });
 
 function goto(x, y) {
   block.style.transform = `translate(${x}px, ${y}px)`;
 }
+function randomblock() {
+  enemy.style.top = random(120, window.screenHeight - 220) + "px";
+  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
+  enemyopen.style.bottom = random(200, 500) + "px";
+  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
+  stone.style.left = random(120, window.screenWidth - 50) + "px";
+  stone.style.top = random(120, window.screenHeight - 200) + "px";
+  stone2.style.left = random(120, window.screenWidth - 50) + "px";
+  stone2.style.top = random(120, window.screenHeight - 200) + "px";
+  stone1.style.left = random(120, window.screenWidth - 50) + "px";
+  stone1.style.top = random(120, window.screenHeight - 200) + "px";
+}
+
+
+
+
+
+
 
 let isOpen = true;
 
@@ -168,7 +177,7 @@ eval(data[0].js)
 });
 */
   
-getserver();
+//getserver();
 
 function getserver() {
   fetch("/bd.json")
@@ -318,18 +327,7 @@ function nextlevel() {
   moveStone(stone);
 moveStone(stone1);
 moveStone(stone2);
-  stone.style.left = random(120, window.screenWidth - 50) + "px";
-  stone.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  stone1.style.left = random(120, window.screenWidth - 50) + "px";
-  stone1.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  stone2.style.left = random(120, window.screenWidth - 50) + "px";
-  stone2.style.top = random(120, window.screenHeight - 50) + "px";
-
-
-  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
-  enemyopen.style.bottom = random(200, 500) + "px";
+randomblock()
   daw();
 
   updateRecord(levelcount);
@@ -361,36 +359,56 @@ function nextleve() {
 moveStone(stone1);
 moveStone(stone2);
 
-  stone.style.left = random(120, window.screenWidth - 50) + "px";
-  stone.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  stone1.style.left = random(120, window.screenWidth - 50) + "px";
-  stone1.style.top = random(120, window.screenHeight - 50) + "px";
-  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  stone2.style.left = random(120, window.screenWidth - 50) + "px";
-  stone2.style.top = random(120, window.screenHeight - 50) + "px";
-
-  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
-  enemyopen.style.bottom = random(200, 500) + "px";
+randomblock()
 }
 function moveStone(element) {
   const blockRect = block.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
 
-  let newX = random(120, window.screenWidth - 50);
-  let newY = random(120, window.screenHeight - 50);
+  let newX = random(120, window.screenWidth);
+  let newY = random(120, window.screenHeight);
 
   // Проверяем пересечение с другими элементами
   let collided = checkCollisionWithElements(newX, newY, element);
   while (collided) {
-    newX = random(120, window.screenWidth - 50);
-    newY = random(120, window.screenHeight - 50);
+    newX = random(120, window.screenWidth);
+    newY = random(120, window.screenHeight);
     collided = checkCollisionWithElements(newX, newY, element);
   }
 
   element.style.left = newX + "px";
   element.style.top = newY + "px";
 }
+
+
+const data = { name: 'John', age: 30 };
+
+
+
+//savedata(data)
+
+
+
+function savedata(data) {
+fetch('/save-data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+  .then(response => response.json())
+  .then(result => {
+    console.log('Data saved successfully:', result);
+  })
+  .catch(error => {
+    console.error('Error saving data:', error);
+  });
+}
+
+
+
+
 
 function checkCollisionWithElements(x, y, element) {
   const elementRect = element.getBoundingClientRect();
@@ -407,4 +425,3 @@ function checkCollisionWithElements(x, y, element) {
   return false; // Нет пересечения
 }
 
-// Используйте функцию moveStone для каждого из элементов
