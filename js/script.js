@@ -48,23 +48,30 @@ function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   enemyopen.style.bottom = random(200, 500) + "px";
-  enemyopen.style.left = random(10, window.screenWidth - 100) + "px";
-  stone.style.left = random(10, window.screenWidth - 100) + "px";
-  stone.style.top = random(120, window.screenHeight - 200) + "px";
-  stone2.style.left = random(10, window.screenWidth - 100) + "px";
+  enemyopen.style.left = random(100, window.screenWidth - 20) + "px";
+  stone.style.left = random(100, window.screenWidth - 100) + "px";
+  stone.style.top =   random(120, window.screenHeight - 200) + "px";
+  stone2.style.left = random(100, window.screenWidth - 100) + "px";
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
-  stone1.style.left = random(10, window.screenWidth - 100) + "px";
+  stone1.style.left = random(100, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
+  megdumirec.style.left = random(100, window.screenWidth - 100) + "px";
+  megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
-  megdumirec.style.left = random(10, window.screenWidth - 100) + "px";
-  megdumirec.style.top = random(120, window.screenHeight - 200) + "px";
 
-
+enemy.style.animationDuration =  random(0,100) + "%"; 
+enemy1.style.animationDuration = random(0,100) + "%"; 
+  
   moveStone(stone);
   moveStone(stone1);
   moveStone(stone2);
   moveStone(enemyopen)
+  moveStone(megdumirec)
 }
+
+
+
+
 
 
 
@@ -106,9 +113,9 @@ setTimeout(()=>{
   var maxTop = screenHeight - 200;
   
   megdumirec.style.left = random(minLeft, maxLeft) + "px";
-  megdumirec.style.top = random(minTop, maxTop) + "px";
+  megdumirec.style.top =  random(minTop, maxTop) + "px";
   megdumirec.classList.remove('mic')
-},900)
+},1000)
 },4000)
 
 function daw() {
