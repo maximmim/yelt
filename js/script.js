@@ -7,7 +7,7 @@ const stone = document.getElementById("stone");
 const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
-
+const megdumirec = document.getElementById("interworldly")
 let Susceptibility = true;
 let levelcount = 1;
 
@@ -48,13 +48,22 @@ function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   enemyopen.style.bottom = random(200, 500) + "px";
-  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
-  stone.style.left = random(120, window.screenWidth - 50) + "px";
+  enemyopen.style.left = random(10, window.screenWidth - 100) + "px";
+  stone.style.left = random(10, window.screenWidth - 100) + "px";
   stone.style.top = random(120, window.screenHeight - 200) + "px";
-  stone2.style.left = random(120, window.screenWidth - 50) + "px";
+  stone2.style.left = random(10, window.screenWidth - 100) + "px";
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
-  stone1.style.left = random(120, window.screenWidth - 50) + "px";
+  stone1.style.left = random(10, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
+
+  megdumirec.style.left = random(10, window.screenWidth - 100) + "px";
+  megdumirec.style.top = random(120, window.screenHeight - 200) + "px";
+
+
+  moveStone(stone);
+  moveStone(stone1);
+  moveStone(stone2);
+  moveStone(enemyopen)
 }
 
 
@@ -74,12 +83,42 @@ setInterval(() => {
     enemyopen.style.backgroundImage = 'url("/img/enemy_open.png")';
   }
   isOpen = !isOpen;
+
+
 }, 2500);
+
+setInterval(()=>{
+
+  megdumirec.classList.add("mic")
+
+setTimeout(()=>{
+
+
+  var screenWidth = window.innerWidth;
+  var screenHeight = window.innerHeight;
+  
+  var blockLeft = block.offsetLeft;
+  var blockTop = block.offsetTop;
+  
+  var minLeft = blockLeft + 200;
+  var maxLeft = screenWidth - 100;
+  var minTop = blockTop + 200;
+  var maxTop = screenHeight - 200;
+  
+  megdumirec.style.left = random(minLeft, maxLeft) + "px";
+  megdumirec.style.top = random(minTop, maxTop) + "px";
+  megdumirec.classList.remove('mic')
+},900)
+},4000)
 
 function daw() {
   window.f = random(1, 2);
   console.log(f);
 }
+// Get references to the relevant elements
+
+
+
 
 function random(number1, number2) {
   return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
@@ -96,7 +135,7 @@ function updaterecordtab() {
       nick: nick,
       record: record
     };
-  
+
     // Отправка запроса на сервер для получения списка записей
     fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record')
       .then(function(response) {
@@ -207,6 +246,7 @@ function checkCollision() {
   var stone2Rect = stone2.getBoundingClientRect();
   var endRect = finish.getBoundingClientRect();
   var enemyopenRect = enemyopen.getBoundingClientRect();
+  var megdumirecRect = megdumirec.getBoundingClientRect()
   if (Susceptibility) {
     if (
       blockRect.left < enemyRect.right &&
@@ -241,6 +281,14 @@ function checkCollision() {
       blockRect.right > stone2Rect.left &&
       blockRect.top < stone2Rect.bottom &&
       blockRect.bottom > stone2Rect.top
+    ) {
+      nextleve();
+    }
+    else if (
+      blockRect.left < megdumirecRect.right &&
+      blockRect.right > megdumirecRect.left &&
+      blockRect.top < megdumirecRect.bottom &&
+      blockRect.bottom > megdumirecRect.top
     ) {
       nextleve();
     } else if (
@@ -312,9 +360,10 @@ function nextlevel() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-
+  megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
+    megdumirec.style.display = 'block'
     stone.style.display = "block";
     enemy.style.display = "block";
     stone1.style.display = "block";
@@ -324,9 +373,7 @@ function nextlevel() {
     enemyopen.style.display = "block";
     Susceptibility = true;
   }, 1000);
-  moveStone(stone);
-moveStone(stone1);
-moveStone(stone2);
+
 randomblock()
   daw();
 
@@ -343,9 +390,10 @@ function nextleve() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-
+  megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
+    megdumirec.style.display = 'block'
     stone.style.display = "block";
     enemy.style.display = "block";
     stone1.style.display = "block";
@@ -355,9 +403,9 @@ function nextleve() {
     enemyopen.style.display = "block";
     Susceptibility = true;
   }, 1000); 
-   moveStone(stone);
-moveStone(stone1);
-moveStone(stone2);
+
+
+
 
 randomblock()
 }
@@ -365,14 +413,17 @@ function moveStone(element) {
   const blockRect = block.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
 
-  let newX = random(120, window.screenWidth);
-  let newY = random(120, window.screenHeight);
+  let newX =random(10, window.screenWidth - 100) + "px";
+
+  let newY = random(10, window.screenWidth - 100) + "px";
+
 
   // Проверяем пересечение с другими элементами
   let collided = checkCollisionWithElements(newX, newY, element);
+
   while (collided) {
-    newX = random(120, window.screenWidth);
-    newY = random(120, window.screenHeight);
+    newX =  random(10, window.screenWidth - 100) + "px";
+    newY =  random(120, window.screenHeight - 200) + "px";
     collided = checkCollisionWithElements(newX, newY, element);
   }
 
@@ -407,8 +458,7 @@ fetch('/save-data', {
 }
 
 
-
-
+//setInterval(randomblock,700)
 
 function checkCollisionWithElements(x, y, element) {
   const elementRect = element.getBoundingClientRect();

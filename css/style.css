@@ -53,7 +53,27 @@
     display: none;
     background-image: url('/img/stone.png');
   }
-  
+  /* CSS стили для анимации */
+  @keyframes увеличение {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+  }
+
+/* Применение анимации к элементу */
+.mic { animation: увеличение 1s ease-in-out; }
+
+  #interworldly {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 15px;
+    position: absolute;
+    transition: transform 1s ease;
+    display: none;
+    background-image: url('/img/j.png');
+    
+  }
   #enemyopen {
     width: 100px;
     height: 100px;
