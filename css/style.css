@@ -56,7 +56,7 @@
   /* CSS стили для анимации */
   @keyframes увеличение {
     0% { transform: scale(1); }
-    50% { transform: scale(1.5); }
+    50% { transform: scale(1.3); }
     100% { transform: scale(1); }
   }
 
@@ -115,7 +115,6 @@
     animation: moveBlock 2.5s linear infinite;
     background-image: url('/img/enemy.png');
   }
-
   #end {
     width: 100px;
     height: 100px;

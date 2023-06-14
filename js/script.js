@@ -13,12 +13,15 @@ let levelcount = 1;
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
+  if (Susceptibility == true) {
   // Получаем координаты клика
   var x = event.clientX - 50;
   var y = event.clientY - 50;
 
   // Плавно перемещаем блок к указанным координатам
   goto(x, y);
+
+}
 });
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -38,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function() {
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
-  randomblock()
+  nextleve()
 });
 
 function goto(x, y) {
@@ -47,21 +50,19 @@ function goto(x, y) {
 function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
+  
   enemyopen.style.bottom = random(200, 500) + "px";
-  enemyopen.style.left = random(120, window.screenWidth - 20) + "px";
-  stone.style.left = random(120, window.screenWidth - 100) + "px";
+  enemyopen.style.left = random(0, window.screenWidth - 20) + "px";
+  stone.style.left = random(0, window.screenWidth - 100) + "px";
   stone.style.top =   random(120, window.screenHeight - 200) + "px";
-  stone2.style.left = random(120, window.screenWidth - 100) + "px";
+  stone2.style.left = random(0, window.screenWidth - 100) + "px";
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
-  stone1.style.left = random(120, window.screenWidth - 100) + "px";
+  stone1.style.left = random(0, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
-  megdumirec.style.left = random(120, window.screenWidth - 100) + "px";
+  megdumirec.style.left = random(0, window.screenWidth - 100) + "px";
   megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
 
-enemy.style.animationDuration =  random(0,100) + "%"; 
-enemy1.style.animationDuration = random(0,100) + "%"; 
-  
   moveStone(stone);
   moveStone(stone1);
   moveStone(stone2);
@@ -99,24 +100,11 @@ setInterval(()=>{
   megdumirec.classList.add("mic")
 
 setTimeout(()=>{
-
-
-  var screenWidth = window.innerWidth;
-  var screenHeight = window.innerHeight;
-  
-  var blockLeft = block.offsetLeft;
-  var blockTop = block.offsetTop;
-  
-  var minLeft = blockLeft + 200;
-  var maxLeft = screenWidth - 100;
-  var minTop = blockTop + 200;
-  var maxTop = screenHeight - 200;
-  
-  megdumirec.style.left = random(minLeft, maxLeft) + "px";
-  megdumirec.style.top =  random(minTop, maxTop) + "px";
+  megdumirec.style.left = random(100, window.screenWidth - 100) + "px";
+  megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
   megdumirec.classList.remove('mic')
 },1000)
-},4000)
+},3000)
 
 function daw() {
   window.f = random(1, 2);
@@ -360,7 +348,9 @@ setInterval(checkCollision, 10);
 
 function nextlevel() {
 
+  daw();
 
+  Susceptibility = false;
   stone.style.display = "none";
   enemy.style.display = "none";
   block.style.transform = "";
@@ -369,26 +359,37 @@ function nextlevel() {
   stone2.style.display = "none";
   megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
+
   setTimeout(() => {
+    enemy.style.display = "block";
+    enemy1.style.display = "block";
     megdumirec.style.display = 'block'
     stone.style.display = "block";
-    enemy.style.display = "block";
+    
     stone1.style.display = "block";
-    enemy1.style.display = "block";
+   
     stone2.style.display = "block";
 
     enemyopen.style.display = "block";
+
+
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
     Susceptibility = true;
+    setTimeout(() => {
+      enemy.style.animationPlayState = "running";
+      enemy1.style.animationPlayState = "running";
+          }, 200);
+    
   }, 1000);
 
 randomblock()
-  daw();
 
   updateRecord(levelcount);
 }
 
 function nextleve() {
-
+  Susceptibility = false;
   daw();
   levelcount = 1;
   stone.style.display = "none";
@@ -406,9 +407,18 @@ function nextleve() {
     stone1.style.display = "block";
     enemy1.style.display = "block";
     stone2.style.display = "block";
-  
+    
     enemyopen.style.display = "block";
+    
+
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
     Susceptibility = true;
+    setTimeout(() => {
+      enemy.style.animationPlayState = "running";
+      enemy1.style.animationPlayState = "running";
+          }, 200);
+
   }, 1000); 
 
 
@@ -416,6 +426,7 @@ function nextleve() {
 
 randomblock()
 }
+console.log(Susceptibility)
 function moveStone(element) {
   const blockRect = block.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
