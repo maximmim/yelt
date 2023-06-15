@@ -49,19 +49,22 @@ window.addEventListener("DOMContentLoaded", function() {
 function goto(x, y) {
   block.style.transform = `translate(${x}px, ${y}px)`;
 }
+
+const minx = 10
+
 function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   
   enemyopen.style.bottom = random(200, 500) + "px";
-  enemyopen.style.left = random(105, window.screenWidth - 20) + "px";
-  stone.style.left = random(105, window.screenWidth - 100) + "px";
+  enemyopen.style.left = random(minx, window.screenWidth - 20) + "px";
+  stone.style.left = random(minx, window.screenWidth - 100) + "px";
   stone.style.top =   random(120, window.screenHeight - 200) + "px";
-  stone2.style.left = random(105, window.screenWidth - 100) + "px";
+  stone2.style.left = random(minx, window.screenWidth - 100) + "px";
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
-  stone1.style.left = random(105, window.screenWidth - 100) + "px";
+  stone1.style.left = random(minx, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
-  megdumirec.style.left = random(105, window.screenWidth - 100) + "px";
+  megdumirec.style.left = random(minx, window.screenWidth - 100) + "px";
   megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
 
