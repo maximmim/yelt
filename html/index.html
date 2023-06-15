@@ -7,30 +7,32 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/img/logo.png">
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-        console.log('Service Worker зарегистрирован:', registration);
-      }, function(error) {
-        console.log('Ошибка при регистрации Service Worker:', error);
-      });
-    });
-  }
-</script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      }
+    </script>
+    <script type="module" src="/service-worker.js"></script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSQY4QK2YC"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-LSQY4QK2YC');
 </script>
 </head>
 <body>
-  
+
   <div class="game">
+     
     <div id="block"></div>
     <div id="stone"></div>
     <div id="stone1"></div>
@@ -45,7 +47,7 @@
   <h1 id="few">Переверни телефон</h1>
 </div>
   
-  <div id="Hud" style="display: none;" onclick="location.reload()">
+  <div id="Hud" >
     <h1 id="level">Level:1</h1>
     <h1 id="Record">Record:1</h1>
   </div>

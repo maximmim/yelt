@@ -2,7 +2,14 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
+const { ServiceWorker } = require('workbox-webpack-plugin');
 
+app.use('/service-worker.js', express.static(path.join(__dirname, 'service-worker.js')));
+
+app.get('/service-worker.js', (req, res) => {
+  res.set('Service-Worker-Allowed', '/');
+  res.sendFile(path.join(__dirname, 'service-worker.js'));
+});
 const filePath = 'bd.json';
 
 
@@ -61,10 +68,7 @@ app.post('/save-data', (req, res) => {
   });
 });
 
-app.get('/service-worker.js', (req, res) => {
-res.setHeader('Content-Type', 'application/javascript');
-res.sendFile(path.join(__dirname, 'service-worker.js'));
-});
+
 
 function saveDataToFile(data) {
   const jsonData = JSON.stringify(data);

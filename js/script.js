@@ -8,6 +8,7 @@ const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
 const megdumirec = document.getElementById("interworldly")
+
 let Susceptibility = true;
 let levelcount = 1;
 
@@ -23,6 +24,7 @@ document.addEventListener("click", function(event) {
 
 }
 });
+
 
 window.addEventListener("DOMContentLoaded", function() {
   window.screenWidth =
@@ -69,8 +71,6 @@ function randomblock() {
   moveStone(enemyopen)
   moveStone(megdumirec)
 }
-
-
 
 
 
