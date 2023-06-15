@@ -100,8 +100,19 @@ setInterval(()=>{
   megdumirec.classList.add("mic")
 
 setTimeout(()=>{
-  megdumirec.style.left = random(100, window.screenWidth - 100) + "px";
-  megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
+  var screenWidthd = window.innerWidth;
+  var screenHeightd = window.innerHeight;
+  
+  var blockLeft = block.offsetLeft;
+  var blockTop = block.offsetTop;
+  
+  var minLeft = blockLeft + 200;
+  var maxLeft = screenWidthd - 100;
+  var minTop = blockTop + 200;
+  var maxTop = screenHeightd - 200;
+  
+  megdumirec.style.left = random(minLeft, maxLeft) + "px";
+  megdumirec.style.top =  random(minTop, maxTop) + "px";
   megdumirec.classList.remove('mic')
 },1000)
 },3000)
