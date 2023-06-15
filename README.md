@@ -1,1 +1,1 @@
-# yelt 0.9.6 beta
+# yelt 1.0 beta
