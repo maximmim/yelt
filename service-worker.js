@@ -1,11 +1,23 @@
 const CACHE_NAME = 'Yelt';
 const STATIC_RESOURCES = [
   '/',
-  '/index.html',
+  '/html/index.html',
   '/html/menu.html',
   '/css/style.css',
   '/js/script.js',
-  '/img/logo.png'
+  '/img/logo.png',
+  
+  '/img/end.png',
+  '/img/enemy.png',
+  '/img/enemy_close.png',
+  '/img/enemy_open.png',
+  '/img/j.png',
+  '/img/logdo.png',
+  '/img/play.png',
+  '/img/stone.png',
+  '/img/playr.png',
+  '/img/playr_white.png',
+
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 
