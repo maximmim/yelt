@@ -2,7 +2,6 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const { ServiceWorker } = require('workbox-webpack-plugin');
 
 app.use('/service-worker.js', express.static(path.join(__dirname, 'service-worker.js')));
 

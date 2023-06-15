@@ -1,17 +1,18 @@
 const CACHE_NAME = 'Yelt';
-
 const STATIC_RESOURCES = [
   '/',
-  'html/index.html',
-  'html/menu.html',
-  'css/style.css',
-  'js/script.js',
+  '/index.html',
+  '/html/menu.html',
+  '/css/style.css',
+  '/js/script.js',
+  '/img/logo.png'
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      // Загрузка всех статических ресурсов в кэш
       return cache.addAll(STATIC_RESOURCES);
     })
   );
@@ -32,6 +33,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
+      // Возвращаем кэшированный ресурс, если он доступен
+      // В противном случае выполняем сетевой запрос
       return response || fetch(event.request);
     })
   );
