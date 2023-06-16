@@ -20,7 +20,7 @@ const STATIC_RESOURCES = [
 
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
-
+/*
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -29,7 +29,7 @@ self.addEventListener('install', (event) => {
     })
   );
 });
-
+*/
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {

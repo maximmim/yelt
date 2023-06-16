@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html>
 
 <head>
   <link rel="manifest" href="/manifest.json">
@@ -9,18 +9,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=0.8">
   <title>Yelt</title>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registered:', registration);
-        })
-        .catch(error => {
-          console.log('Service Worker registration failed:', error);
-        });
-    }
-  </script>
-  <script type="module" src="/service-worker.js"></script>
+   <!-- <script>
+      
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      }
+    </script>
+    <script type="module" src="/service-worker.js"></script>
+-->
   <style>
     #button {
       position: absolute;
@@ -31,7 +33,14 @@
       font-size: 50px;
       border-radius: 20px;
     }
-
+    #donw {
+      position: absolute;
+      bottom: 0px;
+      width: 200px;
+      height: 150px;
+      left: 30%;
+      font-size: 30px;
+    }
     #play {
       position: absolute;
       width: 120px;
@@ -177,6 +186,16 @@
       setInterval(updateRecordList, 1000); // Обновление каждую секунду
     });
   </script>
+<button id="donw" onclick="downloadApk()">Завантажти додаток "Андроїд"</button>
+
+<script>
+  function downloadApk() {
+    var link = document.createElement("a");
+    link.href = "../Yelt.apk";
+    link.download = "Yelt.apk";
+    link.click();
+  }
+</script>
 </body>
 
 </html>

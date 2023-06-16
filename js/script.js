@@ -20,10 +20,13 @@ document.addEventListener("click", function(event) {
   var y = event.clientY - 50;
 
   // Плавно перемещаем блок к указанным координатам
-  goto(x, y);
+  block.goto(x, y);
 
 }
 });
+
+
+
 
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -46,7 +49,7 @@ window.addEventListener("DOMContentLoaded", function() {
   nextleve()
 });
 
-function goto(x, y) {
+block.goto = function(x, y) {
   block.style.transform = `translate(${x}px, ${y}px)`;
 }
 
@@ -64,8 +67,8 @@ function randomblock() {
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
   stone1.style.left = random(minx, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
-  megdumirec.style.left = random(minx, window.screenWidth - 100) + "px";
-  megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
+  //megdumirec.style.left = random(minx, window.screenWidth - 100) + "px";
+  //megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
 
   moveStone(stone);
@@ -100,29 +103,28 @@ setInterval(() => {
 
 setInterval(()=>{
 
-  megdumirec.classList.add("mic")
+  //megdumirec.classList.add("mic")
 
 setTimeout(()=>{
-  var screenWidthd = window.innerWidth;
-  var screenHeightd = window.innerHeight;
+  var screenWidth = window.innerWidth;
+  var screenHeight = window.innerHeight;
   
   var blockLeft = block.offsetLeft;
   var blockTop = block.offsetTop;
   
   var minLeft = blockLeft + 200;
-  var maxLeft = screenWidthd - 100;
+  var maxLeft = screenWidth - 100;
   var minTop = blockTop + 200;
-  var maxTop = screenHeightd - 200;
+  var maxTop = screenHeight - 200;
   
-  megdumirec.style.left = random(minLeft, maxLeft) + "px";
-  megdumirec.style.top =  random(minTop, maxTop) + "px";
-  megdumirec.classList.remove('mic')
+  //megdumirec.style.left = random(minLeft, maxLeft) + "px";
+  //megdumirec.style.top =  random(minTop, maxTop) + "px";
+  //megdumirec.classList.remove('mic')
 },1000)
 },3000)
 
 function daw() {
   window.f = random(1, 2);
-  console.log(f);
 }
 // Get references to the relevant elements
 
@@ -377,7 +379,7 @@ function nextlevel() {
   setTimeout(() => {
     enemy.style.display = "block";
     enemy1.style.display = "block";
-    megdumirec.style.display = 'block'
+    //megdumirec.style.display = 'block'
     stone.style.display = "block";
     
     stone1.style.display = "block";
@@ -415,7 +417,7 @@ function nextleve() {
   megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
-    megdumirec.style.display = 'block'
+   // megdumirec.style.display = 'block'
     stone.style.display = "block";
     enemy.style.display = "block";
     stone1.style.display = "block";
@@ -440,7 +442,7 @@ function nextleve() {
 
 randomblock()
 }
-console.log(Susceptibility)
+
 function moveStone(element) {
   const blockRect = block.getBoundingClientRect();
   const elementRect = element.getBoundingClientRect();
@@ -490,7 +492,7 @@ fetch('/save-data', {
 }
 
 
-//setInterval(randomblock,700)
+//setInterval(randomblock,2000)
 
 function checkCollisionWithElements(x, y, element) {
   const elementRect = element.getBoundingClientRect();
