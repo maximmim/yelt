@@ -40,6 +40,7 @@
       height: 150px;
       left: 30%;
       font-size: 30px;
+      display: none;
     }
     #play {
       position: absolute;
@@ -122,7 +123,10 @@
   <button onclick="registerNickname()" id="buttonsubmit">Submit</button>
 
   <ul id="recordList"></ul>
-
+<!--
+<input id="da">
+<button onclick="localStorage.da= document.getElementById('da').value">awd</button>
+-->
   <script>
     function registerNickname() {
       var input = document.getElementById("valuenick");

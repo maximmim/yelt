@@ -28,7 +28,6 @@ document.addEventListener("click", function(event) {
 
 
 
-
 window.addEventListener("DOMContentLoaded", function() {
   window.screenWidth =
     window.innerWidth ||
@@ -41,12 +40,20 @@ window.addEventListener("DOMContentLoaded", function() {
 
   var screenSizeText =
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
+if (localStorage.da == undefined) {
+
 
   daw();
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
-  nextleve()
+nextleve()
+}
+else {
+
+  //setObjectPositions(localStorage.da)
+}
+
 });
 
 block.goto = function(x, y) {
@@ -201,6 +208,92 @@ function updaterecordtab() {
   
 
 }
+
+
+
+
+function getPositionData() {
+  var block = document.getElementById('block');
+  var stone = document.getElementById('stone');
+  var stone1 = document.getElementById('stone1');
+  var stone2 = document.getElementById('stone2');
+  var enemy = document.getElementById('enemy');
+  var enemy1 = document.getElementById('enemy1');
+  var enemyopen = document.getElementById('enemyopen');
+
+  var positionData = {
+    stone: {
+      x: stone.getBoundingClientRect().left,
+      y: stone.getBoundingClientRect().top
+    },
+    stone1: {
+      x: stone1.getBoundingClientRect().left,
+      y: stone1.getBoundingClientRect().top
+    },
+    stone2: {
+      x: stone2.getBoundingClientRect().left,
+      y: stone2.getBoundingClientRect().top
+    },
+    enemy: {
+      x: enemy.getBoundingClientRect().left,
+      y: enemy.getBoundingClientRect().top
+    },
+    enemy1: {
+      x: enemy1.getBoundingClientRect().left,
+      y: enemy1.getBoundingClientRect().top
+    },
+    enemyopen: {
+      x: enemyopen.getBoundingClientRect().left,
+      y: enemyopen.getBoundingClientRect().top
+    }
+  };
+
+return positionData;
+}
+
+function setPosition(positionData) {
+  var elements = ['stone', 'stone1', 'stone2', 'enemy', 'enemy1', 'enemyopen'];
+
+  elements.forEach(function(elementId) {
+    var element = document.getElementById(elementId);
+    element.style.left = positionData[elementId].x + 'px';
+    element.style.top = positionData[elementId].y + 'px';
+  });
+}
+
+
+ 
+      function copyObjectToClipboard(object) {
+        var jsonString = JSON.stringify(object);
+        var textarea = document.createElement('textarea');
+        textarea.value = jsonString;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        console.log(textarea)
+        document.body.removeChild(textarea);
+      }
+      
+
+      
+      // Функция для установки позиций (x, y) объектов
+      function setObjectPositions() {
+          for (var id in localStorage.da) {
+              var element = document.getElementById(id);
+              if (element) {
+                  element.style.left = localStorage.da[id].x + "px";
+                  element.style.top = localStorage.da[id].y + "px";
+              }
+          }
+      }
+
+      // Вызываем функцию после загрузки страницы
+   
+
+
+
+
+
 function sendserver(data) {
   fetch("/get", {
     method: "POST",
