@@ -7,7 +7,6 @@ const stone = document.getElementById("stone");
 const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
-const megdumirec = document.getElementById("interworldly")
 
 let Susceptibility = true;
 let levelcount = 1;
@@ -40,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function() {
 
   var screenSizeText =
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
-if (localStorage.da == undefined) {
+
 
 
   daw();
@@ -48,13 +47,7 @@ if (localStorage.da == undefined) {
   enemy1.style.display = "block";
   stone1.style.display = "block";
 nextleve()
-}
-else {
-
-  //setObjectPositions(localStorage.da)
-}
-
-});
+})
 
 block.goto = function(x, y) {
   block.style.transform = `translate(${x}px, ${y}px)`;
@@ -82,7 +75,6 @@ function randomblock() {
   moveStone(stone1);
   moveStone(stone2);
   moveStone(enemyopen)
-  moveStone(megdumirec)
 }
 
 
@@ -108,27 +100,7 @@ setInterval(() => {
 
 }, 2500);
 
-setInterval(()=>{
 
-  //megdumirec.classList.add("mic")
-
-setTimeout(()=>{
-  var screenWidth = window.innerWidth;
-  var screenHeight = window.innerHeight;
-  
-  var blockLeft = block.offsetLeft;
-  var blockTop = block.offsetTop;
-  
-  var minLeft = blockLeft + 200;
-  var maxLeft = screenWidth - 100;
-  var minTop = blockTop + 200;
-  var maxTop = screenHeight - 200;
-  
-  //megdumirec.style.left = random(minLeft, maxLeft) + "px";
-  //megdumirec.style.top =  random(minTop, maxTop) + "px";
-  //megdumirec.classList.remove('mic')
-},1000)
-},3000)
 
 function daw() {
   window.f = random(1, 2);
@@ -350,7 +322,7 @@ function checkCollision() {
   var stone2Rect = stone2.getBoundingClientRect();
   var endRect = finish.getBoundingClientRect();
   var enemyopenRect = enemyopen.getBoundingClientRect();
-  var megdumirecRect = megdumirec.getBoundingClientRect()
+
   if (Susceptibility) {
     if (
       blockRect.left < enemyRect.right &&
@@ -388,14 +360,7 @@ function checkCollision() {
     ) {
       nextleve();
     }
-    else if (
-      blockRect.left < megdumirecRect.right &&
-      blockRect.right > megdumirecRect.left &&
-      blockRect.top < megdumirecRect.bottom &&
-      blockRect.bottom > megdumirecRect.top
-    ) {
-      nextleve();
-    } else if (
+  else if (
       blockRect.left < endRect.right &&
       blockRect.right > endRect.left &&
       blockRect.top < endRect.bottom &&
@@ -466,7 +431,7 @@ function nextlevel() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-  megdumirec.style.display = 'none'
+  //megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
 
   setTimeout(() => {
@@ -507,7 +472,7 @@ function nextleve() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-  megdumirec.style.display = 'none'
+  //megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
    // megdumirec.style.display = 'block'
