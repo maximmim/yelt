@@ -25,8 +25,6 @@ document.addEventListener("click", function(event) {
 });
 
 
-
-
 window.addEventListener("DOMContentLoaded", function() {
   window.screenWidth =
     window.innerWidth ||
@@ -523,12 +521,6 @@ function moveStone(element) {
   element.style.top = newY + "px";
 }
 
-
-const data = { name: 'John', age: 30 };
-
-
-
-//savedata(data)
 
 
 

@@ -11,6 +11,16 @@ app.get('/service-worker.js', (req, res) => {
 });
 const filePath = 'bd.json';
 
+app.get('/version', (req, res) => {
+  fs.readFile('README.md', 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    res.send(data);
+  });
+});
 
 // Проверяем наличие файла
 fs.access(filePath, fs.constants.F_OK, (err) => {
