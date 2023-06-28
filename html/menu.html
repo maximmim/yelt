@@ -50,7 +50,15 @@
       left: 40%;
       top: 40%;
     }
-
+#da {
+  position: absolute;
+      width: 210px;
+      height: 50px;
+      display: block;
+      left: 30%;
+      top: 30%;
+      font-size: 20px;
+}
     #skin {
       width: 100px;
       height: 100px;
@@ -179,24 +187,40 @@ fetch('/version')
   })
   .then(function(version) {
     // Отображаем версию внизу экрана
-    versionElement.innerText = 'Версия: ' + version;
+    versionElement.innerText = 'Версія: ' + version;
   })
   .catch(function(error) {
     console.error(error);
   });
 
   </script>
-  <img src="/img/play.png" onclick="if (localStorage.nick == undefined) {alert('В вас нема ніка ')} else { document.location.replace('index.html')  }" id="play" />
+  <img src="/img/play.png" onclick="ca()" id="play" />
 
   <input placeholder="Ведіть свій нік" id="valuenick">
   <button onclick="registerNickname()" id="buttonsubmit">Submit</button>
 
   <ul id="recordList"></ul>
-<!--
-<input id="da">
-<button onclick="localStorage.da= document.getElementById('da').value">awd</button>
--->
+
+<input placeholder="Ведіть id гри" id="da">
+
   <script>
+    function ca() {
+      if (localStorage.nick == undefined) 
+      {
+        alert('В вас нема ніка ')
+      } 
+      if (document.getElementById('da').value) {
+        localStorage.da = document.getElementById('da').value;
+        document.location.replace('index.html')
+   
+      }
+      else
+      { 
+
+        document.location.replace('index.html')  
+      }
+      
+    }
     function registerNickname() {
       var input = document.getElementById("valuenick");
       if (input.value.trim() !== "") {

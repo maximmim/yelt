@@ -23,7 +23,9 @@ document.addEventListener("click", function(event) {
 
 }
 });
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 window.addEventListener("DOMContentLoaded", function() {
   window.screenWidth =
@@ -39,12 +41,30 @@ window.addEventListener("DOMContentLoaded", function() {
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
 
 
-
+if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
 nextleve()
+
+
+}
+else {
+
+  var obj = JSON.parse(this.localStorage.da);
+  stone.style.display = 'block'
+  stone1.style.display = 'block'
+  stone2.style.display = 'block'
+  enemy.style.display = 'block'
+  enemy1.style.display = 'block'
+  enemyopen.style.display = 'block'
+  
+  console.log('reload!!!')
+  setPosition(obj)
+  sleep(1000)
+  localStorage.removeItem('da')
+}
 })
 
 block.goto = function(x, y) {
@@ -183,7 +203,6 @@ function updaterecordtab() {
 
 
 function getPositionData() {
-  var block = document.getElementById('block');
   var stone = document.getElementById('stone');
   var stone1 = document.getElementById('stone1');
   var stone2 = document.getElementById('stone2');
