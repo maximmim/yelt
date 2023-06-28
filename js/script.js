@@ -209,7 +209,7 @@ function getPositionData() {
   var enemy = document.getElementById('enemy');
   var enemy1 = document.getElementById('enemy1');
   var enemyopen = document.getElementById('enemyopen');
-
+  var end = document.getElementById("end");
   var positionData = {
     stone: {
       x: stone.getBoundingClientRect().left,
@@ -234,6 +234,9 @@ function getPositionData() {
     enemyopen: {
       x: enemyopen.getBoundingClientRect().left,
       y: enemyopen.getBoundingClientRect().top
+    },
+    end: {
+      x: window.f,
     }
   };
 
@@ -241,12 +244,24 @@ return positionData;
 }
 
 function setPosition(positionData) {
-  var elements = ['stone', 'stone1', 'stone2', 'enemy', 'enemy1', 'enemyopen'];
+  var elements = ['stone', 'stone1', 'stone2', 'enemy', 'enemy1', 'enemyopen','end'];
 
   elements.forEach(function(elementId) {
     var element = document.getElementById(elementId);
-    element.style.left = positionData[elementId].x + 'px';
+
+    if (element.id == 'end') {
+      if (positionData[elementId].x == 1) {
+        element.style.left = 0 + "px";
+      }
+      else {
+        element.style.right = 0 + "px";
+      }
+      element.style.bottom = positionData[elementId].y + "px";
+}
+else {
+      element.style.left = positionData[elementId].x + 'px';
     element.style.top = positionData[elementId].y + 'px';
+}
   });
 }
 
@@ -272,6 +287,15 @@ function setPosition(positionData) {
               if (element) {
                   element.style.left = localStorage.da[id].x + "px";
                   element.style.top = localStorage.da[id].y + "px";
+                  if (element.id == 'end') {
+                    if (localStorage.da[id].x == 1) {
+                      element.style.left = 0 + "px";
+                    }
+                    else {
+                      element.style.right = 0 + "px";
+                    }
+                    element.style.bottom = localStorage.da[id].y + "px";
+              }
               }
           }
       }
