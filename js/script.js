@@ -13,7 +13,7 @@ let levelcount = 1;
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
-  if (Susceptibility == true) {
+  
   // Получаем координаты клика
   var x = event.clientX - 50;
   var y = event.clientY - 50;
@@ -21,7 +21,7 @@ document.addEventListener("click", function(event) {
   // Плавно перемещаем блок к указанным координатам
   block.goto(x, y);
 
-}
+
 });
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -68,8 +68,46 @@ else {
 })
 
 block.goto = function(x, y) {
-  block.style.transform = `translate(${x}px, ${y}px)`;
+  if (Susceptibility) {
+    block.style.transform = `translate(${x}px, ${y}px)`;
+  }
 }
+function closestop() {
+
+}
+var closemenu = false
+function openstop() {
+  
+  if (closemenu) {
+    closemenu = false
+      document.getElementById('stopmenu').style.display = 'none'
+  Susceptibility = true
+  enemy.style.animationPlayState = "running";
+  enemy1.style.animationPlayState = "running";
+
+  }
+  else {
+    closemenu = true
+  
+  Susceptibility= false;
+   document.getElementById('stopmenu').style.display = 'block'
+   enemy.style.animationPlayState = "paused";
+   enemy1.style.animationPlayState = "paused";
+
+  }
+}
+
+document.querySelector('.stopmenu').addEventListener('click', function(event) {
+  if (event.target.classList.contains('stopmenu')) {
+    event.stopPropagation(); // Предотвращаем всплытие события
+  }
+});
+
+document.querySelector('#Hud').addEventListener('click', function(event) {
+  if (event.target.classList.contains('Hud')) {
+    event.stopPropagation(); // Предотвращаем всплытие события
+  }
+});
 
 const minx = 10
 
@@ -274,10 +312,11 @@ else {
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
-        console.log(textarea)
         document.body.removeChild(textarea);
       }
       
+
+
 
       
       // Функция для установки позиций (x, y) объектов

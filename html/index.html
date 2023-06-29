@@ -4,7 +4,7 @@
     <title>Yelt</title>
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/img/logo.png">
 
@@ -84,10 +84,15 @@
     </div>
     <div id="eror">
         <h1 id="few">Переверни телефон</h1>
-    </div>
-    <div onclick="copyObjectToClipboard(getPositionData())" id="Hud">
+    </div><!--copyObjectToClipboard(getPositionData())-->
+    <div   onclick="openstop()" id="Hud">
         <h1 id="level">Level:1</h1>
         <h1 id="Record">Record:1</h1>
+    </div>
+    
+    <div  class="stopmenu" id="stopmenu">
+        <img id="copy" onclick="copyObjectToClipboard(getPositionData());openstop()" src="../img/copy.png">
+        <img id="exit" onclick='document.location.replace("menu.html")'src ="../img/exit.png">
     </div>
     <script  src="/js/script.js"></script>
 </body>
