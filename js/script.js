@@ -40,6 +40,19 @@ window.addEventListener("DOMContentLoaded", function() {
   var screenSizeText =
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
 
+    if (localStorage.skin == 1) {
+      block.style.backgroundImage = `url("/img/skins/logo.png")`
+    }
+    else if (localStorage.skin == 2) {
+      block.style.backgroundImage = `url("/img/skins/playr_white.png")`
+      block.style.border= ''
+      block.style.borderStyle = ''
+    }
+    else if (localStorage.skin == 3) {
+      block.style.backgroundImage = `url("/img/skins/skin.png")`
+      block.style.border= ''
+      block.style.borderStyle = ''
+    }
 
 if (localStorage.da == undefined) {
   daw();
@@ -75,6 +88,8 @@ block.goto = function(x, y) {
 function closestop() {
 
 }
+
+
 
 var closemenu = false
 function closes() {

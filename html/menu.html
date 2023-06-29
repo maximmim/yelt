@@ -155,7 +155,21 @@
       border-top: 8px solid #f1f1f1;
       animation: spin 1.5s linear infinite;
     }
-
+    #skind {
+      top: 20px;
+      left: 40%;
+      width: 100px;
+    height: 100px;
+    background-color: rgb(0, 0, 0);
+    border-color: black;
+    border:3px;
+    border-style: solid;
+    border-radius: 15px;
+    position: absolute;
+    transition: transform 1s ease;
+    display: block;
+    background-image: url('/img/logo.png');
+    }
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -173,6 +187,7 @@
   </div>
 
   <script>
+    
     if (localStorage.nick == undefined) {
     document.location.replace('startpage.html')
     }
@@ -189,13 +204,13 @@
     versionElement.style.textAlign = 'center';
     versionElement.style.backgroundColor = 'rgb(194, 194, 194)';
     versionElement.style.padding = '10px';
-    versionElement.style.fontSize = '26px';
+    versionElement.style.fontSize = '40px';
     versionElement.style.fontWeight = 'bold';
 
     // Добавляем элемент на страницу
     document.body.appendChild(versionElement);
 
-    // Выполняем GET-запрос к URL /version
+    // Выполняем GET-запрос к URL /versionа
     fetch('/version')
       .then(function(response) {
         if (response.ok) {
@@ -229,8 +244,34 @@
       
     }
 
-    
+document.addEventListener('DOMContentLoaded', function() {
+     const skin = document.getElementById('skind')
+setInterval(()=>{
+    if (localStorage.skin == undefined) {
+      localStorage.skin = 1
+    }
+    else {
+      if (localStorage.skin == 1) {
+        skin.style.backgroundImage = `url("/img/skins/logo.png")`
+      }
+      else if (localStorage.skin == 2) {
+        skin.style.backgroundImage = `url("/img/skins/playr_white.png")`
 
+      }
+      else if (localStorage.skin == 3) {
+        skin.style.backgroundImage = `url("/img/skins/skin.png")`
+
+      }
+    if (localStorage.skin >= 4) {
+      localStorage.skin = 1
+    }
+    }
+},1)
+});
+
+function nextd() {
+localStorage.skin++
+}
   </script>
   <img src="/img/play.png" onclick="ca()" id="play" />
 
@@ -241,7 +282,7 @@
 
 
 
-
+<div onclick="nextd()" id="skind"></div>
 
 
 
