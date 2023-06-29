@@ -81,27 +81,43 @@
   #stopmenu {
     display: none;
     width: 200px;
-    height: 400px;
-    background-color: rgb(56, 92, 23);
+    height: 350px;
+    background-color: rgb(255, 193, 149);
     position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.6;
-  border-radius: 10px;
-  }
-  #copy {
-    position: absolute;
-left: 50px;
-top: 10px;
 
+  border-radius: 15px;
+  }
+
+  #copy {
+    position: relative;
+    top: 30%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-50%, -50%);
+  }
+#textcopy {
+  position: absolute;
+  left: 10px;
+  top: 50px;
+  font-size: 30px;
 }
 #exit {
+  position: relative;
+  top: 45%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+}
+#textexit {
   position: absolute;
-  left: 50px;
-top: 250px;
-
-
+  left: 10px;
+  top: 50px;
+  font-size: 30px;
 }
   #enemyopen {
     width: 100px;

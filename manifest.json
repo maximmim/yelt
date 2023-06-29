@@ -14,5 +14,17 @@
   ],
   "scope": "/",
   "offline_enabled": true,
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "description": "Yelt is the best puzzle game from Ukrainian developers",
+  "lang": "ua",
+  "orientation": "portrait",
+  "categories": ["Games"],
+  "related_applications": [],
+  "screenshots": [
+    {
+      "src": "/img/screenshot1.png",
+      "type": "image/png",
+      "sizes": "1280x720"
+    }
+  ]
 }

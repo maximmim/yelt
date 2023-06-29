@@ -76,38 +76,34 @@ function closestop() {
 
 }
 var closemenu = false
-function openstop() {
-  
-  if (closemenu) {
+function closes() {
+
     closemenu = false
       document.getElementById('stopmenu').style.display = 'none'
-  Susceptibility = true
+      
+ 
   enemy.style.animationPlayState = "running";
   enemy1.style.animationPlayState = "running";
+  
+ Susceptibility = true
 
-  }
-  else {
-    closemenu = true
+  
+}
+function openstop() {
+      closemenu = true
   
   Susceptibility= false;
    document.getElementById('stopmenu').style.display = 'block'
    enemy.style.animationPlayState = "paused";
    enemy1.style.animationPlayState = "paused";
 
-  }
 }
-
 document.querySelector('.stopmenu').addEventListener('click', function(event) {
   if (event.target.classList.contains('stopmenu')) {
     event.stopPropagation(); // Предотвращаем всплытие события
   }
 });
 
-document.querySelector('#Hud').addEventListener('click', function(event) {
-  if (event.target.classList.contains('Hud')) {
-    event.stopPropagation(); // Предотвращаем всплытие события
-  }
-});
 
 const minx = 10
 

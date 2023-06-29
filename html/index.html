@@ -8,7 +8,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/img/logo.png">
 
-    <!--
+    
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
@@ -21,7 +21,7 @@
         }
     </script>
     <script type="module" src="/service-worker.js"></script>
-    -->
+  
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSQY4QK2YC"></script>
     <script>
@@ -90,9 +90,16 @@
         <h1 id="Record">Record:1</h1>
     </div>
     
-    <div  class="stopmenu" id="stopmenu">
+    <div onclick="closes()"  class="stopmenu" id="stopmenu">
+<div id="copy">
         <img id="copy" onclick="copyObjectToClipboard(getPositionData());openstop()" src="../img/copy.png">
-        <img id="exit" onclick='document.location.replace("menu.html")'src ="../img/exit.png">
+        <h3 id="textcopy">Copy</h3>
+</div>
+<div id="exit">
+     <img id="exit" onclick='document.location.replace("menu.html")'src ="../img/exit.png">
+     <h3 id="textexit">Exit</h3>
+</div>
+       
     </div>
     <script  src="/js/script.js"></script>
 </body>

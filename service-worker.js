@@ -3,7 +3,7 @@ const STATIC_RESOURCES = [
   '/',
   '/html/index.html',
   '/html/menu.html',
-  '/css/style.css',
+  '/css/styles.css',
   '/js/script.js',
   '/img/logo.png',
   
@@ -17,10 +17,11 @@ const STATIC_RESOURCES = [
   '/img/stone.png',
   '/img/playr.png',
   '/img/playr_white.png',
+  '/img/copy.png',
+  '/img/exit.png'
 
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
-/*
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -29,7 +30,7 @@ self.addEventListener('install', (event) => {
     })
   );
 });
-*/
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -44,10 +45,16 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Возвращаем кэшированный ресурс, если он доступен
-      // В противном случае выполняем сетевой запрос
-      return response || fetch(event.request);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((response) => {
+        // Проверяем наличие обновленных ресурсов
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          // Клонируем полученный ответ, чтобы использовать его как ответ в сети и сохранить в кэше
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+        return response || fetchPromise;
+      });
     })
   );
 });
