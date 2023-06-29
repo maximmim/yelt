@@ -75,6 +75,7 @@ block.goto = function(x, y) {
 function closestop() {
 
 }
+
 var closemenu = false
 function closes() {
 
@@ -89,15 +90,32 @@ function closes() {
 
   
 }
-function openstop() {
-      closemenu = true
-  
-  Susceptibility= false;
-   document.getElementById('stopmenu').style.display = 'block'
-   enemy.style.animationPlayState = "paused";
-   enemy1.style.animationPlayState = "paused";
+let touchTimeout;
 
+function openstop() {
+  touchTimeout = setTimeout(() => {
+    closemenu = true;
+    Susceptibility = false;
+    document.getElementById('stopmenu').style.display = 'block';
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
+  }, 1000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
 }
+
+function stopmenuTouchEnd() {
+  clearTimeout(touchTimeout); // Очищаем таймаут при отпускании пальца
+}
+
+document.getElementById('Hud').addEventListener('touchstart', openstop);
+document.getElementById('Hud').addEventListener('touchend', stopmenuTouchEnd);
+
+
+
+
+
+
+
+
 document.querySelector('.stopmenu').addEventListener('click', function(event) {
   if (event.target.classList.contains('stopmenu')) {
     event.stopPropagation(); // Предотвращаем всплытие события

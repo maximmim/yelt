@@ -6,7 +6,6 @@ const STATIC_RESOURCES = [
   '/css/styles.css',
   '/js/script.js',
   '/img/logo.png',
-  
   '/img/end.png',
   '/img/enemy.png',
   '/img/enemy_close.png',
@@ -15,13 +14,12 @@ const STATIC_RESOURCES = [
   '/img/logdo.png',
   '/img/play.png',
   '/img/stone.png',
-  '/img/playr.png',
-  '/img/playr_white.png',
   '/img/copy.png',
-  '/img/exit.png'
-
+  '/img/exit.png',
+  '/html/tables.html'
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -44,6 +42,11 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.method === 'POST' || event.request.url.startsWith('chrome-extension://')) {
+    // Игнорируем POST запросы и запросы с chrome-extension:// схемой
+    return;
+  }
+
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(event.request).then((response) => {

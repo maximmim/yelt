@@ -24,6 +24,18 @@
     <script type="module" src="/service-worker.js"></script>
     
   <style>
+    #records {
+      position: absolute;
+      top: 20%;
+      left: 20%;
+      width: 300px;
+      height: 120px;
+      font-size: 55px;
+      border-radius: 40px;
+      border: none;
+      background-color: rgb(194, 194, 194);
+      
+    }
     #button {
       position: absolute;
       bottom: 10px;
@@ -44,21 +56,24 @@
     }
     #play {
       position: absolute;
-      width: 120px;
-      height: 100px;
+      width: 260px;
+      height: 200px;
       display: block;
-      left: 40%;
+      left: 27%;
       top: 40%;
     }
-#da {
-  position: absolute;
-      width: 210px;
+    #da {
+      position: absolute;
+      width: 400px;
       height: 50px;
       display: block;
-      left: 30%;
-      top: 30%;
-      font-size: 20px;
-}
+      left: 10%;
+      bottom: 20%;
+      font-size: 25px;
+      border-radius: 20px;
+      font-size: 35px;
+      text-align: center;
+    }
     #skin {
       width: 100px;
       height: 100px;
@@ -122,93 +137,85 @@
       display: none;
     }
   </style>
-    <style>
-      #loader {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100vh;
-          background-color: #f1f1f1;
-      }
+  <style>
+    #loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
 
-      .loader-icon {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          border: 8px solid #3498db;
-          border-top: 8px solid #f1f1f1;
-          animation: spin 1.5s linear infinite;
-      }
+    .loader-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 8px solid #3498db;
+      border-top: 8px solid #f1f1f1;
+      animation: spin 1.5s linear infinite;
+    }
 
-      @keyframes spin {
-          0% {
-              transform: rotate(0deg);
-          }
-          100% {
-              transform: rotate(360deg);
-          }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
       }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="loader">
-      <div class="loader-icon"></div>
+    <div class="loader-icon"></div>
   </div>
 
   <script>
-      window.addEventListener("load", function() {
-          var loader = document.getElementById("loader");
-          loader.style.display = "none";
-      });
-      // Получаем элемент, в котором будет отображаться версия
-var versionElement = document.createElement('div');
-versionElement.id = 'version';
-versionElement.style.position = 'fixed';
-versionElement.style.bottom = '0';
-versionElement.style.width = '100%';
-versionElement.style.textAlign = 'center';
-versionElement.style.backgroundColor = '#f1f1f1';
-versionElement.style.padding = '10px';
-versionElement.style.fontSize = '16px';
-versionElement.style.fontWeight = 'bold';
-
-// Добавляем элемент на страницу
-document.body.appendChild(versionElement);
-
-// Выполняем GET-запрос к URL /version
-fetch('/version')
-  .then(function(response) {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error('Ошибка запроса: ' + response.status);
+    if (localStorage.nick == undefined) {
+    document.location.replace('startpage.html')
     }
-  })
-  .then(function(version) {
-    // Отображаем версию внизу экрана
-    versionElement.innerText = 'Версія: ' + version;
-  })
-  .catch(function(error) {
-    console.error(error);
-  });
+    window.addEventListener("load", function() {
+      var loader = document.getElementById("loader");
+      loader.style.display = "none";
+    });
+    // Получаем элемент, в котором будет отображаться версия
+    var versionElement = document.createElement('div');
+    versionElement.id = 'version';
+    versionElement.style.position = 'fixed';
+    versionElement.style.bottom = '0';
+    versionElement.style.width = '100%';
+    versionElement.style.textAlign = 'center';
+    versionElement.style.backgroundColor = 'rgb(194, 194, 194)';
+    versionElement.style.padding = '10px';
+    versionElement.style.fontSize = '26px';
+    versionElement.style.fontWeight = 'bold';
 
-  </script>
-  <img src="/img/play.png" onclick="ca()" id="play" />
+    // Добавляем элемент на страницу
+    document.body.appendChild(versionElement);
 
-  <input placeholder="Ведіть свій нік" id="valuenick">
-  <button onclick="registerNickname()" id="buttonsubmit">Submit</button>
+    // Выполняем GET-запрос к URL /version
+    fetch('/version')
+      .then(function(response) {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error('Ошибка запроса: ' + response.status);
+        }
+      })
+      .then(function(version) {
+        
+        // Отображаем версию внизу экрана
+        versionElement.innerText = version.slice(1);;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
 
-  <ul id="recordList"></ul>
 
-<input placeholder="Ведіть id гри" id="da">
+      function ca() {
 
-  <script>
-    function ca() {
-      if (localStorage.nick == undefined) 
-      {
-        alert('В вас нема ніка ')
-      } 
       if (document.getElementById('da').value) {
         localStorage.da = document.getElementById('da').value;
         document.location.replace('index.html')
@@ -221,78 +228,23 @@ fetch('/version')
       }
       
     }
-    function registerNickname() {
-      var input = document.getElementById("valuenick");
-      if (input.value.trim() !== "") {
-        
-        localStorage.nick = input.value;
-        alert("Ваш нік зарегистрован");
-        
-        document.location.replace('index.html')
 
-      }
-    }
+    
 
-    document.addEventListener("DOMContentLoaded", function() {
-      var input = document.getElementById("valuenick");
-      var submitButton = document.getElementById("buttonsubmit");
-
-      if (localStorage.nick === undefined || localStorage.nick.trim() === "") {
-        input.style.display = "block";
-        submitButton.style.display = "block";
-      }
-
-      function updateRecordList() {
-        fetch("https://644ab0e4a8370fb32155be44.mockapi.io/Record")
-          .then(function(response) {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error("Произошла ошибка при выполнении запроса.");
-            }
-          })
-          .then(function(data) {
-            data.sort(function(a, b) {
-              return b.record - a.record;
-            });
-
-            var recordList = document.getElementById("recordList");
-            recordList.innerHTML = ""; // Очистка списка перед обновлением
-
-            data.forEach(function(item) {
-              var listItem = document.createElement("li");
-
-              var nickText = document.createElement("p");
-              nickText.textContent = "Nick: " + item.nick;
-              listItem.appendChild(nickText);
-
-              var recordText = document.createElement("p");
-              recordText.textContent = "Record: " + item.record;
-              listItem.appendChild(recordText);
-
-              recordList.appendChild(listItem);
-            });
-          })
-          .catch(function(error) {
-            console.log("Произошла ошибка:", error);
-          });
-      }
-
-      updateRecordList(); // Вызов функции первоначальной загрузки
-
-      setInterval(updateRecordList, 1000); // Обновление каждую секунду
-    });
   </script>
-<button id="donw" onclick="downloadApk()">Завантажти додаток "Андроїд"</button>
+  <img src="/img/play.png" onclick="ca()" id="play" />
 
-<script>
-  function downloadApk() {
-    var link = document.createElement("a");
-    link.href = "../Yelt.apk";
-    link.download = "Yelt.apk";
-    link.click();
-  }
-</script>
+
+  <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
+  <input placeholder="Ведіть id гри" id="da">
+
+
+
+
+
+
+
+
 </body>
 
 </html>

@@ -13,7 +13,7 @@
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
-                    console.log('Service Worker registered:', registration);
+                   
                 })
                 .catch(error => {
                     console.log('Service Worker registration failed:', error);
@@ -85,14 +85,14 @@
     <div id="eror">
         <h1 id="few">Переверни телефон</h1>
     </div><!--copyObjectToClipboard(getPositionData())-->
-    <div   onclick="openstop()" id="Hud">
+    <div   id="Hud">
         <h1 id="level">Level:1</h1>
         <h1 id="Record">Record:1</h1>
     </div>
     
     <div onclick="closes()"  class="stopmenu" id="stopmenu">
 <div id="copy">
-        <img id="copy" onclick="copyObjectToClipboard(getPositionData());openstop()" src="../img/copy.png">
+        <img id="copy" onclick="copyObjectToClipboard(getPositionData())" src="../img/copy.png">
         <h3 id="textcopy">Copy</h3>
 </div>
 <div id="exit">
