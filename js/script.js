@@ -53,7 +53,11 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.border= ''
       block.style.borderStyle = ''
     }
-
+    else if (localStorage.skin == 4) {
+      block.style.backgroundImage = `url("/img/skins/skin_d2.png")`
+      block.style.border= ''
+      block.style.borderStyle = ''
+    }
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
@@ -167,6 +171,14 @@ function randomblock() {
 
 
 
+function getRandomElement(array) {
+  // Генерируем случайный индекс от 0 до (длина массива - 1)
+  var randomIndex = Math.floor(Math.random() * array.length);
+
+  // Возвращаем случайный элемент из массива
+  return array[randomIndex];
+}
+
 
 
 
@@ -185,7 +197,28 @@ setInterval(() => {
 
 }, 2500);
 
+let g  = ['url("/img/skins/skin_d1.png")','url("/img/skins/skin_d2.png")','url("/img/skins/skin_d4.png")','url("/img/skins/skin_d3.png")','url("/img/skins/skin_d5.png")']
 
+setInterval(() => {
+  var skin = getRandomElement(g);
+  if (skin == 'url("/img/skins/skin_d1.png")') {
+    block.style.backgroundImage = skin
+  }
+  else if (skin == 'url("/img/skins/skin_d2.png")') {
+    block.style.backgroundImage = skin
+  }
+  else if (skin == 'url("/img/skins/skin_d3.png")') {
+    block.style.backgroundImage = skin
+  }
+  else if (skin == 'url("/img/skins/skin_d4.png")') {
+    block.style.backgroundImage = skin
+  }
+  else if (skin == 'url("/img/skins/skin_d5.png")') {
+    block.style.backgroundImage = skin
+  }
+
+
+}, random(2000,4500));
 
 function daw() {
   window.f = random(1, 2);
@@ -542,7 +575,11 @@ function nextlevel() {
   stone2.style.display = "none";
   //megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
-
+  if (localStorage.skin == 4) {
+    block.style.backgroundImage = 'url("/img/skins/skin_d5.png")';
+    sleep(1000);
+    block.style.backgroundImage = 'url("/img/skins/skin_d2.png")';
+  }
   setTimeout(() => {
     enemy.style.display = "block";
     enemy1.style.display = "block";
@@ -573,6 +610,9 @@ randomblock()
 
 function nextleve() {
   Susceptibility = false;
+  if (localStorage.skin == 4) {
+    block.style.backgroundImage = 'url("/img/skins/skin_d6.png")';
+  }
   daw();
   levelcount = 1;
   stone.style.display = "none";

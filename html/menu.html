@@ -262,7 +262,11 @@ setInterval(()=>{
         skin.style.backgroundImage = `url("/img/skins/skin.png")`
 
       }
-    if (localStorage.skin >= 4) {
+      else if (localStorage.skin == 4) {
+        skin.style.backgroundImage = `url("/img/skins/skin_d2.png")`
+
+      }
+    if (localStorage.skin >= 5) {
       localStorage.skin = 1
     }
     }
