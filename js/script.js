@@ -15,8 +15,8 @@ let levelcount = 1;
 document.addEventListener("click", function(event) {
   
   // Получаем координаты клика
-  var x = event.clientX - 50;
-  var y = event.clientY - 50;
+  var x = event.clientX - 70;
+  var y = event.clientY - 60;
 
   // Плавно перемещаем блок к указанным координатам
   block.goto(x, y);
