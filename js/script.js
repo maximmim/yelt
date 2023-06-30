@@ -28,6 +28,7 @@ function sleep(ms) {
 }
 
 window.addEventListener("DOMContentLoaded", function() {
+  updaterecordtab()
   window.screenWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -268,7 +269,7 @@ function dwd() {
       setTimeout(() => {
         Imvisible = true
         dwd()
-      }, 1300);
+      }, 1200);
     }
 }
 
