@@ -58,6 +58,11 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.border= ''
       block.style.borderStyle = ''
     }
+    else if (localStorage.skin == 5) {
+      block.style.backgroundImage = `url("/img/skins/benat_close.png")`
+      block.style.border= ''
+      block.style.borderStyle = ''
+    }
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
@@ -222,6 +227,26 @@ setInterval(() => {
 
 }, random(2000,4500));
 }
+
+
+let h = []
+if (localStorage.skin == 5) {
+  setInterval(()=>{
+    block.style.backgroundImage = 'url("/img/skins/benat_open.png")'
+
+    setTimeout(()=>{
+
+      block.style.backgroundImage = 'url("/img/skins/benat_close.png")'
+    },2000)
+    
+  },random(3000,6000))
+}
+
+
+
+
+
+
 
 function daw() {
   window.f = random(1, 2);

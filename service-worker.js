@@ -26,8 +26,8 @@ const STATIC_RESOURCES = [
   '/img/skins/skin_d6.png',
   '/img/skins/playr_white.png',
   '/img/skins/skin.png',
-
-  
+  '/img/skins/benat_close.png',
+  '/img/skins/benat_open.png',
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 
