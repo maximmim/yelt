@@ -17,6 +17,16 @@
     right: 10px;
     opacity: 0.3;
   }
+  #ushki {
+    width: 100px;
+    height: 120px;
+    top: -30px;
+left: 2px;
+    position: absolute;
+
+    display: block;
+    background-image: url('/img/skins/ush.png');
+  }
   #Record {
     position: absolute;
     top: 40px;

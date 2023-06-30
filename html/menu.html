@@ -156,7 +156,7 @@
       animation: spin 1.5s linear infinite;
     }
     #skind {
-      top: 20px;
+      top: 40px;
       left: 40%;
       width: 100px;
     height: 100px;
@@ -270,7 +270,18 @@ setInterval(()=>{
         skin.style.backgroundImage = `url("/img/skins/benat_close.png")`
 
       }
-    if (localStorage.skin >= 6) {
+      else if (localStorage.skin == 6) {
+        
+        if (localStorage.record <=20) {
+          alert("Заробіть рекорд 20 щоб отримати цей скін")
+          localStorage.skin = 1
+        }
+        else {
+          skin.style.backgroundImage = `url("/img/skins/kiril_d1.png")`
+          console.log(123)
+        }
+      }
+    if (localStorage.skin >= 7) {
       localStorage.skin = 1
     }
     }

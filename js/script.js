@@ -7,7 +7,7 @@ const stone = document.getElementById("stone");
 const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
-
+let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 
@@ -45,23 +45,28 @@ window.addEventListener("DOMContentLoaded", function() {
     }
     else if (localStorage.skin == 2) {
       block.style.backgroundImage = `url("/img/skins/playr_white.png")`
-      block.style.border= ''
-      block.style.borderStyle = ''
+      block.style.border = 'none';
+      block.style.borderStyle = 'initial';
     }
     else if (localStorage.skin == 3) {
       block.style.backgroundImage = `url("/img/skins/skin.png")`
-      block.style.border= ''
-      block.style.borderStyle = ''
+      block.style.border = 'none';
+      block.style.borderStyle = 'initial';
     }
     else if (localStorage.skin == 4) {
       block.style.backgroundImage = `url("/img/skins/skin_d2.png")`
-      block.style.border= ''
-      block.style.borderStyle = ''
+      block.style.border = 'none';
+      block.style.borderStyle = 'initial';
     }
     else if (localStorage.skin == 5) {
       block.style.backgroundImage = `url("/img/skins/benat_close.png")`
-      block.style.border= ''
-      block.style.borderStyle = ''
+      block.style.border = 'none';
+      block.style.borderStyle = 'initial';
+    }
+    else if (localStorage.skin == 6) {
+      block.style.backgroundImage = `url("/img/skins/kiril_d1.png")`
+      block.style.border = 'none';
+      block.style.borderStyle = 'initial';
     }
 if (localStorage.da == undefined) {
   daw();
@@ -231,19 +236,41 @@ setInterval(() => {
 
 let h = []
 if (localStorage.skin == 5) {
+
   setInterval(()=>{
     block.style.backgroundImage = 'url("/img/skins/benat_open.png")'
 
     setTimeout(()=>{
-
       block.style.backgroundImage = 'url("/img/skins/benat_close.png")'
     },2000)
     
   },random(3000,6000))
 }
+setInterval(() => {
+  console.log(Imvisible)
+}, 1000);
 
 
+if (localStorage.skin == 6) {
 
+  var isOpend = true;
+
+dwd()
+function dwd() {
+      block.style.backgroundImage = 'url("/img/skins/kiril_d1.png")';
+      setTimeout(() => {
+        Imvisible =false
+        dawfd()
+      }, 4000);
+  }
+  function dawfd() {
+      block.style.backgroundImage = 'url("/img/skins/kiril_d2.png")';
+      setTimeout(() => {
+        Imvisible = true
+        dwd()
+      }, 2000);
+    }
+}
 
 
 
@@ -492,6 +519,8 @@ function checkCollision() {
   var stone2Rect = stone2.getBoundingClientRect();
   var endRect = finish.getBoundingClientRect();
   var enemyopenRect = enemyopen.getBoundingClientRect();
+if (Imvisible) {
+
 
   if (Susceptibility) {
     if (
@@ -541,7 +570,7 @@ function checkCollision() {
       nextlevel();
     }
   }
-
+}
   if (window.colision === true) {
     if (
       blockRect.left < enemyopenRect.right &&
