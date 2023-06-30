@@ -198,6 +198,8 @@ setInterval(() => {
 }, 2500);
 
 let g  = ['url("/img/skins/skin_d1.png")','url("/img/skins/skin_d2.png")','url("/img/skins/skin_d4.png")','url("/img/skins/skin_d3.png")','url("/img/skins/skin_d5.png")']
+if (localStorage.skin == 4) {
+
 
 setInterval(() => {
   var skin = getRandomElement(g);
@@ -219,6 +221,7 @@ setInterval(() => {
 
 
 }, random(2000,4500));
+}
 
 function daw() {
   window.f = random(1, 2);

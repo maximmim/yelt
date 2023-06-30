@@ -16,7 +16,18 @@ const STATIC_RESOURCES = [
   '/img/stone.png',
   '/img/copy.png',
   '/img/exit.png',
-  '/html/tables.html'
+  '/html/tables.html',
+
+  '/img/skins/skin_d1.png',
+  '/img/skins/skin_d2.png',
+  '/img/skins/skin_d3.png',
+  '/img/skins/skin_d4.png',
+  '/img/skins/skin_d5.png',
+  '/img/skins/skin_d6.png',
+  '/img/skins/playr_white.png',
+  '/img/skins/skin.png',
+
+  
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 
