@@ -268,7 +268,7 @@ function dwd() {
       setTimeout(() => {
         Imvisible = true
         dwd()
-      }, 2000);
+      }, 1300);
     }
 }
 
