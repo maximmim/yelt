@@ -272,9 +272,10 @@ setInterval(()=>{
       }
       else if (localStorage.skin == 6) {
         
-        if (localStorage.record <=30) {
-          alert("Заробіть рекорд 30 щоб отримати цей скін")
+        if (localStorage.record <=20) {
+          alert("Заробіть рекорд 20 щоб отримати цей скін")
           localStorage.skin = 1
+
         }
         else {
           skin.style.backgroundImage = `url("/img/skins/kiril_d1.png")`
