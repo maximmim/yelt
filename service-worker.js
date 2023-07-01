@@ -29,8 +29,10 @@ const STATIC_RESOURCES = [
   '/img/skins/benat_close.png',
   '/img/skins/benat_open.png',
   '/img/skins/kiril_d2.png',
-  '/img/skins/kiril_d1.png'
-
+  '/img/skins/kiril_d1.png',
+  '/img/skins/alina_d2.png',
+  '/img/skins/zayush.png',
+  '/img/skins/zayush_d2.png',
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 

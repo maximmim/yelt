@@ -13,14 +13,18 @@ let levelcount = 1;
 
 
 
-
-
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
-  
-  // Получаем координаты клика
-  var x = event.clientX - 70;
+  if (localStorage.skin == 5) {
+    var x = event.clientX  -25
+    var y = event.clientY -25
+  }
+  else {
+      var x = event.clientX - 70;
   var y = event.clientY - 60;
+  }
+  // Получаем координаты клика
+
 
   // Плавно перемещаем блок к указанным координатам
   block.goto(x, y);
@@ -28,7 +32,9 @@ document.addEventListener("click", function(event) {
 
 });
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  setTimeout(() => {
+    return
+  }, ms);
 }
 
 window.addEventListener("DOMContentLoaded", function() {
@@ -59,19 +65,30 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.borderStyle = 'initial';
     }
     else if (localStorage.skin == 4) {
+      block.style.backgroundImage = `url("/img/skins/alina_d2.png")`
+      document.getElementById('ushki').style.width = '123px';
+      document.getElementById('ushki').style.height = '120px';
+      document.getElementById('ushki').style.top = '-60px';
+      document.getElementById('ushki').style.left = '-10px';
+      document.getElementById('ushki').style.position = 'absolute';
+      document.getElementById('ushki').style.display = 'block';
+      document.getElementById('ushki').style.backgroundImage = "url('/img/skins/zayush.png')";
+      document.getElementById('ushki').style.backgroundSize = '116px 202px';
+
+    }
+    else if (localStorage.skin == 5) {
       block.style.backgroundImage = `url("/img/skins/skin_d2.png")`
       block.style.border = 'none';
       block.style.borderStyle = 'initial';
     }
-    else if (localStorage.skin == 5) {
+    else if (localStorage.skin == 6) {
       block.style.backgroundImage = `url("/img/skins/benat_close.png")`
       block.style.border = 'none';
       block.style.borderStyle = 'initial';
     }
-    else if (localStorage.skin == 6) {
-      block.style.backgroundImage = `url("/img/skins/kiril_d1.png")`
-      block.style.border = 'none';
-      block.style.borderStyle = 'initial';
+    else if (localStorage.skin == 7) {
+      block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
+
     }
 if (localStorage.da == undefined) {
   daw();
@@ -213,10 +230,16 @@ setInterval(() => {
 }, 2500);
 
 let g  = ['url("/img/skins/skin_d1.png")','url("/img/skins/skin_d2.png")','url("/img/skins/skin_d4.png")','url("/img/skins/skin_d3.png")','url("/img/skins/skin_d5.png")']
-if (localStorage.skin == 4) {
+if (localStorage.skin == 5) {
 
 
 setInterval(() => {
+  block.style.width = '50px'
+block.style.height = '50px'
+block.style.backgroundSize =  '50px 50px'
+block.style.borderRadius = '10px'
+document.getElementById('ushki').style.display = 'none'
+
   var skin = getRandomElement(g);
   if (skin == 'url("/img/skins/skin_d1.png")') {
     block.style.backgroundImage = skin
@@ -239,7 +262,7 @@ setInterval(() => {
 }
 
 
-if (localStorage.skin == 5) {
+if (localStorage.skin == 6) {
 
 
 dwdd()
@@ -261,7 +284,7 @@ function dwdd() {
 }
 
 
-if (localStorage.skin == 6) {
+if (localStorage.skin == 7) {
 
   var isOpend = true;
 
@@ -569,7 +592,9 @@ if (Imvisible) {
     ) {
       nextleve();
     }
-  else if (
+
+  }
+}   if (
       blockRect.left < endRect.right &&
       blockRect.right > endRect.left &&
       blockRect.top < endRect.bottom &&
@@ -579,8 +604,6 @@ if (Imvisible) {
       levelcount += 1;
       nextlevel();
     }
-  }
-}
   if (window.colision === true) {
     if (
       blockRect.left < enemyopenRect.right &&
@@ -617,7 +640,7 @@ function updateRecord(score) {
   if (score > localStorage.record) {
     localStorage.record = score;
     console.log("Новый рекорд установлен: " + localStorage.record);
-    updaterecordtab()
+    //updaterecordtab()
   } else {
     console.log("Рекорд не побит. Текущий рекорд: " + localStorage.record);
   }
@@ -642,10 +665,18 @@ function nextlevel() {
   stone2.style.display = "none";
   //megdumirec.style.display = 'none'
   enemyopen.style.display = "none";
-  if (localStorage.skin == 4) {
+  if (localStorage.skin == 5) {
     block.style.backgroundImage = 'url("/img/skins/skin_d5.png")';
-    sleep(1000);
+    setTimeout(()=>{
     block.style.backgroundImage = 'url("/img/skins/skin_d2.png")';
+  },1000)
+  }
+  if (localStorage.skin == 4) {
+    document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush_d2.png")';
+    setTimeout(()=>{
+document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush.png")';
+    },1000)
+    
   }
   setTimeout(() => {
     enemy.style.display = "block";
@@ -677,7 +708,7 @@ randomblock()
 
 function nextleve() {
   Susceptibility = false;
-  if (localStorage.skin == 4) {
+  if (localStorage.skin == 5) {
     block.style.backgroundImage = 'url("/img/skins/skin_d6.png")';
   }
   daw();
@@ -758,6 +789,7 @@ fetch('/save-data', {
     console.error('Error saving data:', error);
   });
 }
+
 
 
 //setInterval(randomblock,2000)

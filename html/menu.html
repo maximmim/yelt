@@ -43,7 +43,7 @@
 left: 2px;
     position: absolute;
 
-    display: block;
+    display: none;
     background-image: url('/img/skins/ush.png');
   }
     #button {
@@ -271,12 +271,23 @@ setInterval(()=>{
       else if (localStorage.skin == 3) {
         skin.style.backgroundImage = `url("/img/skins/skin.png")`
 
-      }
+      }      
       else if (localStorage.skin == 4) {
-        skin.style.backgroundImage = `url("/img/skins/skin_d2.png")`
-
+        skin.style.backgroundImage = `url("/img/skins/alina_d2.png")`
+  document.getElementById('ushki').style.width = '123px';
+  document.getElementById('ushki').style.height = '120px';
+  document.getElementById('ushki').style.top = '-60px';
+  document.getElementById('ushki').style.left = '-10px';
+  document.getElementById('ushki').style.position = 'absolute';
+  document.getElementById('ushki').style.display = 'block';
+  document.getElementById('ushki').style.backgroundImage = "url('/img/skins/zayush.png')";
+  document.getElementById('ushki').style.backgroundSize = '116px 202px';
       }
       else if (localStorage.skin == 5) {
+    skin.style.backgroundImage = `url("/img/skins/skin_d2.png")`
+    document.getElementById('ushki').style.display = 'none'
+      }
+      else if (localStorage.skin == 6) {
         if (localStorage.record <=10) {
           alert("Заробіть рекорд 10 щоб отримати цей скін")
           localStorage.skin = 1
@@ -289,7 +300,7 @@ setInterval(()=>{
        
 
       }
-      else if (localStorage.skin == 6) {
+      else if (localStorage.skin == 7) {
         
         if (localStorage.record <=20) {
           alert("Заробіть рекорд 20 щоб отримати цей скін")
@@ -301,7 +312,8 @@ setInterval(()=>{
           
         }
       }
-    if (localStorage.skin >= 7) {
+
+    if (localStorage.skin >= 8) {
       localStorage.skin = 1
     }
     }
