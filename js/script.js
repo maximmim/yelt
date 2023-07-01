@@ -11,6 +11,10 @@ let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 
+
+
+
+
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
   
@@ -235,21 +239,26 @@ setInterval(() => {
 }
 
 
-let h = []
 if (localStorage.skin == 5) {
 
-  setInterval(()=>{
-    block.style.backgroundImage = 'url("/img/skins/benat_open.png")'
 
-    setTimeout(()=>{
+dwdd()
+function dwdd() {
+      block.style.backgroundImage = 'url("/img/skins/benat_open.png")'
+      setTimeout(() => {
+        block.style.transition = 'transform 1s ease';
+        dawfdw()
+      }, 4000);
+  }
+  function dawfdw() {
       block.style.backgroundImage = 'url("/img/skins/benat_close.png")'
-    },2000)
-    
-  },random(3000,6000))
+      setTimeout(() => {
+        block.style.transition = 'transform 0.3s ease';
+        
+        dwdd()
+      }, 1500);
+    }
 }
-setInterval(() => {
-  console.log(Imvisible)
-}, 1000);
 
 
 if (localStorage.skin == 6) {
