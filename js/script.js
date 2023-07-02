@@ -90,6 +90,7 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
 
     }
+    updaterecordtab()
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";

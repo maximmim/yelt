@@ -7,16 +7,20 @@ const STATIC_RESOURCES = [
   '/js/script.js',
   '/img/logo.png',
   '/img/end.png',
-  '/img/enemy.png',
-  '/img/enemy_close.png',
-  '/img/enemy_open.png',
   '/img/j.png',
+
+
   '/img/logdo.png',
   '/img/play.png',
-  '/img/stone.png',
   '/img/copy.png',
   '/img/exit.png',
   '/html/tables.html',
+  '/html/createmap.html',
+  '/img/stone.png',
+  '/img/enemy.png',
+  '/img/enemy_close.png',
+  '/img/enemy_open.png',
+
 
   '/img/skins/skin_d1.png',
   '/img/skins/skin_d2.png',
@@ -33,6 +37,8 @@ const STATIC_RESOURCES = [
   '/img/skins/alina_d2.png',
   '/img/skins/zayush.png',
   '/img/skins/zayush_d2.png',
+
+
   // Добавьте другие статические ресурсы, которые вы хотите кэшировать
 ];
 
