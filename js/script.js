@@ -11,7 +11,7 @@ let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 
-
+updaterecordtab()
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
@@ -90,7 +90,7 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
 
     }
-    updaterecordtab()
+    
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
@@ -232,13 +232,13 @@ setInterval(() => {
 
 let g  = ['url("/img/skins/skin_d1.png")','url("/img/skins/skin_d2.png")','url("/img/skins/skin_d4.png")','url("/img/skins/skin_d3.png")','url("/img/skins/skin_d5.png")']
 if (localStorage.skin == 5) {
-
-
-setInterval(() => {
   block.style.width = '50px'
 block.style.height = '50px'
 block.style.backgroundSize =  '50px 50px'
 block.style.borderRadius = '10px'
+
+setInterval(() => {
+
 document.getElementById('ushki').style.display = 'none'
 
   var skin = getRandomElement(g);
