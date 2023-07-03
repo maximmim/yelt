@@ -256,12 +256,23 @@ document.getElementById('ushki').style.display = 'none'
   }
   else if (skin == 'url("/img/skins/skin_d5.png")') {
     block.style.backgroundImage = skin
+
+
   }
 
 
 }, random(2000,4500));
 }
+if (localStorage.nick === 'Аня ') {
+  alert('Ну погнали тільки є прооблемка чого тут все трясеться ?')
+  document.getElementById('f').classList.add('d');
 
+  setInterval(()=>{
+    if (levelcount >= 3) {
+      alert('Ти там жива ? АУУУУУУУУУУУУУУУУ помоему кліпає ладно за хоробрість вручаю цей скін щоб його отримати напиши отому дауну який пише це з помилками Щоб вийти потрібно закрити застосунок')
+    }
+  },10)
+}
 
 if (localStorage.skin == 6) {
 
