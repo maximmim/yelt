@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Меню</title>
+  <title>Створити крату </title>
   <link rel="manifest" href="/manifestdev.json">
   <meta name="viewport" content="width=device-width, initial-scale=0.8">
   <style>
@@ -27,7 +27,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      
       display: flex;
       justify-content: center;
       align-items: center;
@@ -68,7 +68,7 @@
       position: absolute;
       display: block;
       bottom: 0px;
-      right: 0;
+      right: 0px;
       background-image: url('/img/end.png');
     }
   </style>
@@ -77,7 +77,7 @@
   <div id="gameArea" onclick="createObject(event)">
     <!-- Здесь разместите вашу игровую область -->
   </div>
-  <div id="end"></div>
+  <div id="end" onclick="if(endpos == 1){endpos =2 }else if(endpos == 2){endpos =1 };"></div>
   <div id="menu">
     <h2>Меню</h2>
     <ul>
@@ -95,6 +95,18 @@
   </div>
 
   <script>
+    var endpos = 2;
+    setInterval(()=>{
+    if (endpos == 2) {
+      document.getElementById('end').style.left = ''
+      document.getElementById('end').style.right = '0px'
+    }
+    else if (endpos == 1) {
+      document.getElementById('end').style.right = ''
+      document.getElementById('end').style.left = '0px'
+    }
+    },1)
+
     var selectedElement = null;
     var gameObjects = [];
     var endObject = null;
@@ -170,7 +182,7 @@
       });
 
       savedData['end'] = {
-        x: 2
+        x: endpos
       };
 
       var jsonData = JSON.stringify(savedData);

@@ -236,7 +236,7 @@ if (localStorage.skin == 5) {
 block.style.height = '50px'
 block.style.backgroundSize =  '50px 50px'
 block.style.borderRadius = '10px'
-
+block.style.transition = 'transform 1.5s ease';
 setInterval(() => {
 
 document.getElementById('ushki').style.display = 'none'
@@ -605,6 +605,7 @@ if (Imvisible) {
     ) {
       Susceptibility = false;
       levelcount += 1;
+      finish.style.display = 'none'
       nextlevel();
     }
   if (window.colision === true) {
@@ -693,7 +694,7 @@ document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush
 
     enemyopen.style.display = "block";
 
-
+    finish.style.display= 'block'
     enemy.style.animationPlayState = "paused";
     enemy1.style.animationPlayState = "paused";
     Susceptibility = true;
