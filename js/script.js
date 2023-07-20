@@ -15,7 +15,7 @@ updaterecordtab()
 
 if (localStorage.nick == 'Ростік') {
   const meta = document.querySelector('meta[name="viewport"]');
-  meta.content = 'width=device-width, initial-scale=0.6'
+  meta.content = 'width=device-width, initial-scale=0.7'
   console.log('123')
 }
 
