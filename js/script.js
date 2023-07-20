@@ -13,6 +13,13 @@ let levelcount = 1;
 
 updaterecordtab()
 
+if (localStorage.nick == 'Ростік') {
+  const meta = document.querySelector('meta[name="viewport"]');
+  meta.content = 'width=device-width, initial-scale=0.6'
+  console.log('123')
+}
+
+
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
   if (localStorage.skin == 5) {

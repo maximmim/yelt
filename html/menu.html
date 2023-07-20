@@ -209,6 +209,7 @@ left: 2px;
   </div>
 
   <script>
+
     if (localStorage.nick == undefined) {
     document.location.replace('startpage.html')
     }
@@ -224,10 +225,10 @@ left: 2px;
     versionElement.style.width = '100%';
     versionElement.style.textAlign = 'center';
     versionElement.style.backgroundColor = 'rgb(194, 194, 194)';
-    versionElement.style.padding = '10px';
+    versionElement.style.padding = '15px';
     versionElement.style.fontSize = '40px';
     versionElement.style.fontWeight = 'bold';
-
+    versionElement.style.left = '0px'
     // Добавляем элемент на страницу
     document.body.appendChild(versionElement);
 
@@ -333,7 +334,11 @@ setInterval(()=>{
 
 function nextd() {
 localStorage.skin++
-}
+}    
+
+if (localStorage.nick=='Ростік') {
+      localStorage.record = 31
+    }
   </script>
   <img src="/img/play.png" onclick="ca()" id="play" />
 
