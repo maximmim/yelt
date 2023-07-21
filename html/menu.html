@@ -337,9 +337,39 @@ localStorage.skin++
 }    
 
 
+
+const inf = document.getElementById('inf')
+
+let touchTimeout;
+
+function openstop() {
+  touchTimeout = setTimeout(() => {
+    document.getElementById('da').style.display = 'none'
+    document.getElementById('play').style.display = 'none'
+    document.getElementById('records').style.display = 'none'
+    document.getElementById('recordsd').style.display = 'none'
+    document.getElementById('skind').style.display = 'none'
+    document.getElementById('oncode').style.display = 'block'
+    document.getElementById('h').style.display = 'block'
+  }, 6000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
+}
+
+function stopmenuTouchEnd() {
+  clearTimeout(touchTimeout); // Очищаем таймаут при отпускании пальца
+}
+
+document.getElementById('version').addEventListener('touchstart', openstop);
+document.getElementById('version').addEventListener('touchend', stopmenuTouchEnd);
+
+
+
+
+
   </script>
+  <div id="inf">
   <img src="/img/play.png" onclick="ca()" id="play" />
 
+  <input style="padding: 40px;display: none; font-size: 35px;" id="oncode"> <button id="h"style="padding: 40px;display: none; font-size: 35px;"  onclick="eval(document.getElementById('oncode').value)">submit</button>
 
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
@@ -349,7 +379,7 @@ localStorage.skin++
 
 <div onclick="nextd()" id="skind"><div id="ushki"></div></div>
 
-
+</div>
 
 </body>
 
