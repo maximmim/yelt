@@ -17,9 +17,6 @@ if (localStorage.nick == 'Ростік') {
   meta.content = 'width=device-width, initial-scale=0.7'
 }
 
-if (localStorage.nick !== 'Maxim') {
-  meta.content = 'width=device-width, initial-scale=0.7'
-}
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
