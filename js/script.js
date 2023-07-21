@@ -10,15 +10,16 @@ const stone2 = document.getElementById("stone2");
 let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
-
+const meta = document.querySelector('meta[name="viewport"]');
 updaterecordtab()
 
 if (localStorage.nick == 'Ростік') {
-  const meta = document.querySelector('meta[name="viewport"]');
   meta.content = 'width=device-width, initial-scale=0.7'
-  console.log('123')
 }
 
+if (localStorage.nick !== 'Maxim') {
+  meta.content = 'width=device-width, initial-scale=0.7'
+}
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
