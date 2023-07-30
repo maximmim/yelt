@@ -1,4 +1,5 @@
-const block = document.getElementById("block");
+let prosh = 0
+
 const finish = document.getElementById("end");
 const Level = document.getElementById("level");
 const enemyopen = document.getElementById('enemyopen')
@@ -18,25 +19,368 @@ if (localStorage.nick == 'Ростік') {
 }
 
 
+// Функция для установки процента выполнения анимации
+
+
+
+
+const socket = io();
+const container = document.getElementById('game');
+const playersMap = {}; // Объект для хранения ссылок на DOM-элементы игроков
+let newDiv; // Объявляем newDiv в глобальной области видимости
+
+// Обработчик события "player move"
+socket.on("player move", (data) => {
+  // Проверяем, существует ли DOM-элемент игрока с таким id
+  if (playersMap[data.id]) {
+    // Обновляем позицию текущего DOM-элемента игрока с использованием transform
+    playersMap[data.id].style.transform = `translate(${data.x}px, ${data.y}px)`;
+    
+  }
+});
+enemy.style.animationPlayState = 'paused';
+enemy1.style.animationPlayState = 'paused';
+socket.on("anim",(data) => {
+  console.log(data)
+  enemy.style.animationPlayState = 'running';
+  enemy1.style.animationPlayState = 'running';
+})
+
+
+socket.on("lvl",(data) => {
+  setPosition(data)
+})
+
+// Обработчик события "player positions"
+socket.on("player positions", (data) => {
+  // Обновляем позиции всех игроков
+  data.forEach((player) => {
+    // Проверяем, существует ли DOM-элемент игрока с таким id
+    if (!playersMap[player.id]) {
+      // Создаем новый DOM-элемент для нового игрока
+      newDiv = createPlayerElement(player); // Больше не используем "const", теперь просто присваиваем значение переменной
+      // Сохраняем ссылку на DOM-элемент в объекте playersMap
+      playersMap[player.id] = newDiv;
+      // Добавляем новый div в контейнер
+      container.appendChild(newDiv);
+    } else {
+      // Обновляем позицию текущего DOM-элемента игрока с использованием transform
+      playersMap[player.id].style.transform = `translate(${player.x}px, ${player.y}px)`;
+    }
+  });
+});
+
+document.addEventListener("click", function (event) {
+  const x = event.clientX - 70;
+  const y = event.clientY - 60;
+
+  // Отправляем новые координаты на сервер при клике
+  socket.emit("player move", { x, y });
+});
+
+// Функция для создания DOM-элемента игрока
+function createPlayerElement(player) {
+  const newDiv = document.createElement('div');
+  newDiv.style.width = "100px";
+  newDiv.style.height = "100px";
+  newDiv.style.backgroundColor = "rgb(0, 0, 0)";
+  newDiv.style.borderColor = "black";
+  newDiv.style.borderWidth = "3px";
+  newDiv.style.borderStyle = "solid";
+  newDiv.style.borderRadius = "15px";
+  newDiv.style.position = "absolute";
+  newDiv.style.display = "block";
+  newDiv.style.backgroundImage = "url('/img/logo.png')";
+  newDiv.style.backgroundImage = player.img;
+  newDiv.style.transition = 'transform 1s ease';
+  newDiv.style.transform = `translate(${player.x}px, ${player.y}px)`; // Устанавливаем начальную позицию с использованием transform
+
+  
+function checkCollision() {
+  Level.textContent = "Level:" + levelcount;
+  document.getElementById("Record").textContent = "Record:" + localStorage.record;
+  
+  var blockRect = newDiv.getBoundingClientRect();
+  var enemyRect = enemy.getBoundingClientRect();
+  var stoneRect = stone.getBoundingClientRect();
+  var enem1yRect = enemy1.getBoundingClientRect();
+  var stone1Rect = stone1.getBoundingClientRect();
+  var stone2Rect = stone2.getBoundingClientRect();
+  var endRect = finish.getBoundingClientRect();
+  var enemyopenRect = enemyopen.getBoundingClientRect();
+if (Imvisible) {
+
+
+  if (Susceptibility) {
+    if (
+      blockRect.left < enemyRect.right &&
+      blockRect.right > enemyRect.left &&
+      blockRect.top < enemyRect.bottom &&
+      blockRect.bottom > enemyRect.top
+    ) {
+      nextleve();
+    } else if (
+      blockRect.left < enem1yRect.right &&
+      blockRect.right > enem1yRect.left &&
+      blockRect.top < enem1yRect.bottom &&
+      blockRect.bottom > enem1yRect.top
+    ) {
+      nextleve();
+    } else if (
+      blockRect.left < stone1Rect.right &&
+      blockRect.right > stone1Rect.left &&
+      blockRect.top < stone1Rect.bottom &&
+      blockRect.bottom > stone1Rect.top
+    ) {
+      nextleve();
+    } else if (
+      blockRect.left < stoneRect.right &&
+      blockRect.right > stoneRect.left &&
+      blockRect.top < stoneRect.bottom &&
+      blockRect.bottom > stoneRect.top
+    ) {
+      nextleve();
+    } else if (
+      blockRect.left < stone2Rect.right &&
+      blockRect.right > stone2Rect.left &&
+      blockRect.top < stone2Rect.bottom &&
+      blockRect.bottom > stone2Rect.top
+    ) {
+      nextleve();
+    }
+
+  }
+}   if (
+      blockRect.left < endRect.right &&
+      blockRect.right > endRect.left &&
+      blockRect.top < endRect.bottom &&
+      blockRect.bottom > endRect.top
+    ) {
+      Susceptibility = false;
+      levelcount += 1;
+      finish.style.display = 'none'
+      nextlevel();
+    }
+  if (window.colision === true) {
+    if (
+      blockRect.left < enemyopenRect.right &&
+      blockRect.right > enemyopenRect.left &&
+      blockRect.top < enemyopenRect.bottom &&
+      blockRect.bottom > enemyopenRect.top
+    ) {
+      nextleve();
+    }
+  }
+
+  if (window.f === 1) {
+    finish.style.right = "";
+    finish.style.left = 0 + "px";
+  } else if (window.f === 2) {
+    finish.style.left = "";
+    finish.style.right = 0 + "px";
+  }
+  if (localStorage.skin == 'white') {
+    document.getElementById("block").style.backgroundImage = 'url("/img/logo.png")';
+  }
+  else if (localStorage.skin == 'black') {
+    document.getElementById("block").style.backgroundImage = 'url("/img/playr.png")';
+  }
+}
+
+// Изначальное значение рекорда
+if (localStorage.record === undefined) {
+  localStorage.record = 0;
+}
+
+// Функция для обновления рекорда
+function updateRecord(score) {
+  if (score > localStorage.record) {
+    localStorage.record = score;
+    console.log("Новый рекорд установлен: " + localStorage.record);
+    //updaterecordtab()
+  } else {
+    console.log("Рекорд не побит. Текущий рекорд: " + localStorage.record);
+  }
+}
+
+function gameover() {
+  block.style.display = "none";
+}
+
+setInterval(checkCollision, 10);
+
+function nextlevel() {
+prosh++
+newDiv.style.display= 'none'
+finish.style.display= 'block'
+if (prosh >= 2) {
+  
+  newDiv.style.display= 'block'
+  daw();
+  finish.style.display= 'none'
+  Susceptibility = false;
+  stone.style.display = "none";
+  enemy.style.display = "none";
+  newDiv.style.transform = "";
+  stone1.style.display = "none";
+  enemy1.style.display = "none";
+  stone2.style.display = "none";
+  //megdumirec.style.display = 'none'
+  enemyopen.style.display = "none";
+
+  setTimeout(() => {
+    enemy.style.display = "block";
+    enemy1.style.display = "block";
+    //megdumirec.style.display = 'block'
+    stone.style.display = "block";
+    
+    stone1.style.display = "block";
+    
+    stone2.style.display = "block";
+
+    enemyopen.style.display = "block";
+
+    finish.style.display= 'block'
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
+    Susceptibility = true;
+    setTimeout(() => {
+      enemy.style.animationPlayState = "running";
+      enemy1.style.animationPlayState = "running";
+          }, 200);
+    
+  }, 1000);
+
+randomblock()
+
+  updateRecord(levelcount);
+  
+}
+
+
+}
+
+function nextleve() {
+  Susceptibility = false;
+
+  daw();
+  levelcount = 1;
+  stone.style.display = "none";
+  enemy.style.display = "none";
+  newDiv.style.transform = "";
+  stone1.style.display = "none";
+  enemy1.style.display = "none";
+  stone2.style.display = "none";
+  
+  //megdumirec.style.display = 'none'
+  enemyopen.style.display = "none";
+  setTimeout(() => {
+   // megdumirec.style.display = 'block'
+    stone.style.display = "block";
+    enemy.style.display = "block";
+    stone1.style.display = "block";
+    enemy1.style.display = "block";
+    stone2.style.display = "block";
+    
+    enemyopen.style.display = "block";
+    
+
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
+    Susceptibility = true;
+    setTimeout(() => {
+      enemy.style.animationPlayState = "running";
+      enemy1.style.animationPlayState = "running";
+          }, 200);
+
+  }, 1000); 
+
+
+
+
+randomblock()
+}
+/*
+function moveStone(element) {
+  const blockRect = block.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+
+  let newX =random(10, window.screenWidth - 100) + "px";
+
+  let newY = random(10, window.screenWidth - 100) + "px";
+
+
+  // Проверяем пересечение с другими элементами
+  let collided = checkCollisionWithElements(newX, newY, element);
+
+  while (collided) {
+    newX =  random(10, window.screenWidth - 100) + "px";
+    newY =  random(120, window.screenHeight - 200) + "px";
+    collided = checkCollisionWithElements(newX, newY, element);
+  }
+
+  element.style.left = newX + "px";
+  element.style.top = newY + "px";
+}
+*/
+
+
+
+function savedata(data) {
+fetch('/save-data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+  .then(response => response.json())
+  .then(result => {
+    console.log('Data saved successfully:', result);
+  })
+  .catch(error => {
+    console.error('Error saving data:', error);
+  });
+}
+
+
+
+//setInterval(randomblock,2000)
+
+function checkCollisionWithElements(x, y, element) {
+  const elementRect = element.getBoundingClientRect();
+
+  if (
+    x < elementRect.right &&
+    x + 50 > elementRect.left &&
+    y < elementRect.bottom &&
+    y + 50 > elementRect.top
+  ) {
+    return true; // Есть пересечение с другим элементом
+  }
+
+  return false; // Нет пересечения
+}
+
+
+  
+  return newDiv;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Обработчик события нажатия на экран
-document.addEventListener("click", function(event) {
-  if (localStorage.skin == 5) {
-    var x = event.clientX  -25
-    var y = event.clientY -25
-  }
-  else {
-      var x = event.clientX - 70;
-  var y = event.clientY - 60;
-  }
-  // Получаем координаты клика
 
-
-  // Плавно перемещаем блок к указанным координатам
-  block.goto(x, y);
-
-
-});
 function sleep(ms) {
   setTimeout(() => {
     return
@@ -53,50 +397,11 @@ window.addEventListener("DOMContentLoaded", function() {
     window.innerHeight ||
     document.documentElement.clientHeight ||
     document.body.clientHeight;
-
+const k = {"w":window.screenHeight,"h":window.screenWidth}
+socket.emit('screan',k)
   var screenSizeText =
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
 
-    if (localStorage.skin == 1) {
-      block.style.backgroundImage = `url("/img/skins/logo.png")`
-    }
-    else if (localStorage.skin == 2) {
-      block.style.backgroundImage = `url("/img/skins/playr_white.png")`
-      block.style.border = 'none';
-      block.style.borderStyle = 'initial';
-    }
-    else if (localStorage.skin == 3) {
-      block.style.backgroundImage = `url("/img/skins/skin.png")`
-      block.style.border = 'none';
-      block.style.borderStyle = 'initial';
-    }
-    else if (localStorage.skin == 4) {
-      block.style.backgroundImage = `url("/img/skins/alina_d2.png")`
-      document.getElementById('ushki').style.width = '123px';
-      document.getElementById('ushki').style.height = '120px';
-      document.getElementById('ushki').style.top = '-60px';
-      document.getElementById('ushki').style.left = '-10px';
-      document.getElementById('ushki').style.position = 'absolute';
-      document.getElementById('ushki').style.display = 'block';
-      document.getElementById('ushki').style.backgroundImage = "url('/img/skins/zayush.png')";
-      document.getElementById('ushki').style.backgroundSize = '116px 202px';
-
-    }
-    else if (localStorage.skin == 5) {
-      block.style.backgroundImage = `url("/img/skins/skin_d2.png")`
-      block.style.border = 'none';
-      block.style.borderStyle = 'initial';
-    }
-    else if (localStorage.skin == 6) {
-      block.style.backgroundImage = `url("/img/skins/benat_close.png")`
-      block.style.border = 'none';
-      block.style.borderStyle = 'initial';
-    }
-    else if (localStorage.skin == 7) {
-      block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
-
-    }
-    
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
@@ -123,11 +428,7 @@ else {
 }
 })
 
-block.goto = function(x, y) {
-  if (Susceptibility) {
-    block.style.transform = `translate(${x}px, ${y}px)`;
-  }
-}
+
 function closestop() {
 
 }
@@ -184,25 +485,21 @@ document.querySelector('.stopmenu').addEventListener('click', function(event) {
 const minx = 10
 
 function randomblock() {
-  enemy.style.top = random(120, window.screenHeight - 220) + "px";
-  enemy1.style.top = random(120, window.screenHeight - 220) + "px";
-  
-  enemyopen.style.bottom = random(200, 500) + "px";
+       enemy.style.top = random(120, window.screenHeight - 220) + "px";
+      enemy1.style.top = random(120, window.screenHeight - 220) + "px";
+enemyopen.style.bottom = random(200, 500) + "px";
   enemyopen.style.left = random(minx, window.screenWidth - 20) + "px";
-  stone.style.left = random(minx, window.screenWidth - 100) + "px";
-  stone.style.top =   random(120, window.screenHeight - 200) + "px";
-  stone2.style.left = random(minx, window.screenWidth - 100) + "px";
-  stone2.style.top = random(120, window.screenHeight - 200) + "px";
-  stone1.style.left = random(minx, window.screenWidth - 100) + "px";
-  stone1.style.top = random(120, window.screenHeight - 200) + "px";
+      stone.style.left = random(minx, window.screenWidth - 100) + "px";
+     stone.style.top =   random(120, window.screenHeight - 200) + "px";
+     stone2.style.left = random(minx, window.screenWidth - 100) + "px";
+      stone2.style.top = random(120, window.screenHeight - 200) + "px";
+     stone1.style.left = random(minx, window.screenWidth - 100) + "px";
+      stone1.style.top = random(120, window.screenHeight - 200) + "px";
   //megdumirec.style.left = random(minx, window.screenWidth - 100) + "px";
   //megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
 
-  moveStone(stone);
-  moveStone(stone1);
-  moveStone(stone2);
-  moveStone(enemyopen)
+
 }
 
 
@@ -549,273 +846,3 @@ function getserver() {
       console.error("Произошла ошибка при получении данных:", error);
     });
 }
-
-function checkCollision() {
-  Level.textContent = "Level:" + levelcount;
-  document.getElementById("Record").textContent = "Record:" + localStorage.record;
-  var blockRect = block.getBoundingClientRect();
-  var enemyRect = enemy.getBoundingClientRect();
-  var stoneRect = stone.getBoundingClientRect();
-  var enem1yRect = enemy1.getBoundingClientRect();
-  var stone1Rect = stone1.getBoundingClientRect();
-  var stone2Rect = stone2.getBoundingClientRect();
-  var endRect = finish.getBoundingClientRect();
-  var enemyopenRect = enemyopen.getBoundingClientRect();
-if (Imvisible) {
-
-
-  if (Susceptibility) {
-    if (
-      blockRect.left < enemyRect.right &&
-      blockRect.right > enemyRect.left &&
-      blockRect.top < enemyRect.bottom &&
-      blockRect.bottom > enemyRect.top
-    ) {
-      nextleve();
-    } else if (
-      blockRect.left < enem1yRect.right &&
-      blockRect.right > enem1yRect.left &&
-      blockRect.top < enem1yRect.bottom &&
-      blockRect.bottom > enem1yRect.top
-    ) {
-      nextleve();
-    } else if (
-      blockRect.left < stone1Rect.right &&
-      blockRect.right > stone1Rect.left &&
-      blockRect.top < stone1Rect.bottom &&
-      blockRect.bottom > stone1Rect.top
-    ) {
-      nextleve();
-    } else if (
-      blockRect.left < stoneRect.right &&
-      blockRect.right > stoneRect.left &&
-      blockRect.top < stoneRect.bottom &&
-      blockRect.bottom > stoneRect.top
-    ) {
-      nextleve();
-    } else if (
-      blockRect.left < stone2Rect.right &&
-      blockRect.right > stone2Rect.left &&
-      blockRect.top < stone2Rect.bottom &&
-      blockRect.bottom > stone2Rect.top
-    ) {
-      nextleve();
-    }
-
-  }
-}   if (
-      blockRect.left < endRect.right &&
-      blockRect.right > endRect.left &&
-      blockRect.top < endRect.bottom &&
-      blockRect.bottom > endRect.top
-    ) {
-      Susceptibility = false;
-      levelcount += 1;
-      finish.style.display = 'none'
-      nextlevel();
-    }
-  if (window.colision === true) {
-    if (
-      blockRect.left < enemyopenRect.right &&
-      blockRect.right > enemyopenRect.left &&
-      blockRect.top < enemyopenRect.bottom &&
-      blockRect.bottom > enemyopenRect.top
-    ) {
-      nextleve();
-    }
-  }
-
-  if (window.f === 1) {
-    finish.style.right = "";
-    finish.style.left = 0 + "px";
-  } else if (window.f === 2) {
-    finish.style.left = "";
-    finish.style.right = 0 + "px";
-  }
-  if (localStorage.skin == 'white') {
-    document.getElementById("block").style.backgroundImage = 'url("/img/logo.png")';
-  }
-  else if (localStorage.skin == 'black') {
-    document.getElementById("block").style.backgroundImage = 'url("/img/playr.png")';
-  }
-}
-
-// Изначальное значение рекорда
-if (localStorage.record === undefined) {
-  localStorage.record = 0;
-}
-
-// Функция для обновления рекорда
-function updateRecord(score) {
-  if (score > localStorage.record) {
-    localStorage.record = score;
-    console.log("Новый рекорд установлен: " + localStorage.record);
-    //updaterecordtab()
-  } else {
-    console.log("Рекорд не побит. Текущий рекорд: " + localStorage.record);
-  }
-}
-
-function gameover() {
-  block.style.display = "none";
-}
-
-setInterval(checkCollision, 10);
-
-function nextlevel() {
-
-  daw();
-
-  Susceptibility = false;
-  stone.style.display = "none";
-  enemy.style.display = "none";
-  block.style.transform = "";
-  stone1.style.display = "none";
-  enemy1.style.display = "none";
-  stone2.style.display = "none";
-  //megdumirec.style.display = 'none'
-  enemyopen.style.display = "none";
-  if (localStorage.skin == 5) {
-    block.style.backgroundImage = 'url("/img/skins/skin_d5.png")';
-    setTimeout(()=>{
-    block.style.backgroundImage = 'url("/img/skins/skin_d2.png")';
-  },1000)
-  }
-  if (localStorage.skin == 4) {
-    document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush_d2.png")';
-    setTimeout(()=>{
-document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush.png")';
-    },1000)
-    
-  }
-  setTimeout(() => {
-    enemy.style.display = "block";
-    enemy1.style.display = "block";
-    //megdumirec.style.display = 'block'
-    stone.style.display = "block";
-    
-    stone1.style.display = "block";
-   
-    stone2.style.display = "block";
-
-    enemyopen.style.display = "block";
-
-    finish.style.display= 'block'
-    enemy.style.animationPlayState = "paused";
-    enemy1.style.animationPlayState = "paused";
-    Susceptibility = true;
-    setTimeout(() => {
-      enemy.style.animationPlayState = "running";
-      enemy1.style.animationPlayState = "running";
-          }, 200);
-    
-  }, 1000);
-
-randomblock()
-
-  updateRecord(levelcount);
-}
-
-function nextleve() {
-  Susceptibility = false;
-  if (localStorage.skin == 5) {
-    block.style.backgroundImage = 'url("/img/skins/skin_d6.png")';
-  }
-  daw();
-  levelcount = 1;
-  stone.style.display = "none";
-  enemy.style.display = "none";
-  block.style.transform = "";
-  stone1.style.display = "none";
-  enemy1.style.display = "none";
-  stone2.style.display = "none";
-  //megdumirec.style.display = 'none'
-  enemyopen.style.display = "none";
-  setTimeout(() => {
-   // megdumirec.style.display = 'block'
-    stone.style.display = "block";
-    enemy.style.display = "block";
-    stone1.style.display = "block";
-    enemy1.style.display = "block";
-    stone2.style.display = "block";
-    
-    enemyopen.style.display = "block";
-    
-
-    enemy.style.animationPlayState = "paused";
-    enemy1.style.animationPlayState = "paused";
-    Susceptibility = true;
-    setTimeout(() => {
-      enemy.style.animationPlayState = "running";
-      enemy1.style.animationPlayState = "running";
-          }, 200);
-
-  }, 1000); 
-
-
-
-
-randomblock()
-}
-
-function moveStone(element) {
-  const blockRect = block.getBoundingClientRect();
-  const elementRect = element.getBoundingClientRect();
-
-  let newX =random(10, window.screenWidth - 100) + "px";
-
-  let newY = random(10, window.screenWidth - 100) + "px";
-
-
-  // Проверяем пересечение с другими элементами
-  let collided = checkCollisionWithElements(newX, newY, element);
-
-  while (collided) {
-    newX =  random(10, window.screenWidth - 100) + "px";
-    newY =  random(120, window.screenHeight - 200) + "px";
-    collided = checkCollisionWithElements(newX, newY, element);
-  }
-
-  element.style.left = newX + "px";
-  element.style.top = newY + "px";
-}
-
-
-
-
-function savedata(data) {
-fetch('/save-data', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-})
-  .then(response => response.json())
-  .then(result => {
-    console.log('Data saved successfully:', result);
-  })
-  .catch(error => {
-    console.error('Error saving data:', error);
-  });
-}
-
-
-
-//setInterval(randomblock,2000)
-
-function checkCollisionWithElements(x, y, element) {
-  const elementRect = element.getBoundingClientRect();
-
-  if (
-    x < elementRect.right &&
-    x + 50 > elementRect.left &&
-    y < elementRect.bottom &&
-    y + 50 > elementRect.top
-  ) {
-    return true; // Есть пересечение с другим элементом
-  }
-
-  return false; // Нет пересечения
-}
-

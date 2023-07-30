@@ -1,16 +1,59 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const app = express();
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const path = require('path');
+const fs = require('fs');
 
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
+const PORT = process.env.PORT || 3000;
+
+app.set("port", PORT);
+app.use("/static", express.static(__dirname + "/static"));
 app.use('/service-worker.js', express.static(path.join(__dirname, 'service-worker.js')));
 
 app.get('/service-worker.js', (req, res) => {
   res.set('Service-Worker-Allowed', '/');
   res.sendFile(path.join(__dirname, 'service-worker.js'));
 });
-const filePath = 'bd.json';
 
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.redirect("/html/menu.html");
+});
+const skins = [
+  'url("/img/skins/logo.png")',
+  'url("/img/skins/skin.png")',
+  'url("/img/skins/skin_d1.png")',
+  'url("/img/skins/alina_d2.png")',
+  'url("/img/skins/playr_white.png")'
+];
+
+function getRandomElement(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+
+
+
+
+app.get("*", (req, res) => {
+  console.log(`Запрошенный адрес: ${req.url}`);
+
+  const filePath = req.url.substr(1);
+  fs.access(filePath, fs.constants.R_OK, (err) => {
+    if (err) {
+      res.status(404).send("Resource not found!");
+    } else {
+      fs.createReadStream(filePath).pipe(res);
+    }
+  });
+});
+// Обработчик для GET-запроса к URL /version
 app.get('/version', (req, res) => {
   fs.readFile('README.md', 'utf8', (err, data) => {
     if (err) {
@@ -22,84 +65,99 @@ app.get('/version', (req, res) => {
   });
 });
 
-// Проверяем наличие файла
-fs.access(filePath, fs.constants.F_OK, (err) => {
-  if (err) {
-    // Файл не существует, создаем новый
-    const data = [];
-    const jsonData = JSON.stringify(data, null, 2);
 
-    fs.writeFile(filePath, jsonData, (err) => {
-      if (err) {
-        console.error('Произошла ошибка при создании файла:', err);
-      } else {
-        console.log('Файл bd.json успешно создан.');
+
+const players = [];
+
+io.on('connection', function (socket) {
+  players.push({
+    id: socket.id,
+    x: 10, // Начальные координаты
+    y: 10, // Начальные координаты
+    img: getRandomElement(skins)
+  });
+
+
+io.emit('anim','start')
+
+  io.emit("player positions", players);
+socket.on("idlevl",(data)=>{
+io.emit('lvl',data)
+})
+
+socket.on('screan', (data) => {
+  screenHeight = data.w;
+  screenWidth = data.h;
+
+  function generateCoordinatesObject() {
+    function random(number1, number2) {
+      return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
+    }
+
+    const minx = 10;
+    var coordinatesObject = {
+      "stone": {
+        "x": random(120, screenHeight - 220),
+        "y": random(120, screenHeight - 220)
+      },
+      "stone1": {
+        "x": random(200, 500),
+        "y": random(minx, screenWidth - 20)
+      },
+      "stone2": {
+        "x": random(minx, screenWidth - 100),
+        "y": random(120, screenHeight - 200)
+      },
+      "enemy": {
+        "x": random(minx, screenWidth - 100),
+        "y": random(120, screenHeight - 200)
+      },
+      "enemy1": {
+        "x": random(minx, screenWidth - 100),
+        "y": random(120, screenHeight - 200)
+      },
+      "enemyopen": {
+        "x": random(minx, screenWidth - 100),
+        "y": random(120, screenHeight - 200)
+      },
+      "end": {
+        "x": random(1, 2)
       }
-    });
-  } else {
-    console.log('Файл bd.json уже существует.');
+    };
+
+    return coordinatesObject;
   }
+
+  var daw =  generateCoordinatesObject()
+  io.emit('lvl',daw)
 });
 
-app.use(express.json()); // Добавьте эту строку для разбора тела запроса в формате JSON
 
-app.get("/", (req, res) => {
-  res.redirect("/html/menu.html"); // Перенаправление на страницу "menu.html"
-});
 
-app.get("*", (req, res) => {
-  console.log(`Запрошенный адрес: ${req.url}`);
-
-  const filePath = req.url.substr(1);
-  fs.access(filePath, fs.constants.R_OK, (err) => {
-    if (err) {
-      res.status(404).send("Resource not found!");
-    } else {  
-
-      fs.createReadStream(filePath).pipe(res);
+  socket.on("disconnect", () => {
+    const index = players.findIndex(player => player.id === socket.id);
+    if (index !== -1) {
+      players.splice(index, 1);
+      io.emit("player positions", players);
+      
     }
   });
-});
 
-
-app.post('/save-data', (req, res) => {
-  const data = req.body;
-
-  // Save the data to the JSON file
-  fs.writeFile('bd.json', JSON.stringify(data), 'utf8', (err) => {
-    if (err) {
-      console.error('Error saving data:', err);
-      res.status(500).json({ error: 'Error saving data' });
-    } else {
-      console.log('Data saved successfully');
-      res.json({ message: 'Data saved successfully' });
+  socket.on("player move", (data) => {
+    const player = players.find(player => player.id === socket.id);
+    if (player) {
+      player.x = data.x;
+      player.y = data.y;
+      io.emit("player positions", players);
     }
   });
 });
 
 
 
-function saveDataToFile(data) {
-  const jsonData = JSON.stringify(data);
 
-  fs.writeFile('bd.json', jsonData, 'utf8', (err) => {
-    if (err) {
-      console.error('Произошла ошибка при сохранении данных:', err);
-    } else {
-      console.log('Данные успешно сохранены в файл bd.json');
-    }
-  });
-}
-
-app.post('/get', (req, res) => {
-  console.log(req.body);
-  res.json({ message: 'Данные успешно получены на сервер' });
-
-  // Функция для сохранения данных в файл bd.json
-  saveDataToFile(req.body);
+server.listen(PORT, function () {
+  console.log("start server on", PORT);
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Сервер запущен на порту ${PORT}`);
-});
+

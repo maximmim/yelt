@@ -48,6 +48,18 @@
       background-color: rgb(194, 194, 194);
       
     }
+    #coop {
+      position: absolute;
+      bottom:  10%;
+      left: 20%;
+      width: 300px;
+      height: 100px;
+      font-size: 55px;
+      border-radius: 40px;
+      border: none;
+      background-color: rgb(194, 194, 194);
+      
+    }
     #ushki {
     width: 100px;
     height: 120px;
@@ -211,7 +223,7 @@ left: 2px;
   <script>
 
     if (localStorage.nick == undefined) {
-    document.location.replace('startpage.html')
+    document.location.replace('/html/startpage.html')
     }
     window.addEventListener("load", function() {
       var loader = document.getElementById("loader");
@@ -233,7 +245,7 @@ left: 2px;
     document.body.appendChild(versionElement);
 
     // Выполняем GET-запрос к URL /versionа
-    fetch('/version')
+  /*  fetch('/version')
       .then(function(response) {
         if (response.ok) {
           return response.text();
@@ -244,13 +256,13 @@ left: 2px;
       .then(function(version) {
         
         // Отображаем версию внизу экрана
-        versionElement.innerText = version.slice(1);;
+        
       })
       .catch(function(error) {
         console.error(error);
       });
-
-
+*/
+versionElement.innerText = 'Yelt 3.3 МУЛЬТИПЛЕЕР';
       function ca() {
 
       if (document.getElementById('da').value) {
@@ -351,7 +363,7 @@ function openstop() {
     document.getElementById('skind').style.display = 'none'
     document.getElementById('oncode').style.display = 'block'
     document.getElementById('h').style.display = 'block'
-  }, 6000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
+  }, 8000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
 }
 
 function stopmenuTouchEnd() {
@@ -374,7 +386,7 @@ document.getElementById('version').addEventListener('touchend', stopmenuTouchEnd
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>
-
+  <button onclick="document.location.replace('/static/index.html')" id="coop">Coop</button>
 
 
 <div onclick="nextd()" id="skind"><div id="ushki"></div></div>
