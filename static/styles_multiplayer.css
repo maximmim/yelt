@@ -235,6 +235,8 @@ right: 0;
     text-align: center;
     
   }
+
+  
   @keyframes moveBlock {
     0% {
       left: 0;

@@ -12,7 +12,6 @@ let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 const meta = document.querySelector('meta[name="viewport"]');
-updaterecordtab()
 
 if (localStorage.nick == 'Ростік') {
   meta.content = 'width=device-width, initial-scale=0.7'
@@ -20,7 +19,6 @@ if (localStorage.nick == 'Ростік') {
 
 
 // Функция для установки процента выполнения анимации
-
 
 
 
@@ -38,13 +36,26 @@ socket.on("player move", (data) => {
     
   }
 });
-enemy.style.animationPlayState = 'paused';
-enemy1.style.animationPlayState = 'paused';
+
 socket.on("anim",(data) => {
   console.log(data)
   enemy.style.animationPlayState = 'running';
   enemy1.style.animationPlayState = 'running';
 })
+
+
+socket.on("sync",(data) => {
+  document.location.reload()
+  socket.emit('screan',window.k)
+  socket.emit('g','reload')
+})
+
+
+window.addEventListener("load", function() {
+  var loader = document.getElementById("loader");
+  loader.style.display = "none";
+  socket.emit('amind','start')
+});
 
 
 socket.on("lvl",(data) => {
@@ -94,7 +105,33 @@ function createPlayerElement(player) {
   newDiv.style.backgroundImage = player.img;
   newDiv.style.transition = 'transform 1s ease';
   newDiv.style.transform = `translate(${player.x}px, ${player.y}px)`; // Устанавливаем начальную позицию с использованием transform
+  if (localStorage.skin == 1) {
+    newDiv.style.backgroundImage = `url("/img/skins/logo.png")`
+  }
+  else if (localStorage.skin == 2) {
+    newDiv.style.backgroundImage = `url("/img/skins/playr_white.png")`
+    newDiv.style.border = 'none';
+    newDiv.style.borderStyle = 'initial';
+  }
+  else if (localStorage.skin == 3) {
+    newDiv.style.backgroundImage = `url("/img/skins/skin.png")`
+    newDiv.style.border = 'none';
+    newDiv.style.borderStyle = 'initial';
+  }
+  else if (localStorage.skin == 5) {
+    newDiv.style.backgroundImage = `url("/img/skins/skin_d2.png")`
+    newDiv.style.border = 'none';
+    newDiv.style.borderStyle = 'initial';
+  }
+  else if (localStorage.skin == 6) {
+    newDiv.style.backgroundImage = `url("/img/skins/benat_close.png")`
+    newDiv.style.border = 'none';
+    newDiv.style.borderStyle = 'initial';
+  }
+  else if (localStorage.skin == 7) {
+    newDiv.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
 
+  }
   
 function checkCollision() {
   Level.textContent = "Level:" + levelcount;
@@ -172,13 +209,6 @@ if (Imvisible) {
     }
   }
 
-  if (window.f === 1) {
-    finish.style.right = "";
-    finish.style.left = 0 + "px";
-  } else if (window.f === 2) {
-    finish.style.left = "";
-    finish.style.right = 0 + "px";
-  }
   if (localStorage.skin == 'white') {
     document.getElementById("block").style.backgroundImage = 'url("/img/logo.png")';
   }
@@ -211,17 +241,19 @@ setInterval(checkCollision, 10);
 
 function nextlevel() {
 prosh++
-newDiv.style.display= 'none'
+  newDiv.style.transform = "";
+
+ Susceptibility = false; 
 finish.style.display= 'block'
 if (prosh >= 2) {
   
-  newDiv.style.display= 'block'
-  daw();
+
+ 
   finish.style.display= 'none'
-  Susceptibility = false;
+  
   stone.style.display = "none";
   enemy.style.display = "none";
-  newDiv.style.transform = "";
+
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
@@ -251,8 +283,8 @@ if (prosh >= 2) {
     
   }, 1000);
 
-randomblock()
-
+//randomblock()
+socket.emit('screan',window.k)
   updateRecord(levelcount);
   
 }
@@ -263,7 +295,7 @@ randomblock()
 function nextleve() {
   Susceptibility = false;
 
-  daw();
+
   levelcount = 1;
   stone.style.display = "none";
   enemy.style.display = "none";
@@ -297,8 +329,8 @@ function nextleve() {
 
 
 
-
-randomblock()
+socket.emit('screan',window.k)
+//randomblock()
 }
 /*
 function moveStone(element) {
@@ -387,8 +419,13 @@ function sleep(ms) {
   }, ms);
 }
 
+
 window.addEventListener("DOMContentLoaded", function() {
-  updaterecordtab()
+
+  enemy.style.animationPlayState = 'paused';
+  enemy1.style.animationPlayState = 'paused';
+
+
   window.screenWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -397,35 +434,15 @@ window.addEventListener("DOMContentLoaded", function() {
     window.innerHeight ||
     document.documentElement.clientHeight ||
     document.body.clientHeight;
-const k = {"w":window.screenHeight,"h":window.screenWidth}
-socket.emit('screan',k)
+
+
+window.k = {"w":window.screenHeight,"h":window.screenWidth}
+socket.emit('screan',window.k)
+
+
   var screenSizeText =
     "Ширина: " + window.screenWidth + "px, Высота: " + window.screenHeight + "px";
 
-if (localStorage.da == undefined) {
-  daw();
-  enemy.style.display = "none";
-  enemy1.style.display = "block";
-  stone1.style.display = "block";
-nextleve()
-
-
-}
-else {
-
-  var obj = JSON.parse(this.localStorage.da);
-  stone.style.display = 'block'
-  stone1.style.display = 'block'
-  stone2.style.display = 'block'
-  enemy.style.display = 'block'
-  enemy1.style.display = 'block'
-  enemyopen.style.display = 'block'
-  
-  console.log('reload!!!')
-  setPosition(obj)
-  sleep(1000)
-  localStorage.removeItem('da')
-}
 })
 
 
@@ -433,40 +450,6 @@ function closestop() {
 
 }
 
-
-
-var closemenu = false
-function closes() {
-
-    closemenu = false
-      document.getElementById('stopmenu').style.display = 'none'
-      
- 
-  enemy.style.animationPlayState = "running";
-  enemy1.style.animationPlayState = "running";
-  
- Susceptibility = true
-
-  
-}
-let touchTimeout;
-
-function openstop() {
-  touchTimeout = setTimeout(() => {
-    closemenu = true;
-    Susceptibility = false;
-    document.getElementById('stopmenu').style.display = 'block';
-    enemy.style.animationPlayState = "paused";
-    enemy1.style.animationPlayState = "paused";
-  }, 1000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
-}
-
-function stopmenuTouchEnd() {
-  clearTimeout(touchTimeout); // Очищаем таймаут при отпускании пальца
-}
-
-document.getElementById('Hud').addEventListener('touchstart', openstop);
-document.getElementById('Hud').addEventListener('touchend', stopmenuTouchEnd);
 
 
 
@@ -520,7 +503,7 @@ function getRandomElement(array) {
 
 let isOpen = true;
 
-setInterval(() => {
+socket.on('stateUpdate', (isOpen) => {
   if (isOpen) {
     window.colision = true;
     enemyopen.style.backgroundImage = 'url("/img/enemy_close.png")';
@@ -528,10 +511,7 @@ setInterval(() => {
     window.colision = false;
     enemyopen.style.backgroundImage = 'url("/img/enemy_open.png")';
   }
-  isOpen = !isOpen;
-
-
-}, 2500);
+});
 
 let g  = ['url("/img/skins/skin_d1.png")','url("/img/skins/skin_d2.png")','url("/img/skins/skin_d4.png")','url("/img/skins/skin_d3.png")','url("/img/skins/skin_d5.png")']
 if (localStorage.skin == 5) {
@@ -625,74 +605,6 @@ function daw() {
 function random(number1, number2) {
   return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
 }
-function updaterecordtab() {
-
-  var nick = localStorage.getItem('nick');
-  var record = localStorage.getItem('record');
-  
-  // Проверка наличия значения в локальном хранилище
-  if (nick && record) {
-    // Создание объекта данных
-    var data = {
-      nick: nick,
-      record: record
-    };
-
-    // Отправка запроса на сервер для получения списка записей
-    fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record')
-      .then(function(response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Произошла ошибка при получении списка записей с сервера.');
-        }
-      })
-      .then(function(records) {
-        // Поиск записи с таким же ником
-        var existingRecord = records.find(function(item) {
-          return item.nick === nick;
-        });
-  
-        if (existingRecord) {
-          // Обновление значения record для существующей записи
-          existingRecord.record = record;
-  
-          // Отправка запроса на сервер для обновления записи
-          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record/' + existingRecord.id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(existingRecord)
-          });
-        } else {
-          // Запись с таким ником не найдена, создание новой записи
-          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-        }
-      })
-      .then(function(response) {
-        if (response.ok) {
-          console.log('Запись успешно добавлена или обновлена в таблице рекордов.');
-        } else {
-          console.log('Произошла ошибка при добавлении или обновлении записи в таблице рекордов.');
-        }
-      })
-      .catch(function(error) {
-        console.log('Произошла ошибка при выполнении запроса:', error);
-      });
-  } else {
-    console.log('Не удалось получить значения "nick" и "record" из локального хранилища.');
-  }
-  
-
-}
-
 
 
 
@@ -846,3 +758,38 @@ function getserver() {
       console.error("Произошла ошибка при получении данных:", error);
     });
 }
+var closemenu = false
+function closes() {
+  
+    closemenu = false
+      document.getElementById('stopmenu').style.display = 'none'
+      
+ 
+  enemy.style.animationPlayState = "running";
+  enemy1.style.animationPlayState = "running";
+  
+ Susceptibility = true
+
+  
+}
+let touchTimeout;
+
+function openstop() {
+  
+  touchTimeout = setTimeout(() => {
+    closemenu = true;
+    Susceptibility = false;
+    document.getElementById('stopmenu').style.display = 'block';
+    enemy.style.animationPlayState = "paused";
+    enemy1.style.animationPlayState = "paused";
+  }, 1000); // Установите нужное время задержки в миллисекундах (в данном случае 1 секунда)
+}
+
+function stopmenuTouchEnd() {
+  clearTimeout(touchTimeout); // Очищаем таймаут при отпускании пальца
+}
+
+document.getElementById('Hud').addEventListener('touchstart', openstop);
+document.getElementById('Hud').addEventListener('touchend', stopmenuTouchEnd);
+
+

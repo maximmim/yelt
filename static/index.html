@@ -54,12 +54,7 @@
         <div class="loader-icon"></div>
     </div>
 
-    <script>
-        window.addEventListener("load", function() {
-            var loader = document.getElementById("loader");
-            loader.style.display = "none";
-        });
-    </script>
+
       
     <div id="game" class="game">
         
@@ -82,9 +77,11 @@
     
     <div onclick="closes()"  class="stopmenu" id="stopmenu">
 <div id="copy">
-        <img id="copy" onclick="copyObjectToClipboard(getPositionData())" src="/img/copy.png">
-        <h3 id="textcopy">Copy</h3>
+        <img id="copy" onclick="const socket = io();socket.emit('sink','data')" src="/img/sync.png">
+        <h3 id="textcopy">Sync</h3>
 </div>
+
+
 <div id="exit">
      <img id="exit" onclick='document.location.replace("menu.html")'src ="/img/exit.png">
      <h3 id="textexit">Exit</h3>

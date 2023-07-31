@@ -39,7 +39,16 @@ function getRandomElement(array) {
 }
 
 
+let isOpen = true;
 
+// Функция для обновления состояния и отправки его всем клиентам
+function updateState() {
+  isOpen = !isOpen;
+  io.emit('stateUpdate', isOpen);
+}
+
+// Запускаем интервал для обновления состояния каждые 2500 миллисекунд
+setInterval(updateState, 2500);
 
 app.get("*", (req, res) => {
   console.log(`Запрошенный адрес: ${req.url}`);
@@ -77,8 +86,28 @@ io.on('connection', function (socket) {
     img: getRandomElement(skins)
   });
 
+  socket.on('amind', (data) => {
 
-io.emit('anim','start')
+    io.emit('anim','start')
+  });
+  socket.on('sink', (data) => {
+
+    io.emit('sync','start')
+  });
+  socket.on('g', (data) => {
+
+    io.emit("player positions", players);
+  });
+
+  // Обработка события синхронизации анимации от клиента к другим клиентам
+  socket.on('syncAnimation', (data) => {
+    // Отправить событие синхронизации анимации всем подключенным клиентам, кроме отправителя
+    socket.broadcast.emit('syncAnimation', data);
+  });
+
+
+  socket.emit('stateUpdate', isOpen);
+
 
   io.emit("player positions", players);
 socket.on("idlevl",(data)=>{

@@ -222,6 +222,16 @@ left: 2px;
 
   <script>
 
+function checkOnlineState(){
+    if (navigator.onLine){
+      document.location.replace('/static/index.html')
+    } else {
+    alert('Вибачте, але в даний момент ви не в мережі :('); 
+    
+    }
+  }
+
+  
     if (localStorage.nick == undefined) {
     document.location.replace('/html/startpage.html')
     }
@@ -386,7 +396,7 @@ document.getElementById('version').addEventListener('touchend', stopmenuTouchEnd
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>
-  <button onclick="document.location.replace('/static/index.html')" id="coop">Coop</button>
+  <button onclick="checkOnlineState()" id="coop">Coop</button>
 
 
 <div onclick="nextd()" id="skind"><div id="ushki"></div></div>
