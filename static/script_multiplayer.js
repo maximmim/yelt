@@ -43,11 +43,27 @@ socket.on("anim",(data) => {
   enemy1.style.animationPlayState = 'running';
 })
 
+socket.emit('lock',localStorage.skin)
 
 socket.on("sync",(data) => {
   document.location.reload()
   socket.emit('screan',window.k)
   socket.emit('g','reload')
+})
+
+socket.on('animationStatus', (paused) => {
+  const enemy = document.getElementById('enemy');
+  const enemy1 = document.getElementById('enemy1');
+  if (paused) {
+    enemy.style.animationPlayState = 'paused';
+    enemy1.style.animationPlayState = 'paused';
+  } else {
+    enemy.style.animationPlayState = 'running';
+    enemy1.style.animationPlayState = 'running';
+  }
+});
+socket.on("reload",(data) => {
+  document.location.reload()
 })
 
 
@@ -101,37 +117,12 @@ function createPlayerElement(player) {
   newDiv.style.borderRadius = "15px";
   newDiv.style.position = "absolute";
   newDiv.style.display = "block";
-  newDiv.style.backgroundImage = "url('/img/logo.png')";
+  newDiv.style.backgroundImage = player.img;
   newDiv.style.backgroundImage = player.img;
   newDiv.style.transition = 'transform 1s ease';
   newDiv.style.transform = `translate(${player.x}px, ${player.y}px)`; // Устанавливаем начальную позицию с использованием transform
-  if (localStorage.skin == 1) {
-    newDiv.style.backgroundImage = `url("/img/skins/logo.png")`
-  }
-  else if (localStorage.skin == 2) {
-    newDiv.style.backgroundImage = `url("/img/skins/playr_white.png")`
-    newDiv.style.border = 'none';
-    newDiv.style.borderStyle = 'initial';
-  }
-  else if (localStorage.skin == 3) {
-    newDiv.style.backgroundImage = `url("/img/skins/skin.png")`
-    newDiv.style.border = 'none';
-    newDiv.style.borderStyle = 'initial';
-  }
-  else if (localStorage.skin == 5) {
-    newDiv.style.backgroundImage = `url("/img/skins/skin_d2.png")`
-    newDiv.style.border = 'none';
-    newDiv.style.borderStyle = 'initial';
-  }
-  else if (localStorage.skin == 6) {
-    newDiv.style.backgroundImage = `url("/img/skins/benat_close.png")`
-    newDiv.style.border = 'none';
-    newDiv.style.borderStyle = 'initial';
-  }
-  else if (localStorage.skin == 7) {
-    newDiv.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
 
-  }
+
   
 function checkCollision() {
   Level.textContent = "Level:" + levelcount;
@@ -239,52 +230,17 @@ function gameover() {
 
 setInterval(checkCollision, 10);
 
+
+
 function nextlevel() {
 prosh++
-  newDiv.style.transform = "";
+  newDiv.style.display = "none";
 
- Susceptibility = false; 
+Susceptibility = false; 
 finish.style.display= 'block'
 if (prosh >= 2) {
-  
+  socket.emit('sink','start')
 
- 
-  finish.style.display= 'none'
-  
-  stone.style.display = "none";
-  enemy.style.display = "none";
-
-  stone1.style.display = "none";
-  enemy1.style.display = "none";
-  stone2.style.display = "none";
-  //megdumirec.style.display = 'none'
-  enemyopen.style.display = "none";
-
-  setTimeout(() => {
-    enemy.style.display = "block";
-    enemy1.style.display = "block";
-    //megdumirec.style.display = 'block'
-    stone.style.display = "block";
-    
-    stone1.style.display = "block";
-    
-    stone2.style.display = "block";
-
-    enemyopen.style.display = "block";
-
-    finish.style.display= 'block'
-    enemy.style.animationPlayState = "paused";
-    enemy1.style.animationPlayState = "paused";
-    Susceptibility = true;
-    setTimeout(() => {
-      enemy.style.animationPlayState = "running";
-      enemy1.style.animationPlayState = "running";
-          }, 200);
-    
-  }, 1000);
-
-//randomblock()
-socket.emit('screan',window.k)
   updateRecord(levelcount);
   
 }
@@ -292,44 +248,9 @@ socket.emit('screan',window.k)
 
 }
 
-function nextleve() {
-  Susceptibility = false;
-
-
-  levelcount = 1;
-  stone.style.display = "none";
-  enemy.style.display = "none";
-  newDiv.style.transform = "";
-  stone1.style.display = "none";
-  enemy1.style.display = "none";
-  stone2.style.display = "none";
+function nextleve() {  
   
-  //megdumirec.style.display = 'none'
-  enemyopen.style.display = "none";
-  setTimeout(() => {
-   // megdumirec.style.display = 'block'
-    stone.style.display = "block";
-    enemy.style.display = "block";
-    stone1.style.display = "block";
-    enemy1.style.display = "block";
-    stone2.style.display = "block";
-    
-    enemyopen.style.display = "block";
-    
-
-    enemy.style.animationPlayState = "paused";
-    enemy1.style.animationPlayState = "paused";
-    Susceptibility = true;
-    setTimeout(() => {
-      enemy.style.animationPlayState = "running";
-      enemy1.style.animationPlayState = "running";
-          }, 200);
-
-  }, 1000); 
-
-
-
-socket.emit('screan',window.k)
+  socket.emit('sink','start')
 //randomblock()
 }
 /*

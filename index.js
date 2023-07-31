@@ -74,17 +74,30 @@ app.get('/version', (req, res) => {
   });
 });
 
-
-
+let animationPaused = false;
+let imgd;
 const players = [];
+
 
 io.on('connection', function (socket) {
   players.push({
     id: socket.id,
     x: 10, // Начальные координаты
     y: 10, // Начальные координаты
-    img: getRandomElement(skins)
+    img: imgd
   });
+
+
+  socket.on('pauseAnimation', () => {
+    animationPaused = true;
+    io.emit('animationStatus', animationPaused);
+  });
+
+  socket.on('resumeAnimation', () => {
+    animationPaused = false;
+    io.emit('animationStatus', animationPaused);
+  });
+
 
   socket.on('amind', (data) => {
 
@@ -161,14 +174,34 @@ socket.on('screan', (data) => {
   io.emit('lvl',daw)
 });
 
+socket.on('lock',(data)=>{
+  if (data == 1) {
+    imgd = `url("/img/skins/logo.png")`
+  }
+  else if (data == 2) {
+    imgd = `url("/img/skins/playr_white.png")`
+  }
+  else if (data== 3) {
+    imgd = `url("/img/skins/skin.png")`
+  }
+  else if (data == 5) {
+    imgd = `url("/img/skins/skin_d2.png")`
+  }
+  else if (data== 6) {
+    imgd = `url("/img/skins/benat_close.png")`
+  }
+  else if (data == 7) {
+    imgd =  `url("/img/skins/kiril_d1.png")`
 
+  }
+})
 
   socket.on("disconnect", () => {
     const index = players.findIndex(player => player.id === socket.id);
     if (index !== -1) {
       players.splice(index, 1);
       io.emit("player positions", players);
-      
+      io.emit("reload", 'delete');
     }
   });
 
