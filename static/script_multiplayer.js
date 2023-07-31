@@ -47,14 +47,9 @@ socket.emit('lock',localStorage.skin)
 
 socket.on("sync",(data) => {
   document.location.reload()
-  socket.emit('screan',window.k)
-  socket.emit('g','reload')
+
 })
 
-Susceptibility = false 
-setTimeout(
-  Susceptibility = true 
-,300)
 
 socket.on('animationStatus', (paused) => {
   const enemy = document.getElementById('enemy');
@@ -78,6 +73,8 @@ window.addEventListener("load", function() {
   socket.emit('amind','start')
 });
 
+Imvisible = false
+setTimeout(Imvisible = true,10000)
 
 socket.on("lvl",(data) => {
   setPosition(data)

@@ -194,6 +194,9 @@ socket.on('lock',(data)=>{
     imgd =  `url("/img/skins/kiril_d1.png")`
 
   }
+  else if (!data) {
+    imgd = `url("/img/skins/logo.png")`
+  }
 })
 
   socket.on("disconnect", () => {

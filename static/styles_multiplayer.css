@@ -49,6 +49,8 @@ left: 2px;
     transition: transform 1s ease;
     display: block;
     background-image: url('/img/stone.png');
+    left: 200px;
+    top: 400px;
   }
 
 
@@ -62,6 +64,8 @@ left: 2px;
     transition: transform 1s ease;
     display: none;
     background-image: url('/img/stone.png');
+    left: 200px;
+    top: 400px;
   }
 
   #stone2 {
@@ -73,6 +77,8 @@ left: 2px;
     transition: transform 1s ease;
     display: none;
     background-image: url('/img/stone.png');
+    left: 200px;
+    top: 400px;
   }
   /* CSS стили для анимации */
   @keyframes увеличение {
@@ -146,7 +152,8 @@ left: 2px;
     border-radius: 15px;
     position: absolute;
     transition: transform 1s ease;
-    
+    left: 200px;
+    top: 400px;
     background-image: url('/img/enemy_open.png');
   }
   @keyframes shake {
