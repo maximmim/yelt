@@ -51,6 +51,11 @@ socket.on("sync",(data) => {
   socket.emit('g','reload')
 })
 
+Susceptibility = false 
+setTimeout(
+  Susceptibility = true 
+,300)
+
 socket.on('animationStatus', (paused) => {
   const enemy = document.getElementById('enemy');
   const enemy1 = document.getElementById('enemy1');
