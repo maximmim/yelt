@@ -3,7 +3,23 @@ const http = require('http');
 const socketIO = require('socket.io');
 const path = require('path');
 const fs = require('fs');
+const readline = require('readline');
 
+// Создаем интерфейс для чтения и записи из стандартного потока ввода/вывода
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+function read() {
+
+rl.question('', (text) => {
+  
+  eval(text)
+
+  read()
+});
+}
+read()
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -100,7 +116,7 @@ io.on('connection', function (socket) {
 
 
   socket.on('amind', (data) => {
-
+ 
     io.emit('anim','start')
   });
   socket.on('sink', (data) => {
