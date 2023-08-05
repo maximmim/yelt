@@ -7,7 +7,7 @@ const STATIC_RESOURCES = [
   '/js/script.js',
   '/img/logo.png',
   '/img/end.png',
-  '/img/j.png',
+
 
 
   '/img/logdo.png',
