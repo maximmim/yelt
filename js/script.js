@@ -7,6 +7,7 @@ const stone = document.getElementById("stone");
 const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
+const migd = document.getElementById("interworldly")
 let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
@@ -16,8 +17,6 @@ updaterecordtab()
 if (localStorage.nick == 'Ростік') {
   meta.content = 'width=device-width, initial-scale=0.7'
 }
-
-
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
@@ -204,6 +203,34 @@ function randomblock() {
   moveStone(stone2);
   moveStone(enemyopen)
 }
+
+
+
+
+setInterval(()=>{
+
+  migd.classList.add("mic")
+
+setTimeout(()=>{
+
+
+  var screenWidth = window.innerWidth;
+  var screenHeight = window.innerHeight;
+  
+  var blockLeft = block.offsetLeft;
+  var blockTop = block.offsetTop;
+  
+  var minLeft = blockLeft + 150;
+  var maxLeft = screenWidth - 100;
+  var minTop = blockTop + 150;
+  var maxTop = screenHeight - 200;
+  
+  migd.style.left = random(minLeft, maxLeft) + "px";
+  migd.style.top = random(minTop, maxTop) + "px";
+  migd.classList.remove('mic')
+},900)
+},random(4000,7000))
+
 
 
 
@@ -440,6 +467,10 @@ return positionData;
 }
 
 function setPosition(positionData) {
+  try {
+
+    
+  
   var elements = ['stone', 'stone1', 'stone2', 'enemy', 'enemy1', 'enemyopen','end'];
 
   elements.forEach(function(elementId) {
@@ -459,6 +490,13 @@ else {
     element.style.top = positionData[elementId].y + 'px';
 }
   });
+
+} 
+  catch (error) {
+  alert("Ваше id не вірне")
+  localStorage.removeItem("da")
+  document.location.replace("/html/menu.html")
+  }
 }
 
 
@@ -559,6 +597,8 @@ function checkCollision() {
   var stone1Rect = stone1.getBoundingClientRect();
   var stone2Rect = stone2.getBoundingClientRect();
   var endRect = finish.getBoundingClientRect();
+  var migdRect = migd.getBoundingClientRect()
+
   var enemyopenRect = enemyopen.getBoundingClientRect();
 if (Imvisible) {
 
@@ -600,7 +640,14 @@ if (Imvisible) {
     ) {
       nextleve();
     }
-
+    else if (
+      blockRect.left < migdRect.right &&
+      blockRect.right > migdRect.left &&
+      blockRect.top < migdRect.bottom &&
+      blockRect.bottom > migdRect.top
+    ) {
+      nextleve();
+    }
   }
 }   if (
       blockRect.left < endRect.right &&
@@ -672,7 +719,7 @@ function nextlevel() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-  //megdumirec.style.display = 'none'
+  migd.style.display = 'none'
   enemyopen.style.display = "none";
   if (localStorage.skin == 5) {
     block.style.backgroundImage = 'url("/img/skins/skin_d5.png")';
@@ -690,7 +737,7 @@ document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush
   setTimeout(() => {
     enemy.style.display = "block";
     enemy1.style.display = "block";
-    //megdumirec.style.display = 'block'
+    migd.style.display = 'block'
     stone.style.display = "block";
     
     stone1.style.display = "block";
@@ -728,10 +775,10 @@ function nextleve() {
   stone1.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
-  //megdumirec.style.display = 'none'
+  migd.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
-   // megdumirec.style.display = 'block'
+   migd.style.display = 'block'
     stone.style.display = "block";
     enemy.style.display = "block";
     stone1.style.display = "block";

@@ -77,7 +77,7 @@ left: 2px;
   /* CSS стили для анимации */
   @keyframes увеличение {
     0% { transform: scale(1); }
-    50% { transform: scale(2); }
+    50% { transform: scale(0.8); }
     100% { transform: scale(1); }
   }
 
@@ -91,7 +91,8 @@ left: 2px;
     border-radius: 15px;
     position: absolute;
     transition: transform 1s ease;
-    display: none;
+  top:300px;
+  left:300px;
     background-image: url('/img/j.png');
     
   }
