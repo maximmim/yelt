@@ -12,6 +12,9 @@
       "type": "image/png"
     }
   ],
+  "permissions": [
+  "notifications"
+],
   "scope": "/",
   "offline_enabled": true,
   "prefer_related_applications": false,

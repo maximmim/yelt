@@ -57,17 +57,31 @@
                 transform: rotate(360deg);
             }
         }
+        .fade-in {
+  opacity: 0; /* Изначально элементы невидимы */
+  transition: opacity 0.5s ease-in-out; /* Длительность и функция перехода */
+}
+
+.fade-in.active {
+  opacity: 1; /* По окончании анимации элемент становится видимым */
+}
     </style>
 </head>
-<body id="f">
+<body class="fade-in" id="f">
     <div id="loader">
         <div class="loader-icon"></div>
     </div>
 
     <script>
-        window.addEventListener("load", function() {
+        window.addEventListener("load", function() {                    
+const fadeElements = document.querySelectorAll(".fade-in");
+
+fadeElements.forEach(function(element) {
+  element.classList.add("active");
+});
             var loader = document.getElementById("loader");
             loader.style.display = "none";
+
         });
     </script>
       

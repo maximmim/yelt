@@ -223,14 +223,13 @@ setTimeout(()=>{
   var minLeft = blockLeft + 150;
   var maxLeft = screenWidth - 100;
   var minTop = blockTop + 150;
-  var maxTop = screenHeight - 200;
+  var maxTop = screenHeight - 100;
   
   migd.style.left = random(minLeft, maxLeft) + "px";
   migd.style.top = random(minTop, maxTop) + "px";
   migd.classList.remove('mic')
 },900)
-},random(4000,7000))
-
+},random(4000,6000))
 
 
 
@@ -357,6 +356,10 @@ function random(number1, number2) {
 }
 function updaterecordtab() {
 
+    if (navigator.onLine){
+ 
+  
+  
   var nick = localStorage.getItem('nick');
   var record = localStorage.getItem('record');
   
@@ -418,7 +421,10 @@ function updaterecordtab() {
   } else {
     console.log('Не удалось получить значения "nick" и "record" из локального хранилища.');
   }
-  
+   } else {
+    console.log("Не в мережі :(")
+    
+    } 
 
 }
 

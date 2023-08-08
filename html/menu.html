@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html>
 
 <head>
   <link rel="manifest" href="/manifest.json">
@@ -41,8 +41,8 @@
     #nick {
       position: absolute;
       top: 20%;
-      left: 30%;
-
+      left: 50%;
+      transform: translateX(-50%); /* Центрирование по горизонтали */
       font-size: 55px;
 
 
@@ -147,6 +147,7 @@ left: 2px;
       transition: transform 1s ease;
       display: block;
       right: 0;
+      
       bottom: 10px;
       background-image: url('/img/logo.png');
     }
@@ -218,7 +219,7 @@ left: 2px;
     }
     #skind {
       top: 40px;
-      left: 40%;
+      left: 50%;
       width: 100px;
     height: 100px;
     background-color: rgb(0, 0, 0);
@@ -226,8 +227,9 @@ left: 2px;
     border:3px;
     border-style: solid;
     border-radius: 15px;
+    transform: translateX(-50%); /* Центрирование по горизонтали */
     position: absolute;
-    transition: transform 1s ease;
+
     display: block;
     background-image: url('/img/logo.png');
     }
@@ -238,6 +240,22 @@ left: 2px;
       100% {
         transform: rotate(360deg);
       }
+    }
+    #version {
+  
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  text-align: center;
+  background-color: rgb(194, 194, 194);
+  padding: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  left: 50%; /* Задайте желаемое значение для горизонтального позиционирования */
+  transform: translateX(-50%); /* Центрирование по горизонтали */
+  border-radius: 30px;
+
+
     }
   </style>
 </head>
@@ -269,15 +287,7 @@ function checkOnlineState(){
     // Получаем элемент, в котором будет отображаться версия
     var versionElement = document.createElement('div');
     versionElement.id = 'version';
-    versionElement.style.position = 'fixed';
-    versionElement.style.bottom = '0';
-    versionElement.style.width = '100%';
-    versionElement.style.textAlign = 'center';
-    versionElement.style.backgroundColor = 'rgb(194, 194, 194)';
-    versionElement.style.padding = '15px';
-    versionElement.style.fontSize = '40px';
-    versionElement.style.fontWeight = 'bold';
-    versionElement.style.left = '0px'
+
     // Добавляем элемент на страницу
     document.body.appendChild(versionElement);
 
@@ -299,7 +309,7 @@ function checkOnlineState(){
         console.error(error);
       });
 */
-versionElement.innerText = 'Yelt 3.8.1';
+versionElement.innerText = 'Yelt 3.8.2';
       function ca() {
 
       if (document.getElementById('da').value) {
@@ -386,7 +396,6 @@ setInterval(()=>{
 function nextd() {
 localStorage.skin++
 }    
-
 
 
 const inf = document.getElementById('inf')
