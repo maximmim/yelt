@@ -7,7 +7,9 @@ const stone = document.getElementById("stone");
 const enemy1 = document.getElementById("enemy1");
 const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
+const bulbash = document.getElementById("bibbudd")
 const migd = document.getElementById("interworldly")
+
 let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
@@ -17,6 +19,14 @@ updaterecordtab()
 if (localStorage.nick == 'Ростік') {
   meta.content = 'width=device-width, initial-scale=0.7'
 }
+
+
+
+
+
+
+
+
 
 // Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
@@ -101,6 +111,7 @@ if (localStorage.da == undefined) {
   enemy.style.display = "none";
   enemy1.style.display = "block";
   stone1.style.display = "block";
+  
 nextleve()
 
 
@@ -194,6 +205,8 @@ function randomblock() {
   stone2.style.top = random(120, window.screenHeight - 200) + "px";
   stone1.style.left = random(minx, window.screenWidth - 100) + "px";
   stone1.style.top = random(120, window.screenHeight - 200) + "px";
+ bulbash.style.left = random(120, window.screenWidth - 100) + "px";
+ bulbash.style.top = random(120, window.screenHeight - 200) + "px";
   //megdumirec.style.left = random(minx, window.screenWidth - 100) + "px";
   //megdumirec.style.top = random(100, window.screenHeight - 200) + "px";
 
@@ -204,10 +217,24 @@ function randomblock() {
   moveStone(enemyopen)
 }
 
+function dwad() {
+  
+  document.getElementById("bibbudopt").style.backgroundColor = 'rgb(194, 84, 80)'
 
-
-
-setInterval(()=>{
+  document.getElementById("bibbudopt").classList.add("bib")
+  setTimeout(() => {
+    document.getElementById("bibbudopt").classList.remove("bib")
+    document.getElementById("bibbudopt").style.transform = "scale(1)";
+    setTimeout(()=>{
+document.getElementById("bibbudopt").style.backgroundColor = 'rgb(235, 60, 53)'
+     setTimeout(()=> {document.getElementById("bibbudopt").style.transform = "scale(0)"},1000)
+ 
+    },5000)
+  }, 3000);
+}
+var intd = setInterval(dwad,17000)
+dwad()
+setInterval(() =>{
 
   migd.classList.add("mic")
 
@@ -604,7 +631,7 @@ function checkCollision() {
   var stone2Rect = stone2.getBoundingClientRect();
   var endRect = finish.getBoundingClientRect();
   var migdRect = migd.getBoundingClientRect()
-
+  var bulbashRect = document.getElementById("bibbudopt").getBoundingClientRect()
   var enemyopenRect = enemyopen.getBoundingClientRect();
 if (Imvisible) {
 
@@ -629,6 +656,13 @@ if (Imvisible) {
       blockRect.right > stone1Rect.left &&
       blockRect.top < stone1Rect.bottom &&
       blockRect.bottom > stone1Rect.top
+    ) {
+      nextleve();
+    } else if (
+      blockRect.left < bulbashRect.right &&
+      blockRect.right > bulbashRect.left &&
+      blockRect.top < bulbashRect.bottom &&
+      blockRect.bottom > bulbashRect.top
     ) {
       nextleve();
     } else if (
@@ -723,6 +757,7 @@ function nextlevel() {
   enemy.style.display = "none";
   block.style.transform = "";
   stone1.style.display = "none";
+  bulbash.style.display = "none";
   enemy1.style.display = "none";
   stone2.style.display = "none";
   migd.style.display = 'none'
@@ -741,11 +776,13 @@ document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush
     
   }
   setTimeout(() => {
+   
+
     enemy.style.display = "block";
     enemy1.style.display = "block";
     migd.style.display = 'block'
     stone.style.display = "block";
-    
+    bulbash.style.display = "block";
     stone1.style.display = "block";
    
     stone2.style.display = "block";
@@ -780,19 +817,21 @@ function nextleve() {
   block.style.transform = "";
   stone1.style.display = "none";
   enemy1.style.display = "none";
+  bulbash.style.display = "none";
   stone2.style.display = "none";
   migd.style.display = 'none'
   enemyopen.style.display = "none";
   setTimeout(() => {
-   migd.style.display = 'block'
+    
     stone.style.display = "block";
     enemy.style.display = "block";
     stone1.style.display = "block";
     enemy1.style.display = "block";
     stone2.style.display = "block";
-    
+
+    migd.style.display = 'block'
     enemyopen.style.display = "block";
-    
+    bulbash.style.display = "block";
 
     enemy.style.animationPlayState = "paused";
     enemy1.style.animationPlayState = "paused";

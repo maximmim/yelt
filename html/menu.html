@@ -28,7 +28,8 @@
     #records {
       position: absolute;
       top: 20%;
-      left: 20%;
+      left: 50%;
+      transform: translateX(-50%); /* Центрирование по горизонтали */
       width: 300px;
       height: 120px;
       font-size: 55px;
@@ -51,7 +52,8 @@
     #recordsd {
       position: absolute;
       top: 35%;
-      left: 20%;
+      left: 50%;
+      transform: translateX(-50%); /* Центрирование по горизонтали */
       width: 300px;
       height: 130px;
       font-size: 55px;
@@ -73,13 +75,15 @@
       border: none;
       background-color: rgb(194, 194, 194);
       color: black;
+      text-align: center;
     }
     #coop {
       color: black;
       position: absolute;
       top:50%;
-      left: 10%;
-      width: 400px;
+      left: 50%;
+      transform: translateX(-50%); /* Центрирование по горизонтали */
+      width: 500px;
       height: 100px;
       font-size: 55px;
       border-radius: 40px;
@@ -123,7 +127,7 @@ left: 2px;
       display: block;
       left: 50%; /* Задайте желаемое значение для горизонтального позиционирования */
   transform: translateX(-50%); /* Центрирование по горизонтали */
-      top: 40%;
+      top: 35%;
     }
     #da {
       position: absolute;
@@ -279,6 +283,8 @@ function checkOnlineState(){
     }
   }
 
+
+
   
     if (localStorage.nick == undefined) {
     document.location.replace('/html/startpage.html')
@@ -311,8 +317,18 @@ function checkOnlineState(){
       .catch(function(error) {
         console.error(error);
       });
-*/
-versionElement.innerText = 'Yelt 3.8.2';
+*/  fetch("/package.json")
+    .then(response => response.json())
+    .then(data => {
+versionElement.innerText = "Yelt " + data.version;
+
+
+    })
+    .catch(error => {
+      console.error("Произошла ошибка при получении данных:", error);
+    });
+     window.data;
+
       function ca() {
 
       if (document.getElementById('da').value) {
@@ -462,8 +478,8 @@ function blockmain() {
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>
-  <button onclick="checkOnlineState()" id="coop">МУЛЬТИПЛЕЕР</button>
-  <button onclick="blockmain()" id="dodatkovo">Додатково</button>  
+  <button onclick="checkOnlineState()" id="coop">Мультиплеєр</button>
+  <button onclick="blockmain()" id="dodatkovo">Ще...</button>  
   <h1 id="nick">...</h1>
   <div onclick="nextd()" id="skind"><div id="ushki"></div></div>
 

@@ -49,6 +49,8 @@ function updateState() {
 // Запускаем интервал для обновления состояния каждые 2500 миллисекунд
 setInterval(updateState, 2500);
 
+
+
 app.get("*", (req, res) => {
   console.log(`Запрошенный адрес: ${req.url}`);
 
