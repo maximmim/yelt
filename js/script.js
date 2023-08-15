@@ -14,17 +14,22 @@ let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 const meta = document.querySelector('meta[name="viewport"]');
-updaterecordtab()
 
 if (localStorage.nick == 'Ростік') {
   meta.content = 'width=device-width, initial-scale=0.7'
 }
 
 
+if (localStorage.size == 1) {
+  meta.content = 'width=device-width, initial-scale=0.7'
+}
+else if (localStorage.size == 2) {
+  meta.content = 'width=device-width, initial-scale=0.8'
+}
 
-
-
-
+else if (localStorage.size == 3) {
+  meta.content = 'width=device-width, initial-scale=0.9'
+}
 
 
 
