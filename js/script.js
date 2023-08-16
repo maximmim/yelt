@@ -9,15 +9,58 @@ const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
 const bulbash = document.getElementById("bibbudd")
 const migd = document.getElementById("interworldly")
+var war;
+if (localStorage.warning == 1) {
+  war = 1
+}
+else if (localStorage.warning == 2) {
+  war = 2
+}
+else if (localStorage.warning == 3) {
+  war= 3
+}
+function post() {
+
+
+if (war == 3) {
+  stone.style.display = "block";
+  enemy.style.display = "block";
+  stone1.style.display = "block";
+  enemy1.style.display = "block";
+  stone2.style.display = "block";
+
+  migd.style.display = 'block'
+  enemyopen.style.display = "block";
+  bulbash.style.display = "block";
+}
+else if (war == 1) {
+  stone.style.display = "block";
+  enemy.style.display = "block";
+  stone1.style.display = "block";
+  enemy1.style.display = "block";
+  stone2.style.display = "block";
+  migd.style.display = 'none'
+  enemyopen.style.display = "block";
+  bulbash.style.display = "none";
+}
+else if (war == 2) {
+  stone.style.display = "block";
+  enemy.style.display = "block";
+  stone1.style.display = "block";
+  enemy1.style.display = "block";
+  stone2.style.display = "block";
+  migd.style.display = 'block'
+  enemyopen.style.display = "block";
+  bulbash.style.display = "none";
+}
+}
+
 
 let Imvisible = true
 let Susceptibility = true;
 let levelcount = 1;
 const meta = document.querySelector('meta[name="viewport"]');
 
-if (localStorage.nick == 'Ростік') {
-  meta.content = 'width=device-width, initial-scale=0.7'
-}
 
 
 if (localStorage.size == 1) {
@@ -202,8 +245,8 @@ function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   
-  enemyopen.style.bottom = random(200, 500) + "px";
-  enemyopen.style.left = random(minx, window.screenWidth - 20) + "px";
+  enemyopen.style.bottom = random(0, window.screenHeight) + "px";
+  enemyopen.style.left = random(minx, window.screenWidth - 50) + "px";
   stone.style.left = random(minx, window.screenWidth - 100) + "px";
   stone.style.top =   random(120, window.screenHeight - 200) + "px";
   stone2.style.left = random(minx, window.screenWidth - 100) + "px";
@@ -701,7 +744,18 @@ if (Imvisible) {
       blockRect.bottom > endRect.top
     ) {
       Susceptibility = false;
-      levelcount += 1;
+      if (war == 1)
+      {
+        levelcount += 0.5;
+
+      }
+      
+      else if (war == 2) {
+        levelcount += 1;
+      }
+      else if (war == 3) {
+        levelcount +=1.5
+      }
       finish.style.display = 'none'
       nextlevel();
     }
@@ -741,7 +795,6 @@ function updateRecord(score) {
   if (score > localStorage.record) {
     localStorage.record = score;
     console.log("Новый рекорд установлен: " + localStorage.record);
-    //updaterecordtab()
   } else {
     console.log("Рекорд не побит. Текущий рекорд: " + localStorage.record);
   }
@@ -781,19 +834,7 @@ document.getElementById('ushki').style.backgroundImage = 'url("/img/skins/zayush
     
   }
   setTimeout(() => {
-   
-
-    enemy.style.display = "block";
-    enemy1.style.display = "block";
-    migd.style.display = 'block'
-    stone.style.display = "block";
-    bulbash.style.display = "block";
-    stone1.style.display = "block";
-   
-    stone2.style.display = "block";
-
-    enemyopen.style.display = "block";
-
+   post()
     finish.style.display= 'block'
     enemy.style.animationPlayState = "paused";
     enemy1.style.animationPlayState = "paused";
@@ -828,16 +869,8 @@ function nextleve() {
   enemyopen.style.display = "none";
   setTimeout(() => {
     
-    stone.style.display = "block";
-    enemy.style.display = "block";
-    stone1.style.display = "block";
-    enemy1.style.display = "block";
-    stone2.style.display = "block";
-
-    migd.style.display = 'block'
-    enemyopen.style.display = "block";
-    bulbash.style.display = "block";
-
+    
+    post()
     enemy.style.animationPlayState = "paused";
     enemy1.style.animationPlayState = "paused";
     Susceptibility = true;
@@ -914,4 +947,3 @@ function checkCollisionWithElements(x, y, element) {
 
   return false; // Нет пересечения
 }
-

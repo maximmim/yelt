@@ -1,13 +1,14 @@
+
 #block {
-    width: 100px;
+width: 100px;
     height: 100px;
     background-color: rgb(0, 0, 0);
     border-color: black;
     border:3px;
     border-style: solid;
-    border-radius: 15px;
     position: absolute;
     transition: transform 1s ease;
+    border-radius: 15px;
     display: block;
     background-image: url('/img/logo.png');
   }
@@ -16,8 +17,7 @@
 
 
 
-
-
+  
   #level {
     position: absolute;
     top: 10px;
