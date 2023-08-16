@@ -756,6 +756,7 @@ if (Imvisible) {
       else if (war == 3) {
         levelcount +=1.5
       }
+      
       finish.style.display = 'none'
       nextlevel();
     }
