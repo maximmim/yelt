@@ -245,7 +245,7 @@ function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   
-  enemyopen.style.bottom = random(0, window.screenHeight) + "px";
+  enemyopen.style.bottom = random(0, window.screenHeight- 100) + "px";
   enemyopen.style.left = random(minx, window.screenWidth - 50) + "px";
   stone.style.left = random(minx, window.screenWidth - 100) + "px";
   stone.style.top =   random(120, window.screenHeight - 200) + "px";
