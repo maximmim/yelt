@@ -9,6 +9,7 @@ const stone1 = document.getElementById("stone1");
 const stone2 = document.getElementById("stone2");
 const bulbash = document.getElementById("bibbudd")
 const migd = document.getElementById("interworldly")
+const dodik = document.getElementById("dodik")
 var war;
 if (localStorage.warning == 1) {
   war = 1
@@ -18,6 +19,9 @@ else if (localStorage.warning == 2) {
 }
 else if (localStorage.warning == 3) {
   war= 3
+}
+else if (localStorage.warning == 4) {
+  war= 4
 }
 function post() {
 
@@ -53,8 +57,61 @@ else if (war == 2) {
   enemyopen.style.display = "block";
   bulbash.style.display = "none";
 }
-}
+else if (war == 4) {
+  dodik.style.display = "block";
+  stone.style.display = "none";
+  enemy.style.display = "none";
+  stone1.style.display = "none";
+  enemy1.style.display = "none";
+  stone2.style.display = "none";
+  migd.style.display = 'none';
+  enemyopen.style.display = "none";
+  bulbash.style.display = "none";
+  finish.style.display = "none";
 
+}
+} 
+
+
+
+if (war == 4) {
+  block.style.transition =  'transform 2s ease'
+setTimeout(dodik.style.transform = 'translate(200px, 500px)',1000)
+document.getElementById("Hud").style.display = "none"
+var sekonds =1 
+setInterval(()=>{
+sekonds++
+  },1000)
+  if (sekonds == 60) {
+    
+    localStorage.evulskin = true
+    document.location.replace("/html/menu.html");
+    alert("Ти виграв тримай скін )");
+
+   
+  }
+  
+  setInterval(()=>{
+    var blockRect = block.getBoundingClientRect();
+ dodik.style.transform = `translate(${blockRect.left}px, ${blockRect.top}px)`;
+
+  },3000)
+ 
+setInterval(()=>{
+  var blockRect = block.getBoundingClientRect();
+  var dodikRect = dodik.getBoundingClientRect();
+  if (
+    blockRect.left < dodikRect.right &&
+    blockRect.right > dodikRect.left &&
+    blockRect.top < dodikRect.bottom &&
+    blockRect.bottom > dodikRect.top
+  ) {
+    document.location.replace("/html/menu.html");
+   alert("Ти програв :(");
+   
+  } 
+},1)
+}
 
 let Imvisible = true
 let Susceptibility = true;
@@ -173,12 +230,14 @@ else {
   enemy.style.display = 'block'
   enemy1.style.display = 'block'
   enemyopen.style.display = 'block'
-  
+  migd.style.display = "none"
+  bulbash.style.display = "none"
   console.log('reload!!!')
   setPosition(obj)
   sleep(1000)
   localStorage.removeItem('da')
 }
+
 })
 
 block.goto = function(x, y) {

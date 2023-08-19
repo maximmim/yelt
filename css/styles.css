@@ -14,8 +14,17 @@
 
 
 
+#dodik {
+  width: 200px;
+  height: 200px;
 
-
+  background-size: 200px 200px;
+  border-radius: 15px;
+  position: absolute;
+  transition: transform 2.3s ease;
+  display: none;
+  background-image: url('/img/doidk.png');
+}
 
 
   #level {
@@ -305,6 +314,15 @@ right: 0;
     }
     100% {
         left: 0;
+      }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360);
       }
   }
   @media screen and (orientation: portrait) {

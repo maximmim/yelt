@@ -483,7 +483,7 @@ function checkOnlineState(){
       .catch(function(error) {
         console.error(error);
       });
-*/  fetch("/package.json")
+*/  fetch("/version.json")
     .then(response => response.json())
     .then(data => {
 versionElement.innerText = "Yelt " + data.version;
@@ -530,7 +530,9 @@ else if (ddws ==2) {
 else if (ddws == 3) {
   localStorage.warning = 3
 }
-
+else if (ddws == 4) {
+  localStorage.warning = 4
+}
     if (localStorage.skin == undefined) {
       localStorage.skin = 1
     }
@@ -586,10 +588,18 @@ else if (ddws == 3) {
           
         }
       }
-
-    if (localStorage.skin >= 8) {
+   else if (localStorage.skin == 8) {
+    if (localStorage.evulskin) {
+       skin.style.backgroundImage = `url("/img/skins/REMEMBOR.png")`
+    }
+   else {
+    localStorage.skin++
+   }
+    }
+    if (localStorage.skin >= 9) {
       localStorage.skin = 1
     }
+
     }
 },1)
 });
@@ -713,6 +723,7 @@ const ddw = document.getElementById("selected")
     <option value="2">Нормально</option>
     <option value="1">Класика</option>
     <option value="3">Складно</option>
+    <option value="4">МІНІ РЕЖИМ МОЖНО ВИГРАТИ СКІН</option>
   </select>
   
   <div id="primer">
@@ -734,7 +745,7 @@ const ddw = document.getElementById("selected")
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>
-  <button onclick="o()" id="editsize">Змінити розмір</button>
+  <button onclick="o()" id="editsize">Edit Size</button>
   <button onclick="checkOnlineState()" id="coop">Мультиплеєр</button>
   <button onclick="blockmain()" id="dodatkovo">Ще...</button>  
   <h1 id="nick">...</h1>
