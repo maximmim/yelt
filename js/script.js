@@ -75,7 +75,7 @@ else if (war == 4) {
 
 
 if (war == 4) {
-  block.style.transition =  'transform 2s ease'
+  block.style.transition =  'transform 1.4s ease'
 setTimeout(dodik.style.transform = 'translate(200px, 500px)',1000)
 document.getElementById("Hud").style.display = "none"
 var sekonds =1 
