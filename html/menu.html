@@ -430,6 +430,31 @@ left: 2px;
 
 
     }
+    #custom {
+      display: none;
+    }
+    #customorda {
+      top: 40px;
+      left: 15%;
+      width: 100px;
+    height: 100px;
+border: none;
+background-image: url('/img/custom/custom.png');
+    transform: translateX(-15%); /* Центрирование по горизонтали */
+    position: absolute;
+
+    }
+    #inputcolor {
+      top: 40px;
+      left: 80%;
+      width: 80px;
+    height: 100px;
+border: none;
+
+    transform: translateX(-80%); /* Центрирование по горизонтали */
+    position: absolute;
+
+    }
   </style>
 </head>
 
@@ -439,6 +464,7 @@ left: 2px;
   </div>
 
   <script>
+
 
 function checkOnlineState(){
     if (navigator.onLine){
@@ -510,15 +536,48 @@ versionElement.innerText = "Yelt " + data.version;
       
     }
 
+const setnewmorda = ()=>{
+  localStorage.morda++
+
+}
 document.addEventListener('DOMContentLoaded', function() {
      const skin = document.getElementById('skind');
      document.getElementById('nick').textContent = localStorage.nick
-
- 
-
+      let color = JSON.parse(localStorage.custom)
+      document.getElementById("inputcolor").value = color.color
+      const skininp = document.getElementById('customorda');
 
 setInterval(()=>{
 const ddws = document.getElementById("selected").value
+
+  if (!localStorage.morda) {
+  let morda = 1
+  localStorage.morda = 1
+}
+else {
+  var morda = localStorage.morda
+}
+  const skin = document.getElementById('skind');
+
+if (morda == 1) {
+  skin.style.backgroundImage = `url("/img/custom/custom.png")`
+  skininp.style.backgroundImage = `url("/img/custom/custom.png")`
+}
+else if (morda == 2) {
+  skin.style.backgroundImage = `url("/img/custom/custom_d2.png")`
+  skininp.style.backgroundImage =  `url("/img/custom/custom_d2.png")`
+}
+else if (morda == 3) {
+  skin.style.backgroundImage = `url("/img/custom/custom_d3.png")`
+  skininp.style.backgroundImage =  `url("/img/custom/custom_d3.png")`
+}
+else if (morda == 4) {
+  skin.style.backgroundImage = `url("/img/custom/custom_d4.png")`
+  skininp.style.backgroundImage =  `url("/img/custom/custom_d4.png")`
+}
+else if (morda == 5) {
+localStorage.morda = 1
+}
 
         if (ddws == 1) {
 
@@ -588,16 +647,23 @@ else if (ddws == 4) {
           
         }
       }
-   else if (localStorage.skin == 8) {
-    if (localStorage.evulskin) {
-       skin.style.backgroundImage = `url("/img/skins/REMEMBOR.png")`
+
+    else if (localStorage.skin == 8) {
+
+      setInterval(()=>{
+        var d = document.getElementById("inputcolor").value
+        localStorage.custom = JSON.stringify({"color":d})
+      },1)
+      document.getElementById("custom").style.display = "block"
+      let color = JSON.parse(localStorage.custom)
+      skin.style.backgroundColor = color.color
+
     }
-   else {
-    localStorage.skin++
-   }
-    }
+
+
     if (localStorage.skin >= 9) {
       localStorage.skin = 1
+      document.getElementById("custom").style.display = "none"
     }
 
     }
@@ -723,7 +789,6 @@ const ddw = document.getElementById("selected")
     <option value="2">Нормально</option>
     <option value="1">Класика</option>
     <option value="3">Складно</option>
-    <option value="4">МІНІ РЕЖИМ МОЖНО ВИГРАТИ СКІН</option>
   </select>
   
   <div id="primer">
@@ -750,7 +815,10 @@ const ddw = document.getElementById("selected")
   <button onclick="blockmain()" id="dodatkovo">Ще...</button>  
   <h1 id="nick">...</h1>
   <div onclick="nextd()" id="skind"><div id="ushki"></div></div>
- 
+  <div id="custom">
+    <input id="inputcolor" type="color">
+    <div onclick="setnewmorda()" id="customorda"></div>
+  </div>
   </div>
 <input type="range" min="1" max="3"  id="odvalue" class="my-slider">
 </body>

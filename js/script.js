@@ -210,7 +210,35 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
 
     }
+    else if (localStorage.skin == 7) {
+      block.style.backgroundImage =  `url("/img/skins/kiril_d1.png")`
+
+    }
+    else if (localStorage.skin == 8) {
+      let color = JSON.parse(localStorage.custom)
+      block.style.backgroundImage =  `url("/img/custom.png")`
+      block.style.backgroundColor = color.color
+      var morda = localStorage.morda
     
+
+    
+    if (morda == 1) {
+      block.style.backgroundImage = `url("/img/custom/custom.png")`
+
+    }
+    else if (morda == 2) {
+      block.style.backgroundImage = `url("/img/custom/custom_d2.png")`
+
+    }
+    else if (morda == 3) {
+      block.style.backgroundImage = `url("/img/custom/custom_d3.png")`
+
+    }
+    else if (morda == 4) {
+      block.style.backgroundImage = `url("/img/custom/custom_d4.png")`
+
+    }
+    }
 if (localStorage.da == undefined) {
   daw();
   enemy.style.display = "none";
@@ -304,8 +332,8 @@ function randomblock() {
   enemy.style.top = random(120, window.screenHeight - 220) + "px";
   enemy1.style.top = random(120, window.screenHeight - 220) + "px";
   
-  enemyopen.style.bottom = random(0, window.screenHeight- 100) + "px";
-  enemyopen.style.left = random(minx, window.screenWidth - 50) + "px";
+  enemyopen.style.bottom = random(0, window.screenHeight- 200) + "px";
+  enemyopen.style.left = random(200, window.screenWidth - 50) + "px";
   stone.style.left = random(minx, window.screenWidth - 100) + "px";
   stone.style.top =   random(120, window.screenHeight - 200) + "px";
   stone2.style.left = random(minx, window.screenWidth - 100) + "px";
