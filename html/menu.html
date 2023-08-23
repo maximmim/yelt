@@ -447,7 +447,7 @@ background-image: url('/img/custom/custom.png');
     #inputcolor {
       top: 40px;
       left: 80%;
-      width: 80px;
+      width: 100px;
     height: 100px;
 border: none;
 
@@ -464,6 +464,7 @@ border: none;
   </div>
 
   <script>
+
 
 
 function checkOnlineState(){
@@ -535,7 +536,7 @@ versionElement.innerText = "Yelt " + data.version;
     }
       
     }
-
+localStorage.skin = 8
 const setnewmorda = ()=>{
   localStorage.morda++
 
@@ -543,17 +544,20 @@ const setnewmorda = ()=>{
 document.addEventListener('DOMContentLoaded', function() {
      const skin = document.getElementById('skind');
      document.getElementById('nick').textContent = localStorage.nick
-      let color = JSON.parse(localStorage.custom)
+if (!localStorage.custom) {
+  localStorage.custom = JSON.stringify({"color":"#ffffff"})
+}
+  let color = JSON.parse(localStorage.custom)
       document.getElementById("inputcolor").value = color.color
       const skininp = document.getElementById('customorda');
 
 setInterval(()=>{
 const ddws = document.getElementById("selected").value
-
-  if (!localStorage.morda) {
+if (!localStorage.morda) {
   let morda = 1
   localStorage.morda = 1
 }
+
 else {
   var morda = localStorage.morda
 }
@@ -781,7 +785,6 @@ else if (localStorage.size == 3) {
 }
 
 const ddw = document.getElementById("selected")
-
 
 
   </script>

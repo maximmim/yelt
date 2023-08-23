@@ -39,6 +39,10 @@ const STATIC_RESOURCES = [
   '/img/skins/zayush.png',
   '/img/skins/zayush_d2.png',
   '/img/skins/REMEMBOR.png',
+  "/img/custom/custom.png",
+  "/img/custom/custom_d2.png",
+  "/img/custom/custom_d3.png",
+  "/img/custom/custom_d4.png",
 ];
 
 self.addEventListener('install', (event) => {
