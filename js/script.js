@@ -58,16 +58,7 @@ else if (war == 2) {
   bulbash.style.display = "none";
 }
 else if (war == 4) {
-  dodik.style.display = "block";
-  stone.style.display = "none";
-  enemy.style.display = "none";
-  stone1.style.display = "none";
-  enemy1.style.display = "none";
-  stone2.style.display = "none";
-  migd.style.display = 'none';
-  enemyopen.style.display = "none";
-  bulbash.style.display = "none";
-  finish.style.display = "none";
+
 
 }
 } 
@@ -75,42 +66,7 @@ else if (war == 4) {
 
 
 if (war == 4) {
-  block.style.transition =  'transform 1.4s ease'
-setTimeout(dodik.style.transform = 'translate(200px, 500px)',1000)
-document.getElementById("Hud").style.display = "none"
-var sekonds =1 
-setInterval(()=>{
-sekonds++
-  },1000)
-  if (sekonds == 60) {
-    
-    localStorage.evulskin = true
-    document.location.replace("/html/menu.html");
-    alert("Ти виграв тримай скін )");
-
-   
-  }
-  
-  setInterval(()=>{
-    var blockRect = block.getBoundingClientRect();
- dodik.style.transform = `translate(${blockRect.left}px, ${blockRect.top}px)`;
-
-  },3000)
  
-setInterval(()=>{
-  var blockRect = block.getBoundingClientRect();
-  var dodikRect = dodik.getBoundingClientRect();
-  if (
-    blockRect.left < dodikRect.right &&
-    blockRect.right > dodikRect.left &&
-    blockRect.top < dodikRect.bottom &&
-    blockRect.bottom > dodikRect.top
-  ) {
-    document.location.replace("/html/menu.html");
-   alert("Ти програв :(");
-   
-  } 
-},1)
 }
 
 let Imvisible = true
@@ -133,7 +89,6 @@ else if (localStorage.size == 3) {
 
 
 
-// Обработчик события нажатия на экран
 document.addEventListener("click", function(event) {
   if (localStorage.skin == 5) {
     var x = event.clientX  -25
@@ -151,11 +106,7 @@ document.addEventListener("click", function(event) {
 
 
 });
-function sleep(ms) {
-  setTimeout(() => {
-    return
-  }, ms);
-}
+
 
 window.addEventListener("DOMContentLoaded", function() {
   updaterecordtab()
@@ -236,6 +187,9 @@ window.addEventListener("DOMContentLoaded", function() {
     }
     else if (morda == 4) {
       block.style.backgroundImage = `url("/img/custom/custom_d4.png")`
+    }
+    else if (morda == 5) {
+      block.style.backgroundImage = `url("/img/custom/custom_d5.png")`
 
     }
     }

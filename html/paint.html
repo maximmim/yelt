@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рисовалка</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingCanvas" width="400" height="400"></canvas>
+    <button onclick="saveDrawing()">Сохранить</button>
+    <button onclick="loadDrawing()">Загрузить</button>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const context = canvas.getContext('2d');
+
+        let isDrawing = false;
+
+        // Обработчики событий для рисования
+        canvas.addEventListener('mousedown', () => {
+            isDrawing = true;
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+            context.beginPath();
+        });
+
+        canvas.addEventListener('mousemove', draw);
+
+        // Функция для рисования
+        function draw(event) {
+            if (!isDrawing) return;
+
+            context.lineWidth = 10;
+            context.lineCap = 'round';
+            context.strokeStyle = 'black';
+
+            context.lineTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+            context.stroke();
+            context.beginPath();
+            context.moveTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+        }
+
+        // Функция для сохранения рисунка
+        function saveDrawing() {
+            const drawingData = canvas.toDataURL();
+            localStorage.setItem('drawing', drawingData);
+        }
+
+        // Функция для загрузки рисунка
+        function loadDrawing() {
+            const drawingData = localStorage.getItem('drawing');
+            if (drawingData) {
+                const image = new Image();
+                image.src = drawingData;
+                image.onload = function () {
+                    context.drawImage(image, 0, 0);
+                };
+            }
+        }
+
+        // Загружаем рисунок при загрузке страницы, если он есть
+        loadDrawing();
+    </script>
+</body>
+</html>
