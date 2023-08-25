@@ -353,7 +353,7 @@ setTimeout(()=>{
 
 
 
-fetch("/p", {
+fetch("https://yelth.herokuapp.com/p", {
   method: "POST",
   body: JSON.stringify(data),
   headers: {
