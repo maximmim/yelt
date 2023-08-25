@@ -192,6 +192,10 @@ window.addEventListener("DOMContentLoaded", function() {
       block.style.backgroundImage = `url("/img/custom/custom_d5.png")`
 
     }
+    else if (morda == 6) {
+      block.style.backgroundImage = `url("/img/custom/custom_d6.png")`
+
+    }
     }
 if (localStorage.da == undefined) {
   daw();
@@ -349,7 +353,20 @@ setTimeout(()=>{
 
 
 
-
+fetch("/p", {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.message);
+  })
+  .catch(error => {
+    console.log("Произошла ошибка:", error);
+  });
 
 
 function getRandomElement(array) {

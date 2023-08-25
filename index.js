@@ -38,6 +38,12 @@ function getRandomElement(array) {
 }
 
 
+app.post('/p', (req, res) => {
+  console.log(req.body);
+  res.json({ message: 'Данные успешно получены на сервер' });
+  console.log(234234234244444444444444444444444444444444444444444)
+
+});
 let isOpen = true;
 
 // Функция для обновления состояния и отправки его всем клиентам

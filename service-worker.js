@@ -44,6 +44,7 @@ const STATIC_RESOURCES = [
   "/img/custom/custom_d3.png",
   "/img/custom/custom_d4.png",
   "/img/custom/custom_d5.png",
+  "/img/custom/custom_d6.png",
 ];
 
 self.addEventListener('install', (event) => {

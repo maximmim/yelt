@@ -201,7 +201,7 @@ right: 0;
     }
     #dodatkovo {
       position: absolute;
-      bottom:  30%;
+      bottom:  35%;
       left: 50%; /* Задайте желаемое значение для горизонтального позиционирования */
   transform: translateX(-50%); /* Центрирование по горизонтали */
       width: 300px;
@@ -302,7 +302,7 @@ left: 2px;
       display: block;
       left: 50%; /* Задайте желаемое значение для горизонтального позиционирования */
   transform: translateX(-50%); /* Центрирование по горизонтали */
-      bottom: 20%;
+      bottom: 28%;
       font-size: 25px;
       border-radius: 20px;
       font-size: 35px;
@@ -430,15 +430,34 @@ left: 2px;
 
 
     }
+    #placeholder {
+  
+  position: fixed;
+  bottom: 130px;
+  width: 80%;
+  text-align: center;
+  background-color: rgb(194, 194, 194);
+  padding: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  left: 50%; /* Задайте желаемое значение для горизонтального позиционирования */
+  transform: translateX(-50%); /* Центрирование по горизонтали */
+  border-radius: 30px;
+
+
+    }
     #custom {
       display: none;
     }
     #customorda {
       top: 40px;
       left: 15%;
+      border-color: black;
+    border:3px;
+    border-style: solid;
       width: 100px;
     height: 100px;
-border: none;
+border-radius: 15px;
 background-image: url('/img/custom/custom.png');
     transform: translateX(-15%); /* Центрирование по горизонтали */
     position: absolute;
@@ -464,8 +483,26 @@ border: none;
   </div>
 
   <script>
+  const places = [
+"У Yelt сховані скіни🤫",
+"Зазвичай кожну неділю проходить якийсь івент",
+"'АААА ЯК ДОРОБИТИ ОБНОВУ !'",
+"Yelt JavaScript 49.4% HTML 40.3% CSS 10.3% , але це не все",
+"Може я скоро добавлю валюту,ринок",
+"Весь код Yelt написан в vscode",
+"Спочатку Yelt була мультиплеєрним тестом не вдачним (",
+"В Yelt всьго 2660 строк кода main файлов",
+"Зажміть в грі Level та вас відкрижться меню",
+"Зараз в всіх гравців є вушки🥰",
 
+]
+function getRandomElement(array) {
+  // Генерируем случайный индекс от 0 до (длина массива - 1)
+  var randomIndex = Math.floor(Math.random() * array.length);
 
+  // Возвращаем случайный элемент из массива
+  return array[randomIndex];
+}
 
 function checkOnlineState(){
     if (navigator.onLine){
@@ -542,6 +579,8 @@ const setnewmorda = ()=>{
 
 }
 document.addEventListener('DOMContentLoaded', function() {
+
+  const placeholder = document.getElementById('placeholder');
      const skin = document.getElementById('skind');
      document.getElementById('nick').textContent = localStorage.nick
 if (!localStorage.custom) {
@@ -550,6 +589,12 @@ if (!localStorage.custom) {
   let color = JSON.parse(localStorage.custom)
       document.getElementById("inputcolor").value = color.color
       const skininp = document.getElementById('customorda');
+
+
+
+placeholder.textContent = getRandomElement(places)
+
+
 
 setInterval(()=>{
 const ddws = document.getElementById("selected").value
@@ -584,6 +629,10 @@ else if (morda == 5) {
   skininp.style.backgroundImage =  `url("/img/custom/custom_d5.png")`
 }
 else if (morda == 6) {
+  skin.style.backgroundImage =     `url("/img/custom/custom_d6.png")`
+  skininp.style.backgroundImage =  `url("/img/custom/custom_d6.png")`
+}
+else if (morda == 7) {
 localStorage.morda = 1
 }
 
@@ -722,6 +771,7 @@ function blockmain() {
   document.getElementById('da').style.display = "none"
   document.getElementById('dodatkovo').style.bottom = '18%'
   document.getElementById('play').style.display = "none"
+  document.getElementById('placeholder').style.display = "none"
   document.getElementById('editsize').style.display = "block"
  }
   else {
@@ -734,7 +784,8 @@ function blockmain() {
   document.getElementById('records').style.display = "none"
   document.getElementById('nick').style.display = "block"
   document.getElementById('da').style.display = "block"
-  document.getElementById('dodatkovo').style.bottom = '30%'
+  document.getElementById('placeholder').style.display = "block"
+  document.getElementById('dodatkovo').style.bottom = '35%'
   document.getElementById('play').style.display = "block"
   }
 
@@ -813,7 +864,7 @@ const ddw = document.getElementById("selected")
   <img src="/img/play.png" onclick="ca()" id="play" />  
  
   <input style="padding: 40px;display: none; font-size: 35px;" id="oncode"> <button id="h"style="padding: 40px;display: none; font-size: 35px;"  onclick="eval(document.getElementById('oncode').value)">submit</button>  
-
+    <div id="placeholder"></div>
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>
