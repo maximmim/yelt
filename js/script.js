@@ -351,22 +351,27 @@ setTimeout(()=>{
 },900)
 },random(4000,6000))
 
+const url = 'https://yelth.herokuapp.com/p';
+const dataToSend = {
+  key1: 'value1',
+  key2: 'value2',
+};
 
-
-fetch("https://yelth.herokuapp.com/p", {
-  method: "POST",
-  body: JSON.stringify(data),
+fetch(url, {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json"
-  }
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(dataToSend),
 })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data.message);
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('Успешный ответ от сервера:', data);
   })
-  .catch(error => {
-    console.log("Произошла ошибка:", error);
+  .catch((error) => {
+    console.error('Ошибка при отправке запроса:', error);
   });
+
 
 
 function getRandomElement(array) {

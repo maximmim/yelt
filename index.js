@@ -6,8 +6,14 @@ const fs = require('fs');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+const cors = require('cors'); // Добавляем cors
 
 const PORT = process.env.PORT || 3000;
+
+// Разрешаем запросы с http://localhost:3000
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
 
 app.set("port", PORT);
 app.use("/static", express.static(__dirname + "/static"));
@@ -17,6 +23,8 @@ app.get('/service-worker.js', (req, res) => {
   res.set('Service-Worker-Allowed', '/');
   res.sendFile(path.join(__dirname, 'service-worker.js'));
 });
+
+// Остальной код вашего приложения...
 
 
 app.use(express.json());
@@ -38,7 +46,7 @@ function getRandomElement(array) {
 }
 
 
-app.post('/p', (req, res) => {
+app.post('https://yelth.herokuapp.com/p', (req, res) => {
   console.log(req.body);
   res.json({ message: 'Данные успешно получены на сервер' });
   console.log(234234234244444444444444444444444444444444444444444)
