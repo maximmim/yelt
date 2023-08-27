@@ -76,6 +76,10 @@ fs.readFile('records.json', 'utf8', (err, data) => {
     return;
   }
 
+
+  // Теперь records - это JavaScript-объект, и вы можете добавить новые данные к нему
+  records.push(newData);
+
   // Запишите обновленные данные обратно в файл
   fs.writeFile('Records.json', JSON.stringify(records), (err) => {
     if (err) {
