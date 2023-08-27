@@ -471,79 +471,77 @@ function daw() {
 function random(number1, number2) {
   return Math.floor(Math.random() * (number2 - number1 + 1)) + number1;
 }
+
+
+
+
 function updaterecordtab() {
+  if (navigator.onLine) {
+    var nick = localStorage.getItem('nick');
+    var record = localStorage.getItem('record');
 
-    if (navigator.onLine){
- 
-  
-  
-  var nick = localStorage.getItem('nick');
-  var record = localStorage.getItem('record');
-  
-  if (nick && record) {
+    if (nick && record) {
+      var data = {
+        nick: nick,
+        record: record
+      };
 
-    var data = {
-      nick: nick,
-      record: record
-    };
-
-    // Отправка запроса на сервер для получения списка записей
-    fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record')
-      .then(function(response) {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Произошла ошибка при получении списка записей с сервера.');
-        }
-      })
-      .then(function(records) {
-        // Поиск записи с таким же ником
-        var existingRecord = records.find(function(item) {
-          return item.nick === nick;
+      // Отправка запроса на сервер для получения списка записей
+      fetch('https://yelth.herokuapp.com/Records.json') // Обратите внимание на .json
+        .then(function(response) {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Произошла ошибка при получении списка записей с сервера.');
+          }
+        })
+        .then(function(records) {
+          // Поиск записи с таким же ником
+          var existingRecord = records.find(function(item) {
+            return item.nick === nick;
+          });
+  
+          if (existingRecord) {
+            // Обновление значения record для существующей записи
+            existingRecord.record = record;
+  
+            // Отправка запроса на сервер для обновления записи
+            return fetch('https://yelth.herokuapp.com/Records/' + existingRecord.id, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(existingRecord)
+            });
+          } else {
+            // Запись с таким ником не найдена, создание новой записи
+            return fetch('https://yelth.herokuapp.com/Records', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+          }
+        })
+        .then(function(response) {
+          if (response.ok) {
+            console.log('Запись успешно добавлена или обновлена в таблице рекордов.');
+          } else {
+            console.log('Произошла ошибка при добавлении или обновлении записи в таблице рекордов.');
+          }
+        })
+        .catch(function(error) {
+          console.log('Произошла ошибка при выполнении запроса:', error);
         });
-  
-        if (existingRecord) {
-          // Обновление значения record для существующей записи
-          existingRecord.record = record;
-  
-          // Отправка запроса на сервер для обновления записи
-          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record/' + existingRecord.id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(existingRecord)
-          });
-        } else {
-          // Запись с таким ником не найдена, создание новой записи
-          return fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Record', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-        }
-      })
-      .then(function(response) {
-        if (response.ok) {
-          console.log('Запись успешно добавлена или обновлена в таблице рекордов.');
-        } else {
-          console.log('Произошла ошибка при добавлении или обновлении записи в таблице рекордов.');
-        }
-      })
-      .catch(function(error) {
-        console.log('Произошла ошибка при выполнении запроса:', error);
-      });
+    } else {
+      console.log('Не удалось получить значения "nick" и "record" из локального хранилища.');
+    }
   } else {
-    console.log('Не удалось получить значения "nick" и "record" из локального хранилища.');
+    console.log("Не в сети :(");
   }
-   } else {
-    console.log("Не в мережі :(")
-    
-    } 
-
 }
+
 
 
 
@@ -662,7 +660,7 @@ else {
    
 
 
-const url = 'https://yelth.herokuapp.com/Records.json';
+const url = 'https://yelth.herokuapp.com/p';
 const dataToSend = {
   key1: 'value1',
   key2: 'value2',
@@ -703,13 +701,13 @@ eval(data[0].js)
   
 //getserver();
 
-function getserver() {
-  fetch("/bd.json")
+
+  fetch("/Records.json")
     .then(response => response.json())
     .then(data => {
-      data.map(d => {
-        console.log(d.name);
-      });
+
+        console.log(data);
+      
       // Добавьте здесь свой код для обработки полученных данных
 
       // Обновите позиционирование stone2
@@ -718,7 +716,7 @@ function getserver() {
     .catch(error => {
       console.error("Произошла ошибка при получении данных:", error);
     });
-}
+
 
 function checkCollision() {
   Level.textContent = "Level:" + levelcount;
