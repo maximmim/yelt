@@ -351,27 +351,6 @@ setTimeout(()=>{
 },900)
 },random(4000,6000))
 
-const url = 'https://yelth.herokuapp.com/p';
-const dataToSend = {
-  key1: 'value1',
-  key2: 'value2',
-};
-
-fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(dataToSend),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    console.log('Успешный ответ от сервера:', data);
-  })
-  .catch((error) => {
-    console.error('Ошибка при отправке запроса:', error);
-  });
-
 
 
 function getRandomElement(array) {
@@ -683,24 +662,34 @@ else {
    
 
 
+const url = 'https://yelth.herokuapp.com/Records.json';
+const dataToSend = {
+  key1: 'value1',
+  key2: 'value2',
+};
 
+sendserver(dataToSend)
 
 
 function sendserver(data) {
-  fetch("/get", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
+  
+  
+  fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('Успешный ответ от сервера:', data);
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data.message);
-    })
-    .catch(error => {
-      console.log("Произошла ошибка:", error);
-    });
+  .catch((error) => {
+    console.error('Ошибка при отправке запроса:', error);
+  });
+
+
 }
 /*
 fetch("https://644ab0e4a8370fb32155be44.mockapi.io/code")    .then(response => response.json())

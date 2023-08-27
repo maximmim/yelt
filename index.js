@@ -46,7 +46,7 @@ function getRandomElement(array) {
 }
 
 
-app.post('https://yelth.herokuapp.com/p', (req, res) => {
+app.post('/p', (req, res) => {
   console.log(req.body);
   res.json({ message: 'Данные успешно получены на сервер' });
   console.log(234234234244444444444444444444444444444444444444444)
