@@ -59,25 +59,29 @@ app.get('/Recordsget', (req, res) => {
 });
 app.post('/Recordspost', (req, res) => {
   // Получите данные из запроса и добавьте их к существующим данным в файле
-  const newData = req.body; // Предполагается, что данные передаются в формате JSON
-  fs.readFile('records.json', 'utf8', (err, data) => {
+
+// Прочитайте существующие данные из файла
+fs.readFile('records.json', 'utf8', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  let records = JSON.parse(data);
+
+  // Теперь records - это JavaScript-объект, и вы можете добавить новые данные к нему
+  records.push(newData);
+
+  // Запишите обновленные данные обратно в файл
+  fs.writeFile('Records.json', JSON.stringify(records), (err) => {
     if (err) {
       console.error(err);
-      res.status(500).json({ error: 'Ошибка сервера' });
     } else {
-      const records = JSON.parse(data);
-      records.push(newData); // Добавьте новые данные
-      // Теперь записать обновленные данные обратно в файл
-      fs.writeFile('records.json', JSON.stringify(records), (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).json({ error: 'Ошибка сервера' });
-        } else {
-          res.json({ message: 'Данные успешно добавлены' });
-        }
-      });
+      console.log('Данные успешно добавлены в Records.json');
     }
   });
+});
+
 });
 app.put('/Recordsput/:id', (req, res) => {
   // Получите идентификатор и новые данные из запроса
