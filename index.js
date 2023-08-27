@@ -6,14 +6,8 @@ const fs = require('fs');
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const cors = require('cors'); // Добавляем cors
 
 const PORT = process.env.PORT || 3000;
-
-// Разрешаем запросы с http://localhost:3000
-app.use(cors({
-  origin: 'http://localhost:3000',
-}));
 
 app.set("port", PORT);
 app.use("/static", express.static(__dirname + "/static"));
@@ -23,8 +17,6 @@ app.get('/service-worker.js', (req, res) => {
   res.set('Service-Worker-Allowed', '/');
   res.sendFile(path.join(__dirname, 'service-worker.js'));
 });
-
-// Остальной код вашего приложения...
 
 
 app.use(express.json());
@@ -45,88 +37,7 @@ function getRandomElement(array) {
   return array[randomIndex];
 }
 
-app.get('/Recordsget', (req, res) => {
-  // Считайте данные из файла и отправьте их в ответе
-  fs.readFile('records.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Ошибка сервера' });
-    } else {
-      const records = JSON.parse(data);
-      res.json(records);
-    }
-  });
-});
-app.post('/Recordspost', (req, res) => {
-  // Получите данные из запроса и добавьте их к существующим данным в файле
 
-// Прочитайте существующие данные из файла
-fs.readFile('records.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  const newData = req.body;
-  let records;
-
-  try {
-    records = JSON.parse(data); // Попытка парсинга JSON
-  } catch (error) {
-    console.error('Ошибка парсинга JSON:', error);
-    return;
-  }
-
-
-  // Теперь records - это JavaScript-объект, и вы можете добавить новые данные к нему
-  records.push(newData);
-
-  // Запишите обновленные данные обратно в файл
-  fs.writeFile('Records.json', JSON.stringify(records), (err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log('Данные успешно добавлены в Records.json');
-    }
-  });
-});
-
-});
-app.put('/Recordsput/:id', (req, res) => {
-  // Получите идентификатор и новые данные из запроса
-  const id = req.params.id;
-  const updatedData = req.body; // Предполагается, что данные передаются в формате JSON
-  fs.readFile('records.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Ошибка сервера' });
-    } else {
-      const records = JSON.parse(data);
-      // Найдите запись по идентификатору и обновите ее данные
-      const index = records.findIndex(record => record.id === id);
-      if (index !== -1) {
-        records[index] = updatedData;
-        // Теперь записать обновленные данные обратно в файл
-        fs.writeFile('records.json', JSON.stringify(records), (err) => {
-          if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Ошибка сервера' });
-          } else {
-            res.json({ message: 'Данные успешно обновлены' });
-          }
-        });
-      } else {
-        res.status(404).json({ error: 'Запись не найдена' });
-      }
-    }
-  });
-});
-
-app.post('/p', (req, res) => {
-  console.log(req.body);
-  res.json({ message: 'Данные успешно получены на сервер' });
-  console.log(234234234244444444444444444444444444444444444444444)
-
-});
 let isOpen = true;
 
 // Функция для обновления состояния и отправки его всем клиентам

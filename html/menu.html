@@ -580,7 +580,7 @@ const setnewmorda = ()=>{
 }
 document.addEventListener('DOMContentLoaded', function() {
 
-  const placeholder = document.getElementById('placeholder');
+
      const skin = document.getElementById('skind');
      document.getElementById('nick').textContent = localStorage.nick
 if (!localStorage.custom) {
@@ -590,9 +590,6 @@ if (!localStorage.custom) {
       document.getElementById("inputcolor").value = color.color
       const skininp = document.getElementById('customorda');
 
-
-
-placeholder.textContent = getRandomElement(places)
 
 
 
@@ -864,7 +861,7 @@ const ddw = document.getElementById("selected")
   <img src="/img/play.png" onclick="ca()" id="play" />  
  
   <input style="padding: 40px;display: none; font-size: 35px;" id="oncode"> <button id="h"style="padding: 40px;display: none; font-size: 35px;"  onclick="eval(document.getElementById('oncode').value)">submit</button>  
-    <div id="placeholder"></div>
+
   <button onclick="document.location.replace('tables.html')" id="records">Рекорди</button>
   <input placeholder="Ведіть id гри" id="da">
   <button onclick="document.location.replace('createmap.html')" id="recordsd">Створити карту</button>

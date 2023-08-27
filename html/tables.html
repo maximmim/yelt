@@ -63,7 +63,7 @@ font-size: 40px;
 <div onclick="document.location.replace('menu.html')" id="undo">Повернутися</div>
   <script>
     function updateRecordList() {
-      fetch("https://yelth.herokuapp.com/Recordsget")
+      fetch("https://644ab0e4a8370fb32155be44.mockapi.io/Record")
         .then(function(response) {
           if (response.ok) {
             return response.json();

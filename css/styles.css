@@ -39,7 +39,7 @@
     top: -30px;
 left: 2px;
     position: absolute;
-
+display: none;
  
     background-image: url('/img/skins/ush.png');
   }
