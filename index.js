@@ -66,7 +66,7 @@ fs.readFile('records.json', 'utf8', (err, data) => {
     console.error(err);
     return;
   }
-
+  const newData = req.body;
   let records = JSON.parse(data);
 
   // Теперь records - это JavaScript-объект, и вы можете добавить новые данные к нему
