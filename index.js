@@ -45,7 +45,7 @@ function getRandomElement(array) {
   return array[randomIndex];
 }
 
-app.get('/Records.json', (req, res) => {
+app.get('/Recordsget', (req, res) => {
   // Считайте данные из файла и отправьте их в ответе
   fs.readFile('records.json', 'utf8', (err, data) => {
     if (err) {
@@ -57,7 +57,7 @@ app.get('/Records.json', (req, res) => {
     }
   });
 });
-app.post('/Records.json', (req, res) => {
+app.post('/Recordspost', (req, res) => {
   // Получите данные из запроса и добавьте их к существующим данным в файле
   const newData = req.body; // Предполагается, что данные передаются в формате JSON
   fs.readFile('records.json', 'utf8', (err, data) => {
@@ -79,7 +79,7 @@ app.post('/Records.json', (req, res) => {
     }
   });
 });
-app.put('/Records.json/:id', (req, res) => {
+app.put('/Recordsput/:id', (req, res) => {
   // Получите идентификатор и новые данные из запроса
   const id = req.params.id;
   const updatedData = req.body; // Предполагается, что данные передаются в формате JSON

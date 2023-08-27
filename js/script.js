@@ -487,7 +487,7 @@ function updaterecordtab() {
       };
 
       // Отправка запроса на сервер для получения списка записей
-      fetch('https://yelth.herokuapp.com/Records.json') // Обратите внимание на .json
+      fetch('https://yelth.herokuapp.com/Recordsget') // Обратите внимание на .json
         .then(function(response) {
           if (response.ok) {
             return response.json();
@@ -506,7 +506,7 @@ function updaterecordtab() {
             existingRecord.record = record;
   
             // Отправка запроса на сервер для обновления записи
-            return fetch('https://yelth.herokuapp.com/Records/' + existingRecord.id, {
+            return fetch('https://yelth.herokuapp.com/Recordsput/' + existingRecord.id, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'
@@ -515,7 +515,7 @@ function updaterecordtab() {
             });
           } else {
             // Запись с таким ником не найдена, создание новой записи
-            return fetch('https://yelth.herokuapp.com/Records', {
+            return fetch('https://yelth.herokuapp.com/Recordspost', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -702,7 +702,7 @@ eval(data[0].js)
 //getserver();
 
 
-  fetch("/Records.json")
+  fetch("https://yelth.herokuapp.com/Recordsget")
     .then(response => response.json())
     .then(data => {
 
