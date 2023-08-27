@@ -67,10 +67,14 @@ fs.readFile('records.json', 'utf8', (err, data) => {
     return;
   }
   const newData = req.body;
-  let records = JSON.parse(data);
+  let records;
 
-  // Теперь records - это JavaScript-объект, и вы можете добавить новые данные к нему
-  records.push(newData);
+  try {
+    records = JSON.parse(data); // Попытка парсинга JSON
+  } catch (error) {
+    console.error('Ошибка парсинга JSON:', error);
+    return;
+  }
 
   // Запишите обновленные данные обратно в файл
   fs.writeFile('Records.json', JSON.stringify(records), (err) => {
