@@ -10,6 +10,33 @@ const stone2 = document.getElementById("stone2");
 const bulbash = document.getElementById("bibbudd")
 const migd = document.getElementById("interworldly")
 const dodik = document.getElementById("dodik")
+
+let maxim = {};
+
+maxim.opensoket = () => {
+  console.log("Встановлення зв'язку з Максимом");
+}
+maxim.closesoket = () => {
+  console.log("Закінчення зв'язку з Максимом");
+}
+let Loves = {
+  "Name": "Vika"
+}
+let osnyou = {}
+maxim.addfrend = (data) => {
+  return data;
+}
+
+
+maxim.opensoket();
+let love = maxim.addfrend(Loves);
+console.log("Ти охуєна та класна, люблю тебе " + love.Name);
+maxim.closesoket();
+
+
+
+
+
 var war;
 if (localStorage.warning == 1) {
   war = 1
@@ -220,7 +247,6 @@ else {
   bulbash.style.display = "none"
   console.log('reload!!!')
   setPosition(obj)
-  sleep(1000)
   localStorage.removeItem('da')
 }
 
